@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#111827">
-<meta name="description" content="Daily Helper - ابزارهای روزمره">
 
 <title>Daily Helper</title>
 
@@ -57,8 +56,6 @@ body{
   padding:0 16px;
 }
 
-/* TOOLS */
-
 .tools{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -94,8 +91,6 @@ body{
   font-size:12px;
 }
 
-/* SECTIONS */
-
 .section{
   margin-top:30px;
 }
@@ -106,14 +101,16 @@ body{
   margin-bottom:15px;
 }
 
-/* TODO */
-
-.todo-box{
+.box{
   background:white;
   border-radius:22px;
   padding:20px;
   box-shadow:0 6px 20px rgba(0,0,0,.06);
 }
+
+/* =========================
+   TODO
+========================= */
 
 .todo-input{
   display:flex;
@@ -121,17 +118,21 @@ body{
   margin-bottom:18px;
 }
 
-.todo-input input{
-  flex:1;
+input,select{
   border:1px solid #e5e7eb;
   border-radius:12px;
   padding:13px;
   font-size:15px;
   outline:none;
+  background:white;
 }
 
-.todo-input input:focus{
+input:focus,select:focus{
   border-color:#2563eb;
+}
+
+.todo-input input{
+  flex:1;
 }
 
 .button{
@@ -166,12 +167,10 @@ body{
 .todo-check{
   width:20px;
   height:20px;
-  cursor:pointer;
 }
 
 .todo-text{
   flex:1;
-  font-size:15px;
 }
 
 .todo-item.done .todo-text{
@@ -187,7 +186,6 @@ body{
   height:34px;
   border-radius:10px;
   cursor:pointer;
-  font-size:16px;
 }
 
 .empty{
@@ -197,20 +195,137 @@ body{
   font-size:14px;
 }
 
-.todo-stats{
+.stats-text{
   margin-top:15px;
   color:#6b7280;
   font-size:13px;
 }
 
-/* QUICK */
+/* =========================
+   MONEY
+========================= */
 
-.quick{
-  background:white;
-  border-radius:22px;
-  padding:20px;
-  box-shadow:0 6px 20px rgba(0,0,0,.06);
+.money-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:20px;
 }
+
+.money-card{
+  padding:18px;
+  border-radius:17px;
+  background:#f8fafc;
+}
+
+.money-card h4{
+  color:#6b7280;
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.money-number{
+  font-size:21px;
+  font-weight:bold;
+}
+
+.income-number{
+  color:#16a34a;
+}
+
+.expense-number{
+  color:#dc2626;
+}
+
+.balance-number{
+  color:#2563eb;
+}
+
+.money-form{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr auto;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.money-form input,
+.money-form select{
+  width:100%;
+}
+
+.transaction-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.transaction{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f8fafc;
+  padding:14px;
+  border-radius:14px;
+}
+
+.transaction-icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+.income-icon{
+  background:#dcfce7;
+}
+
+.expense-icon{
+  background:#fee2e2;
+}
+
+.transaction-info{
+  flex:1;
+}
+
+.transaction-title{
+  font-weight:bold;
+  margin-bottom:4px;
+}
+
+.transaction-date{
+  color:#9ca3af;
+  font-size:11px;
+}
+
+.transaction-amount{
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.income-amount{
+  color:#16a34a;
+}
+
+.expense-amount{
+  color:#dc2626;
+}
+
+.delete-transaction{
+  border:0;
+  background:#fee2e2;
+  color:#dc2626;
+  width:32px;
+  height:32px;
+  border-radius:9px;
+  cursor:pointer;
+}
+
+/* =========================
+   QUICK
+========================= */
 
 .quick-row{
   display:flex;
@@ -228,8 +343,6 @@ body{
   font-size:13px;
 }
 
-/* FOOTER */
-
 .footer{
   text-align:center;
   padding:25px;
@@ -237,12 +350,26 @@ body{
   font-size:13px;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:800px){
 
   .tools{
     grid-template-columns:repeat(2,1fr);
+  }
+
+  .money-summary{
+    grid-template-columns:1fr;
+  }
+
+  .money-form{
+    grid-template-columns:1fr;
+  }
+
+  .money-form .button{
+    width:100%;
   }
 
 }
@@ -282,7 +409,7 @@ body{
     align-items:stretch;
   }
 
-  .button{
+  .quick-row .button{
     width:100%;
   }
 
@@ -294,432 +421,773 @@ body{
 
 <header class="header">
 
-  <div class="header-content">
+<div class="header-content">
 
-    <div class="logo">
-      🟦 Daily Helper
-    </div>
+<div class="logo">
+🟦 Daily Helper
+</div>
 
-    <div class="welcome">
-      سلام 👋
-    </div>
+<div class="welcome">
+سلام 👋
+</div>
 
-    <div class="subtitle">
-      ابزارهای روزمره‌ات همیشه یک‌جا
-    </div>
+<div class="subtitle">
+ابزارهای روزمره‌ات همیشه یک‌جا
+</div>
 
-  </div>
+</div>
 
 </header>
 
 
 <main class="container">
 
-  <!-- TOOLS -->
+<!-- =========================
+     TOOLS
+========================= -->
 
-  <section class="tools">
+<section class="tools">
 
-    <div class="tool" onclick="scrollToTodo()">
-      <div class="icon">✅</div>
-      <h3>کارهای من</h3>
-      <p>مدیریت کارهای روزانه</p>
-    </div>
+<div class="tool" onclick="scrollToSection('todoSection')">
+<div class="icon">✅</div>
+<h3>کارهای من</h3>
+<p>مدیریت کارهای روزانه</p>
+</div>
 
-    <div class="tool" onclick="comingSoon('یادداشت')">
-      <div class="icon">📝</div>
-      <h3>یادداشت</h3>
-      <p>یادداشت سریع</p>
-    </div>
+<div class="tool" onclick="comingSoon('یادداشت')">
+<div class="icon">📝</div>
+<h3>یادداشت</h3>
+<p>یادداشت سریع</p>
+</div>
 
-    <div class="tool" onclick="comingSoon('دخل و خرج')">
-      <div class="icon">💰</div>
-      <h3>دخل و خرج</h3>
-      <p>مدیریت هزینه‌ها</p>
-    </div>
+<div class="tool" onclick="scrollToSection('moneySection')">
+<div class="icon">💰</div>
+<h3>دخل و خرج</h3>
+<p>مدیریت هزینه‌ها</p>
+</div>
 
-    <div class="tool" onclick="comingSoon('لیست خرید')">
-      <div class="icon">🛒</div>
-      <h3>لیست خرید</h3>
-      <p>خریدهای امروز</p>
-    </div>
+<div class="tool" onclick="comingSoon('لیست خرید')">
+<div class="icon">🛒</div>
+<h3>لیست خرید</h3>
+<p>خریدهای امروز</p>
+</div>
 
-    <div class="tool" onclick="comingSoon('یادآور')">
-      <div class="icon">🔔</div>
-      <h3>یادآور</h3>
-      <p>کارهای مهم</p>
-    </div>
+<div class="tool" onclick="comingSoon('یادآور')">
+<div class="icon">🔔</div>
+<h3>یادآور</h3>
+<p>کارهای مهم</p>
+</div>
 
-    <div class="tool" onclick="comingSoon('ماشین حساب')">
-      <div class="icon">🧮</div>
-      <h3>ماشین حساب</h3>
-      <p>محاسبات سریع</p>
-    </div>
+<div class="tool" onclick="comingSoon('ماشین حساب')">
+<div class="icon">🧮</div>
+<h3>ماشین حساب</h3>
+<p>محاسبات سریع</p>
+</div>
 
-    <div class="tool" onclick="comingSoon('تبدیل واحد')">
-      <div class="icon">🔄</div>
-      <h3>تبدیل واحد</h3>
-      <p>واحد و ارز</p>
-    </div>
+<div class="tool" onclick="comingSoon('تبدیل واحد')">
+<div class="icon">🔄</div>
+<h3>تبدیل واحد</h3>
+<p>واحد و ارز</p>
+</div>
 
-    <div class="tool" onclick="comingSoon('تنظیمات')">
-      <div class="icon">⚙️</div>
-      <h3>تنظیمات</h3>
-      <p>تنظیم برنامه</p>
-    </div>
+<div class="tool" onclick="comingSoon('تنظیمات')">
+<div class="icon">⚙️</div>
+<h3>تنظیمات</h3>
+<p>تنظیم برنامه</p>
+</div>
 
-  </section>
-
-
-  <!-- TODO -->
-
-  <section class="section" id="todoSection">
-
-    <div class="section-title">
-      ✅ کارهای من
-    </div>
-
-    <div class="todo-box">
-
-      <div class="todo-input">
-
-        <input
-          id="todoInput"
-          type="text"
-          placeholder="مثلاً: خرید نان..."
-          maxlength="150"
-          onkeydown="handleEnter(event)"
-        >
-
-        <button class="button" onclick="addTodo()">
-          + افزودن
-        </button>
-
-      </div>
-
-      <div id="todoList" class="todo-list"></div>
-
-      <div id="todoStats" class="todo-stats"></div>
-
-    </div>
-
-  </section>
+</section>
 
 
-  <!-- QUICK -->
+<!-- =========================
+     TODO
+========================= -->
 
-  <section class="section">
+<section class="section" id="todoSection">
 
-    <div class="section-title">
-      ⚡ شروع سریع
-    </div>
+<div class="section-title">
+✅ کارهای من
+</div>
 
-    <div class="quick">
+<div class="box">
 
-      <div class="quick-row">
+<div class="todo-input">
 
-        <div class="quick-text">
+<input
+id="todoInput"
+type="text"
+placeholder="مثلاً: خرید نان..."
+maxlength="150"
+onkeydown="handleEnter(event)"
+>
 
-          <h3>
-            یک کار جدید اضافه کن
-          </h3>
+<button class="button" onclick="addTodo()">
++ افزودن
+</button>
 
-          <p>
-            کارهای مهم امروزت را ثبت کن تا فراموش نشوند.
-          </p>
+</div>
 
-        </div>
+<div id="todoList" class="todo-list"></div>
 
-        <button class="button" onclick="focusTodo()">
-          + افزودن کار
-        </button>
+<div id="todoStats" class="stats-text"></div>
 
-      </div>
+</div>
 
-    </div>
+</section>
 
-  </section>
+
+<!-- =========================
+     MONEY
+========================= -->
+
+<section class="section" id="moneySection">
+
+<div class="section-title">
+💰 دخل و خرج
+</div>
+
+<div class="box">
+
+<div class="money-summary">
+
+<div class="money-card">
+
+<h4>
+مجموع درآمد
+</h4>
+
+<div
+id="totalIncome"
+class="money-number income-number"
+>
+0 افغانی
+</div>
+
+</div>
+
+
+<div class="money-card">
+
+<h4>
+مجموع هزینه
+</h4>
+
+<div
+id="totalExpense"
+class="money-number expense-number"
+>
+0 افغانی
+</div>
+
+</div>
+
+
+<div class="money-card">
+
+<h4>
+موجودی
+</h4>
+
+<div
+id="totalBalance"
+class="money-number balance-number"
+>
+0 افغانی
+</div>
+
+</div>
+
+</div>
+
+
+<div class="money-form">
+
+<input
+id="moneyTitle"
+type="text"
+placeholder="عنوان؛ مثلاً معاش یا خرید"
+maxlength="100"
+>
+
+<input
+id="moneyAmount"
+type="number"
+min="0"
+step="0.01"
+placeholder="مبلغ"
+>
+
+<select id="moneyType">
+
+<option value="income">
+➕ درآمد
+</option>
+
+<option value="expense">
+➖ هزینه
+</option>
+
+</select>
+
+<button
+class="button"
+onclick="addTransaction()"
+>
+ثبت
+</button>
+
+</div>
+
+
+<div
+id="transactionList"
+class="transaction-list"
+></div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     QUICK
+========================= -->
+
+<section class="section">
+
+<div class="section-title">
+⚡ شروع سریع
+</div>
+
+<div class="box">
+
+<div class="quick-row">
+
+<div class="quick-text">
+
+<h3>
+ثبت هزینه جدید
+</h3>
+
+<p>
+هزینه‌های روزانه‌ات را ثبت کن تا موجودی‌ات را ببینی.
+</p>
+
+</div>
+
+<button
+class="button"
+onclick="focusMoney()"
+>
++ ثبت هزینه
+</button>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
 
 <footer class="footer">
-  Daily Helper © 2026
+Daily Helper © 2026
 </footer>
 
 
 <script>
 
-/* =========================
-   TODO DATA
-========================= */
+/* =====================================================
+   TODO
+===================================================== */
 
 let todos = JSON.parse(
-  localStorage.getItem("daily_helper_todos") || "[]"
+localStorage.getItem("daily_helper_todos") || "[]"
 );
 
 
-/* =========================
-   SAVE
-========================= */
-
 function saveTodos(){
 
-  localStorage.setItem(
-    "daily_helper_todos",
-    JSON.stringify(todos)
-  );
+localStorage.setItem(
+"daily_helper_todos",
+JSON.stringify(todos)
+);
 
 }
 
-
-/* =========================
-   DISPLAY
-========================= */
 
 function renderTodos(){
 
-  const list = document.getElementById("todoList");
-  const stats = document.getElementById("todoStats");
+const list =
+document.getElementById("todoList");
 
-  list.innerHTML = "";
+const stats =
+document.getElementById("todoStats");
 
-  if(todos.length === 0){
+list.innerHTML = "";
 
-    list.innerHTML = `
-      <div class="empty">
-        هنوز کاری ثبت نشده است 🌱
-      </div>
-    `;
+if(todos.length === 0){
 
-    stats.textContent = "";
+list.innerHTML = `
+<div class="empty">
+هنوز کاری ثبت نشده است 🌱
+</div>
+`;
 
-    return;
-  }
+stats.textContent = "";
 
-
-  todos.forEach(function(todo){
-
-    const item = document.createElement("div");
-
-    item.className =
-      "todo-item" +
-      (todo.done ? " done" : "");
-
-
-    item.innerHTML = `
-
-      <input
-        class="todo-check"
-        type="checkbox"
-        ${todo.done ? "checked" : ""}
-        onchange="toggleTodo(${todo.id})"
-      >
-
-      <div class="todo-text">
-        ${escapeHTML(todo.text)}
-      </div>
-
-      <button
-        class="delete-btn"
-        onclick="deleteTodo(${todo.id})"
-      >
-        🗑️
-      </button>
-
-    `;
-
-    list.appendChild(item);
-
-  });
-
-
-  const completed =
-    todos.filter(t => t.done).length;
-
-  stats.textContent =
-    "مجموع: " +
-    todos.length +
-    " | انجام‌شده: " +
-    completed;
+return;
 
 }
 
 
-/* =========================
-   ADD
-========================= */
+todos.forEach(function(todo){
+
+const item =
+document.createElement("div");
+
+item.className =
+"todo-item" +
+(todo.done ? " done" : "");
+
+
+item.innerHTML = `
+
+<input
+class="todo-check"
+type="checkbox"
+${todo.done ? "checked" : ""}
+onchange="toggleTodo(${todo.id})"
+>
+
+<div class="todo-text">
+${escapeHTML(todo.text)}
+</div>
+
+<button
+class="delete-btn"
+onclick="deleteTodo(${todo.id})"
+>
+🗑️
+</button>
+
+`;
+
+list.appendChild(item);
+
+});
+
+
+const completed =
+todos.filter(t => t.done).length;
+
+stats.textContent =
+"مجموع: " +
+todos.length +
+" | انجام‌شده: " +
+completed;
+
+}
+
 
 function addTodo(){
 
-  const input =
-    document.getElementById("todoInput");
+const input =
+document.getElementById("todoInput");
 
-  const text =
-    input.value.trim();
+const text =
+input.value.trim();
 
-  if(!text){
+if(!text){
 
-    alert("لطفاً یک کار وارد کن.");
+alert("لطفاً یک کار وارد کن.");
 
-    input.focus();
+input.focus();
 
-    return;
-  }
-
-
-  todos.unshift({
-
-    id: Date.now(),
-
-    text: text,
-
-    done: false
-
-  });
-
-
-  saveTodos();
-
-  renderTodos();
-
-  input.value = "";
-
-  input.focus();
+return;
 
 }
 
 
-/* =========================
-   ENTER
-========================= */
+todos.unshift({
+
+id:Date.now(),
+
+text:text,
+
+done:false
+
+});
+
+
+saveTodos();
+
+renderTodos();
+
+input.value="";
+
+input.focus();
+
+}
+
 
 function handleEnter(event){
 
-  if(event.key === "Enter"){
+if(event.key==="Enter"){
 
-    addTodo();
-
-  }
+addTodo();
 
 }
 
+}
 
-/* =========================
-   COMPLETE
-========================= */
 
 function toggleTodo(id){
 
-  todos = todos.map(function(todo){
+todos =
+todos.map(function(todo){
 
-    if(todo.id === id){
+if(todo.id===id){
 
-      todo.done = !todo.done;
-
-    }
-
-    return todo;
-
-  });
-
-
-  saveTodos();
-
-  renderTodos();
+todo.done=!todo.done;
 
 }
 
+return todo;
 
-/* =========================
-   DELETE
-========================= */
+});
+
+
+saveTodos();
+
+renderTodos();
+
+}
+
 
 function deleteTodo(id){
 
-  todos =
-    todos.filter(function(todo){
+todos =
+todos.filter(function(todo){
 
-      return todo.id !== id;
+return todo.id!==id;
 
-    });
+});
 
 
-  saveTodos();
+saveTodos();
 
-  renderTodos();
+renderTodos();
 
 }
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
+/* =====================================================
+   MONEY
+===================================================== */
+
+let transactions = JSON.parse(
+localStorage.getItem("daily_helper_transactions") || "[]"
+);
+
+
+function saveTransactions(){
+
+localStorage.setItem(
+"daily_helper_transactions",
+JSON.stringify(transactions)
+);
+
+}
+
+
+function addTransaction(){
+
+const titleInput =
+document.getElementById("moneyTitle");
+
+const amountInput =
+document.getElementById("moneyAmount");
+
+const typeInput =
+document.getElementById("moneyType");
+
+
+const title =
+titleInput.value.trim();
+
+const amount =
+Number(amountInput.value);
+
+const type =
+typeInput.value;
+
+
+if(!title){
+
+alert("لطفاً عنوان را وارد کن.");
+
+titleInput.focus();
+
+return;
+
+}
+
+
+if(!amount || amount<=0){
+
+alert("لطفاً مبلغ معتبر وارد کن.");
+
+amountInput.focus();
+
+return;
+
+}
+
+
+transactions.unshift({
+
+id:Date.now(),
+
+title:title,
+
+amount:amount,
+
+type:type,
+
+date:new Date().toLocaleString("fa-AF")
+
+});
+
+
+saveTransactions();
+
+renderTransactions();
+
+
+titleInput.value="";
+
+amountInput.value="";
+
+}
+
+
+function renderTransactions(){
+
+const list =
+document.getElementById("transactionList");
+
+const incomeElement =
+document.getElementById("totalIncome");
+
+const expenseElement =
+document.getElementById("totalExpense");
+
+const balanceElement =
+document.getElementById("totalBalance");
+
+
+list.innerHTML="";
+
+
+let income=0;
+
+let expense=0;
+
+
+transactions.forEach(function(transaction){
+
+if(transaction.type==="income"){
+
+income += transaction.amount;
+
+}else{
+
+expense += transaction.amount;
+
+}
+
+
+const item =
+document.createElement("div");
+
+item.className="transaction";
+
+
+const icon =
+transaction.type==="income"
+? "💵"
+: "💸";
+
+
+const iconClass =
+transaction.type==="income"
+? "income-icon"
+: "expense-icon";
+
+
+const amountClass =
+transaction.type==="income"
+? "income-amount"
+: "expense-amount";
+
+
+const sign =
+transaction.type==="income"
+? "+"
+: "-";
+
+
+item.innerHTML=`
+
+<div class="transaction-icon ${iconClass}">
+${icon}
+</div>
+
+<div class="transaction-info">
+
+<div class="transaction-title">
+${escapeHTML(transaction.title)}
+</div>
+
+<div class="transaction-date">
+${escapeHTML(transaction.date)}
+</div>
+
+</div>
+
+<div class="transaction-amount ${amountClass}">
+${sign}${formatMoney(transaction.amount)}
+</div>
+
+<button
+class="delete-transaction"
+onclick="deleteTransaction(${transaction.id})"
+>
+🗑️
+</button>
+
+`;
+
+
+list.appendChild(item);
+
+});
+
+
+if(transactions.length===0){
+
+list.innerHTML=`
+<div class="empty">
+هنوز هیچ تراکنشی ثبت نشده است 💰
+</div>
+`;
+
+}
+
+
+const balance =
+income-expense;
+
+
+incomeElement.textContent =
+formatMoney(income)+" افغانی";
+
+expenseElement.textContent =
+formatMoney(expense)+" افغانی";
+
+balanceElement.textContent =
+formatMoney(balance)+" افغانی";
+
+}
+
+
+function deleteTransaction(id){
+
+transactions =
+transactions.filter(function(transaction){
+
+return transaction.id!==id;
+
+});
+
+
+saveTransactions();
+
+renderTransactions();
+
+}
+
+
+function formatMoney(number){
+
+return new Intl.NumberFormat("fa-AF",{
+maximumFractionDigits:2
+}).format(number);
+
+}
+
+
+/* =====================================================
+   UTILITIES
+===================================================== */
 
 function escapeHTML(text){
 
-  const div =
-    document.createElement("div");
+const div =
+document.createElement("div");
 
-  div.textContent = text;
+div.textContent=text;
 
-  return div.innerHTML;
-
-}
-
-
-/* =========================
-   SCROLL
-========================= */
-
-function scrollToTodo(){
-
-  document
-    .getElementById("todoSection")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+return div.innerHTML;
 
 }
 
 
-/* =========================
-   FOCUS
-========================= */
+function scrollToSection(id){
 
-function focusTodo(){
-
-  scrollToTodo();
-
-  setTimeout(function(){
-
-    document
-      .getElementById("todoInput")
-      .focus();
-
-  },500);
+document
+.getElementById(id)
+.scrollIntoView({
+behavior:"smooth"
+});
 
 }
 
 
-/* =========================
-   COMING SOON
-========================= */
+function focusMoney(){
+
+scrollToSection("moneySection");
+
+setTimeout(function(){
+
+document
+.getElementById("moneyTitle")
+.focus();
+
+},500);
+
+}
+
 
 function comingSoon(name){
 
-  alert(
-    name +
-    " در مرحله بعدی فعال می‌شود 🚀"
-  );
+alert(
+name+
+" در مرحله بعدی فعال می‌شود 🚀"
+);
 
 }
 
 
-/* =========================
+/* =====================================================
    START
-========================= */
+===================================================== */
 
 renderTodos();
+
+renderTransactions();
 
 </script>
 
