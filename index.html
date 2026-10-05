@@ -1,952 +1,909 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#111827">
-  <meta name="description" content="Daily Helper - ابزارهای روزمره در یک برنامه">
-
-  <link rel="manifest" href="./manifest.webmanifest">
-
-  <title>Daily Helper</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family:
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Tahoma,
-        Arial,
-        sans-serif;
-      background: #f5f7fb;
-      color: #111827;
-    }
-
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    .app {
-      width: 100%;
-      max-width: 760px;
-      margin: auto;
-      min-height: 100vh;
-      background: #f5f7fb;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(245,247,251,.94);
-      backdrop-filter: blur(12px);
-      padding: 16px;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .topbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .brand {
-      font-size: 21px;
-      font-weight: 800;
-    }
-
-    .subtitle {
-      color: #6b7280;
-      font-size: 12px;
-      margin-top: 3px;
-    }
-
-    .header-icon {
-      width: 42px;
-      height: 42px;
-      border: 0;
-      border-radius: 14px;
-      background: #111827;
-      color: white;
-      font-size: 20px;
-    }
-
-    .screen {
-      display: none;
-      min-height: 100vh;
-      padding: 18px 16px 100px;
-    }
-
-    .screen.active {
-      display: block;
-      animation: screenIn .2s ease;
-    }
-
-    @keyframes screenIn {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero {
-      background: #111827;
-      color: white;
-      border-radius: 24px;
-      padding: 22px;
-      margin-bottom: 18px;
-      box-shadow: 0 12px 30px rgba(17,24,39,.12);
-    }
-
-    .hero-title {
-      font-size: 25px;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .hero-text {
-      color: #d1d5db;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 800;
-      margin: 20px 2px 12px;
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .tool-card {
-      border: 1px solid #e5e7eb;
-      background: white;
-      border-radius: 20px;
-      padding: 18px 14px;
-      text-align: right;
-      min-height: 130px;
-      box-shadow: 0 5px 18px rgba(0,0,0,.04);
-      transition: .15s;
-    }
-
-    .tool-card:active {
-      transform: scale(.98);
-    }
-
-    .tool-icon {
-      font-size: 30px;
-      margin-bottom: 12px;
-    }
-
-    .tool-name {
-      font-weight: 800;
-      font-size: 16px;
-    }
-
-    .tool-description {
-      color: #6b7280;
-      font-size: 12px;
-      margin-top: 5px;
-      line-height: 1.6;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 20px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 5px 18px rgba(0,0,0,.035);
-    }
-
-    .screen-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .back-btn {
-      width: 42px;
-      height: 42px;
-      border: 0;
-      border-radius: 14px;
-      background: #e5e7eb;
-      color: #111827;
-      font-size: 20px;
-    }
-
-    .screen-title {
-      font-size: 22px;
-      font-weight: 800;
-    }
-
-    .input-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      border: 1px solid #d1d5db;
-      background: white;
-      border-radius: 14px;
-      padding: 12px 13px;
-      outline: none;
-      color: #111827;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: #111827;
-      box-shadow: 0 0 0 3px rgba(17,24,39,.08);
-    }
-
-    textarea {
-      min-height: 140px;
-      resize: vertical;
-      line-height: 1.8;
-    }
-
-    .primary-btn {
-      border: 0;
-      border-radius: 14px;
-      background: #111827;
-      color: white;
-      padding: 12px 17px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .secondary-btn {
-      border: 0;
-      border-radius: 12px;
-      background: #e5e7eb;
-      color: #111827;
-      padding: 9px 12px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .danger-btn {
-      border: 0;
-      border-radius: 11px;
-      background: #fee2e2;
-      color: #b91c1c;
-      padding: 8px 10px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .edit-btn {
-      border: 0;
-      border-radius: 11px;
-      background: #e0f2fe;
-      color: #0369a1;
-      padding: 8px 10px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-
-    .list-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 15px;
-      padding: 12px;
-    }
-
-    .item-main {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .item-title {
-      font-weight: 700;
-      word-break: break-word;
-    }
-
-    .item-meta {
-      color: #6b7280;
-      font-size: 12px;
-      margin-top: 4px;
-    }
-
-    .item-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-
-    .empty {
-      color: #6b7280;
-      text-align: center;
-      padding: 24px 10px;
-      font-size: 14px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .stat {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 18px;
-      padding: 15px;
-    }
-
-    .stat-label {
-      color: #6b7280;
-      font-size: 12px;
-    }
-
-    .stat-value {
-      font-size: 20px;
-      font-weight: 800;
-      margin-top: 5px;
-    }
-
-    .income {
-      color: #059669;
-    }
-
-    .expense {
-      color: #dc2626;
-    }
-
-    .shopping-total {
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
-    }
-
-    .shopping-total-label {
-      color: #047857;
-      font-size: 13px;
-    }
-
-    .shopping-total-value {
-      color: #065f46;
-      font-size: 25px;
-      font-weight: 900;
-      margin-top: 4px;
-    }
-
-    .shopping-form {
-      display: grid;
-      grid-template-columns: 1fr 140px auto;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .shopping-item-left {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      min-width: 0;
-      flex: 1;
-    }
-
-    .shopping-item-left input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-    }
-
-    .shopping-name {
-      font-weight: 700;
-      word-break: break-word;
-    }
-
-    .shopping-price {
-      font-weight: 800;
-      white-space: nowrap;
-      color: #047857;
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.48);
-      z-index: 100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-    }
-
-    .modal.show {
-      display: flex;
-    }
-
-    .modal-box {
-      width: 100%;
-      max-width: 430px;
-      background: white;
-      border-radius: 22px;
-      padding: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
-    }
-
-    .modal-title {
-      font-size: 19px;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 15px;
-    }
-
-    .modal-actions button {
-      flex: 1;
-    }
-
-    /* Calculator */
-    .calculator {
-      background: #111827;
-      border-radius: 24px;
-      padding: 14px;
-    }
-
-    .calc-display {
-      background: #030712;
-      color: white;
-      border-radius: 18px;
-      min-height: 125px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: flex-end;
-      overflow: hidden;
-      margin-bottom: 12px;
-    }
-
-    .calc-expression {
-      color: #9ca3af;
-      font-size: 14px;
-      min-height: 22px;
-    }
-
-    .calc-value {
-      font-size: 39px;
-      font-weight: 700;
-      word-break: break-all;
-      direction: ltr;
-    }
-
-    .calc-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-
-    .calc-btn {
-      border: 0;
-      border-radius: 15px;
-      min-height: 58px;
-      font-size: 20px;
-      font-weight: 700;
-      background: #374151;
-      color: white;
-    }
-
-    .calc-btn.operator {
-      background: #4b5563;
-    }
-
-    .calc-btn.equal {
-      background: #059669;
-    }
-
-    .calc-btn.clear {
-      background: #b91c1c;
-    }
-
-    .calc-btn.zero {
-      grid-column: span 2;
-    }
-
-    /* Bottom navigation */
-    .bottom-nav {
-      position: fixed;
-      z-index: 80;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(760px, 100%);
-      padding: 9px 10px calc(9px + env(safe-area-inset-bottom));
-      background: rgba(255,255,255,.96);
-      backdrop-filter: blur(15px);
-      border-top: 1px solid #e5e7eb;
-      display: flex;
-      justify-content: space-around;
-    }
-
-    .nav-btn {
-      border: 0;
-      background: transparent;
-      color: #6b7280;
-      min-width: 65px;
-      padding: 5px;
-      font-size: 11px;
-    }
-
-    .nav-btn.active {
-      color: #111827;
-      font-weight: 800;
-    }
-
-    .nav-icon {
-      display: block;
-      font-size: 21px;
-      margin-bottom: 2px;
-    }
-
-    @media (min-width: 700px) {
-      body {
-        background: #e5e7eb;
-      }
-
-      .app {
-        min-height: 100vh;
-        box-shadow: 0 0 30px rgba(0,0,0,.08);
-      }
-
-      .bottom-nav {
-        bottom: 10px;
-        border: 1px solid #e5e7eb;
-        border-radius: 22px;
-        width: min(700px, calc(100% - 20px));
-      }
-    }
-
-    @media (max-width: 520px) {
-      .shopping-form {
-        grid-template-columns: 1fr;
-      }
-
-      .shopping-form .primary-btn {
-        width: 100%;
-      }
-
-      .list-item {
-        align-items: flex-start;
-      }
-
-      .shopping-item-left {
-        align-items: flex-start;
-      }
-
-      .item-actions {
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<meta name="description" content="Daily Helper - ابزارهای روزمره">
+
+<link rel="manifest" href="./manifest.webmanifest">
+
+<title>Daily Helper</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;
+  background:#f5f7fb;
+  color:#111827;
+}
+
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  max-width:760px;
+  margin:auto;
+  min-height:100vh;
+  background:#f5f7fb;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  padding:15px 16px;
+  background:rgba(245,247,251,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #e5e7eb;
+}
+
+.topbar-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  font-size:22px;
+  font-weight:900;
+}
+
+.subtitle{
+  color:#6b7280;
+  font-size:12px;
+  margin-top:3px;
+}
+
+.header-icon{
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:14px;
+  background:#111827;
+  color:#fff;
+  font-size:20px;
+}
+
+.screen{
+  display:none;
+  min-height:100vh;
+  padding:18px 16px 105px;
+}
+
+.screen.active{
+  display:block;
+  animation:showScreen .2s ease;
+}
+
+@keyframes showScreen{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.hero{
+  background:#111827;
+  color:#fff;
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:18px;
+}
+
+.hero-title{
+  font-size:25px;
+  font-weight:900;
+}
+
+.hero-text{
+  color:#d1d5db;
+  font-size:14px;
+  line-height:1.8;
+  margin-top:5px;
+}
+
+.section-title{
+  font-size:18px;
+  font-weight:900;
+  margin:20px 2px 12px;
+}
+
+.tools-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.tool-card{
+  border:1px solid #e5e7eb;
+  background:#fff;
+  border-radius:20px;
+  padding:18px 14px;
+  text-align:right;
+  min-height:132px;
+  box-shadow:0 5px 18px rgba(0,0,0,.04);
+}
+
+.tool-card:active{
+  transform:scale(.98);
+}
+
+.tool-icon{
+  font-size:31px;
+  margin-bottom:11px;
+}
+
+.tool-name{
+  font-size:16px;
+  font-weight:900;
+}
+
+.tool-description{
+  color:#6b7280;
+  font-size:12px;
+  margin-top:5px;
+  line-height:1.6;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:20px;
+  padding:16px;
+  margin-bottom:14px;
+}
+
+.screen-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:16px;
+}
+
+.back-btn{
+  width:43px;
+  height:43px;
+  border:0;
+  border-radius:14px;
+  background:#e5e7eb;
+  font-size:20px;
+}
+
+.screen-title{
+  font-size:22px;
+  font-weight:900;
+}
+
+.input-row{
+  display:flex;
+  gap:8px;
+}
+
+input,textarea,select{
+  width:100%;
+  border:1px solid #d1d5db;
+  background:#fff;
+  border-radius:14px;
+  padding:12px;
+  outline:none;
+  color:#111827;
+}
+
+input:focus,textarea:focus,select:focus{
+  border-color:#111827;
+  box-shadow:0 0 0 3px rgba(17,24,39,.08);
+}
+
+textarea{
+  min-height:140px;
+  resize:vertical;
+  line-height:1.8;
+}
+
+.primary-btn{
+  border:0;
+  border-radius:14px;
+  background:#111827;
+  color:#fff;
+  padding:12px 17px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.secondary-btn{
+  border:0;
+  border-radius:12px;
+  background:#e5e7eb;
+  color:#111827;
+  padding:9px 12px;
+  font-weight:700;
+}
+
+.danger-btn{
+  border:0;
+  border-radius:10px;
+  background:#fee2e2;
+  color:#b91c1c;
+  padding:8px 10px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.edit-btn{
+  border:0;
+  border-radius:10px;
+  background:#e0f2fe;
+  color:#0369a1;
+  padding:8px 10px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.list-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  padding:12px;
+}
+
+.item-main{
+  min-width:0;
+  flex:1;
+}
+
+.item-title{
+  font-weight:800;
+  word-break:break-word;
+}
+
+.item-meta{
+  color:#6b7280;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.item-actions{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-shrink:0;
+}
+
+.empty{
+  color:#6b7280;
+  text-align:center;
+  padding:25px 10px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.stat{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:15px;
+}
+
+.stat-label{
+  color:#6b7280;
+  font-size:12px;
+}
+
+.stat-value{
+  font-size:20px;
+  font-weight:900;
+  margin-top:5px;
+}
+
+.income{color:#059669}
+.expense{color:#dc2626}
+
+.shopping-total{
+  background:#ecfdf5;
+  border:1px solid #a7f3d0;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+}
+
+.shopping-total-label{
+  color:#047857;
+  font-size:13px;
+}
+
+.shopping-total-value{
+  color:#065f46;
+  font-size:25px;
+  font-weight:900;
+  margin-top:4px;
+}
+
+.shopping-form{
+  display:grid;
+  grid-template-columns:1fr 140px auto;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.shopping-item-left{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+  flex:1;
+}
+
+.shopping-item-left input[type="checkbox"]{
+  width:20px;
+  height:20px;
+  flex-shrink:0;
+}
+
+.shopping-name{
+  font-weight:800;
+  word-break:break-word;
+}
+
+.shopping-price{
+  color:#047857;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+/* Calculator */
+
+.calculator{
+  background:#111827;
+  border-radius:24px;
+  padding:14px;
+}
+
+.calc-display{
+  background:#030712;
+  color:#fff;
+  border-radius:18px;
+  min-height:125px;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:flex-end;
+  margin-bottom:12px;
+  overflow:hidden;
+}
+
+.calc-expression{
+  color:#9ca3af;
+  font-size:14px;
+  min-height:22px;
+}
+
+.calc-value{
+  direction:ltr;
+  font-size:39px;
+  font-weight:800;
+  word-break:break-all;
+}
+
+.calc-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+.calc-btn{
+  border:0;
+  border-radius:15px;
+  min-height:58px;
+  font-size:20px;
+  font-weight:800;
+  background:#374151;
+  color:#fff;
+}
+
+.calc-btn.operator{
+  background:#4b5563;
+}
+
+.calc-btn.equal{
+  background:#059669;
+}
+
+.calc-btn.clear{
+  background:#b91c1c;
+}
+
+.calc-btn.zero{
+  grid-column:span 2;
+}
+
+/* Modal */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:430px;
+  background:#fff;
+  border-radius:22px;
+  padding:20px;
+}
+
+.modal-title{
+  font-size:19px;
+  font-weight:900;
+  margin-bottom:15px;
+}
+
+.modal-actions{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.modal-actions button{
+  flex:1;
+}
+
+/* Navigation */
+
+.bottom-nav{
+  position:fixed;
+  z-index:80;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(760px,100%);
+  padding:9px 8px calc(9px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(15px);
+  border-top:1px solid #e5e7eb;
+  display:flex;
+  justify-content:space-around;
+}
+
+.nav-btn{
+  border:0;
+  background:transparent;
+  color:#6b7280;
+  min-width:60px;
+  padding:5px;
+  font-size:11px;
+}
+
+.nav-btn.active{
+  color:#111827;
+  font-weight:900;
+}
+
+.nav-icon{
+  display:block;
+  font-size:21px;
+  margin-bottom:2px;
+}
+
+@media(max-width:520px){
+  .shopping-form{
+    grid-template-columns:1fr;
+  }
+
+  .shopping-form .primary-btn{
+    width:100%;
+  }
+
+  .list-item{
+    align-items:flex-start;
+  }
+
+  .item-actions{
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+}
+
+@media(min-width:700px){
+  body{
+    background:#e5e7eb;
+  }
+
+  .app{
+    box-shadow:0 0 30px rgba(0,0,0,.08);
+  }
+
+  .bottom-nav{
+    bottom:10px;
+    width:min(700px,calc(100% - 20px));
+    border:1px solid #e5e7eb;
+    border-radius:22px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- HOME -->
-  <section id="homeScreen" class="screen active">
+<!-- HOME -->
+<section id="homeScreen" class="screen active">
 
-    <header class="topbar">
-      <div class="topbar-inner">
-        <div>
-          <div class="brand">Daily Helper</div>
-          <div class="subtitle">ابزارهای روزمره در یک برنامه</div>
-        </div>
-
-        <button class="header-icon" onclick="showScreen('notes')">
-          📝
-        </button>
-      </div>
-    </header>
-
-    <div class="screen">
-
-      <div class="hero">
-        <div class="hero-title">سلام 👋</div>
-        <div class="hero-text">
-          کارهای روزمره، حساب‌وکتاب، خرید و یادداشت‌هایت را ساده مدیریت کن.
-        </div>
-      </div>
-
-      <div class="section-title">ابزارهای من</div>
-
-      <div class="tools-grid">
-
-        <button class="tool-card" onclick="showScreen('calculator')">
-          <div class="tool-icon">🧮</div>
-          <div class="tool-name">ماشین حساب</div>
-          <div class="tool-description">
-            محاسبه سریع و ساده
-          </div>
-        </button>
-
-        <button class="tool-card" onclick="showScreen('todo')">
-          <div class="tool-icon">✅</div>
-          <div class="tool-name">کارهای من</div>
-          <div class="tool-description">
-            کارهای روزانه را مدیریت کن
-          </div>
-        </button>
-
-        <button class="tool-card" onclick="showScreen('money')">
-          <div class="tool-icon">💰</div>
-          <div class="tool-name">مدیریت پول</div>
-          <div class="tool-description">
-            درآمد و مصرف
-          </div>
-        </button>
-
-        <button class="tool-card" onclick="showScreen('shopping')">
-          <div class="tool-icon">🛒</div>
-          <div class="tool-name">لیست خرید</div>
-          <div class="tool-description">
-            خریدها و قیمت‌ها
-          </div>
-        </button>
-
-        <button class="tool-card" onclick="showScreen('notes')">
-          <div class="tool-icon">📝</div>
-          <div class="tool-name">یادداشت‌ها</div>
-          <div class="tool-description">
-            یادداشت‌های مهم
-          </div>
-        </button>
-
-        <button class="tool-card" onclick="showScreen('reminder')">
-          <div class="tool-icon">🔔</div>
-          <div class="tool-name">یادآوری</div>
-          <div class="tool-description">
-            زمان‌های مهم را ثبت کن
-          </div>
-        </button>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- CALCULATOR -->
-  <section id="calculatorScreen" class="screen">
-
-    <div class="screen-header">
-      <button class="back-btn" onclick="goHome()">→</button>
-      <div class="screen-title">ماشین حساب</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <div class="brand">Daily Helper</div>
+      <div class="subtitle">ابزارهای روزمره در یک برنامه</div>
     </div>
 
-    <div class="calculator">
+    <button class="header-icon" onclick="showScreen('notes')">
+      📝
+    </button>
+  </div>
+</header>
 
-      <div class="calc-display">
-        <div id="calcExpression" class="calc-expression"></div>
-        <div id="calcValue" class="calc-value">0</div>
-      </div>
+<div class="hero">
+  <div class="hero-title">سلام 👋</div>
+  <div class="hero-text">
+    کارهای روزمره، حساب‌وکتاب، خرید و یادداشت‌هایت را ساده مدیریت کن.
+  </div>
+</div>
 
-      <div class="calc-grid">
+<div class="section-title">ابزارهای من</div>
 
-        <button class="calc-btn clear" onclick="calcClear()">C</button>
-        <button class="calc-btn" onclick="calcBackspace()">⌫</button>
-        <button class="calc-btn" onclick="calcPercent()">%</button>
-        <button class="calc-btn operator" onclick="calcOperator('/')">÷</button>
+<div class="tools-grid">
 
-        <button class="calc-btn" onclick="calcNumber('7')">7</button>
-        <button class="calc-btn" onclick="calcNumber('8')">8</button>
-        <button class="calc-btn" onclick="calcNumber('9')">9</button>
-        <button class="calc-btn operator" onclick="calcOperator('*')">×</button>
-
-        <button class="calc-btn" onclick="calcNumber('4')">4</button>
-        <button class="calc-btn" onclick="calcNumber('5')">5</button>
-        <button class="calc-btn" onclick="calcNumber('6')">6</button>
-        <button class="calc-btn operator" onclick="calcOperator('-')">−</button>
-
-        <button class="calc-btn" onclick="calcNumber('1')">1</button>
-        <button class="calc-btn" onclick="calcNumber('2')">2</button>
-        <button class="calc-btn" onclick="calcNumber('3')">3</button>
-        <button class="calc-btn operator" onclick="calcOperator('+')">+</button>
-
-        <button class="calc-btn zero" onclick="calcNumber('0')">0</button>
-        <button class="calc-btn" onclick="calcDecimal()">.</button>
-        <button class="calc-btn equal" onclick="calcEquals()">=</button>
-
-      </div>
-
+  <!-- ماشین حساب حتماً در صفحه اصلی -->
+  <button class="tool-card" onclick="showScreen('calculator')">
+    <div class="tool-icon">🧮</div>
+    <div class="tool-name">ماشین حساب</div>
+    <div class="tool-description">
+      محاسبه سریع و ساده
     </div>
-  </section>
+  </button>
 
-
-  <!-- TODO -->
-  <section id="todoScreen" class="screen">
-
-    <div class="screen-header">
-      <button class="back-btn" onclick="goHome()">→</button>
-      <div class="screen-title">کارهای من</div>
+  <button class="tool-card" onclick="showScreen('todo')">
+    <div class="tool-icon">✅</div>
+    <div class="tool-name">کارهای من</div>
+    <div class="tool-description">
+      کارهای روزانه
     </div>
+  </button>
 
-    <div class="card">
-
-      <div class="input-row">
-        <input
-          id="todoInput"
-          type="text"
-          placeholder="مثلاً خرید نان"
-          onkeydown="if(event.key==='Enter') addTodo()"
-        >
-
-        <button class="primary-btn" onclick="addTodo()">
-          اضافه
-        </button>
-      </div>
-
+  <button class="tool-card" onclick="showScreen('money')">
+    <div class="tool-icon">💰</div>
+    <div class="tool-name">مدیریت پول</div>
+    <div class="tool-description">
+      درآمد و مصرف
     </div>
+  </button>
 
-    <div id="todoList" class="list"></div>
-
-  </section>
-
-
-  <!-- MONEY -->
-  <section id="moneyScreen" class="screen">
-
-    <div class="screen-header">
-      <button class="back-btn" onclick="goHome()">→</button>
-      <div class="screen-title">مدیریت پول</div>
+  <button class="tool-card" onclick="showScreen('shopping')">
+    <div class="tool-icon">🛒</div>
+    <div class="tool-name">لیست خرید</div>
+    <div class="tool-description">
+      خریدها و قیمت‌ها
     </div>
+  </button>
 
-    <div class="stats-grid">
-
-      <div class="stat">
-        <div class="stat-label">کل درآمد</div>
-        <div id="totalIncome" class="stat-value income">۰ ؋</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">کل مصرف</div>
-        <div id="totalExpense" class="stat-value expense">۰ ؋</div>
-      </div>
-
+  <button class="tool-card" onclick="showScreen('notes')">
+    <div class="tool-icon">📝</div>
+    <div class="tool-name">یادداشت‌ها</div>
+    <div class="tool-description">
+      یادداشت‌های مهم
     </div>
+  </button>
 
-    <div class="card">
-
-      <input
-        id="moneyDescription"
-        type="text"
-        placeholder="توضیح"
-        style="margin-bottom:8px"
-      >
-
-      <input
-        id="moneyAmount"
-        type="number"
-        inputmode="decimal"
-        placeholder="مبلغ به افغانی"
-        style="margin-bottom:8px"
-      >
-
-      <select id="moneyType" style="margin-bottom:10px">
-        <option value="expense">مصرف</option>
-        <option value="income">درآمد</option>
-      </select>
-
-      <button
-        class="primary-btn"
-        style="width:100%"
-        onclick="addMoney()"
-      >
-        ثبت
-      </button>
-
+  <button class="tool-card" onclick="showScreen('reminder')">
+    <div class="tool-icon">🔔</div>
+    <div class="tool-name">یادآوری</div>
+    <div class="tool-description">
+      زمان‌های مهم
     </div>
+  </button>
 
-    <div id="moneyList" class="list"></div>
+</div>
 
-  </section>
-
-
-  <!-- NOTES -->
-  <section id="notesScreen" class="screen">
-
-    <div class="screen-header">
-      <button class="back-btn" onclick="goHome()">→</button>
-      <div class="screen-title">یادداشت‌ها</div>
-    </div>
-
-    <div class="card">
-
-      <textarea
-        id="noteInput"
-        placeholder="یادداشت خود را بنویسید..."
-      ></textarea>
-
-      <button
-        class="primary-btn"
-        style="width:100%;margin-top:10px"
-        onclick="saveNote()"
-      >
-        ذخیره یادداشت
-      </button>
-
-    </div>
-
-    <div id="notesList" class="list"></div>
-
-  </section>
+</section>
 
 
-  <!-- SHOPPING -->
-  <section id="shoppingScreen" class="screen">
+<!-- CALCULATOR -->
+<section id="calculatorScreen" class="screen">
 
-    <div class="screen-header">
-      <button class="back-btn" onclick="goHome()">→</button>
-      <div class="screen-title">لیست خرید</div>
-    </div>
+<div class="screen-header">
+  <button class="back-btn" onclick="goHome()">→</button>
+  <div class="screen-title">ماشین حساب</div>
+</div>
 
-    <div class="shopping-total">
+<div class="calculator">
 
-      <div class="shopping-total-label">
-        مجموع قیمت خریدها
-      </div>
+<div class="calc-display">
+  <div id="calcExpression" class="calc-expression"></div>
+  <div id="calcValue" class="calc-value">0</div>
+</div>
 
-      <div id="shoppingTotal" class="shopping-total-value">
-        ۰ ؋
-      </div>
+<div class="calc-grid">
 
-    </div>
+<button class="calc-btn clear" onclick="calcClear()">C</button>
+<button class="calc-btn" onclick="calcBackspace()">⌫</button>
+<button class="calc-btn" onclick="calcPercent()">%</button>
+<button class="calc-btn operator" onclick="calcOperator('/')">÷</button>
 
-    <div class="card">
+<button class="calc-btn" onclick="calcNumber('7')">7</button>
+<button class="calc-btn" onclick="calcNumber('8')">8</button>
+<button class="calc-btn" onclick="calcNumber('9')">9</button>
+<button class="calc-btn operator" onclick="calcOperator('*')">×</button>
 
-      <div class="shopping-form">
+<button class="calc-btn" onclick="calcNumber('4')">4</button>
+<button class="calc-btn" onclick="calcNumber('5')">5</button>
+<button class="calc-btn" onclick="calcNumber('6')">6</button>
+<button class="calc-btn operator" onclick="calcOperator('-')">−</button>
 
-        <input
-          id="shoppingInput"
-          type="text"
-          placeholder="نام خرید"
-          onkeydown="if(event.key==='Enter') addShopping()"
-        >
+<button class="calc-btn" onclick="calcNumber('1')">1</button>
+<button class="calc-btn" onclick="calcNumber('2')">2</button>
+<button class="calc-btn" onclick="calcNumber('3')">3</button>
+<button class="calc-btn operator" onclick="calcOperator('+')">+</button>
 
-        <input
-          id="shoppingPrice"
-          type="number"
-          inputmode="decimal"
-          placeholder="قیمت به افغانی"
-          onkeydown="if(event.key==='Enter') addShopping()"
-        >
+<button class="calc-btn zero" onclick="calcNumber('0')">0</button>
+<button class="calc-btn" onclick="calcDecimal()">.</button>
+<button class="calc-btn equal" onclick="calcEquals()">=</button>
 
-        <button
-          class="primary-btn"
-          onclick="addShopping()"
-        >
-          اضافه
-        </button>
+</div>
+</div>
 
-      </div>
-
-      <input
-        id="shoppingSearch"
-        type="search"
-        placeholder="🔍 جستجوی خرید..."
-        oninput="renderShopping()"
-      >
-
-    </div>
-
-    <div id="shoppingList" class="list"></div>
-
-  </section>
+</section>
 
 
-  <!-- REMINDER -->
-  <section id="reminderScreen" class="screen">
+<!-- TODO -->
+<section id="todoScreen" class="screen">
 
-    <div class="screen-header">
-      <button class="back-btn" onclick="goHome()">→</button>
-      <div class="screen-title">یادآوری</div>
-    </div>
+<div class="screen-header">
+  <button class="back-btn" onclick="goHome()">→</button>
+  <div class="screen-title">کارهای من</div>
+</div>
 
-    <div class="card">
+<div class="card">
 
-      <input
-        id="reminderInput"
-        type="text"
-        placeholder="موضوع یادآوری"
-        style="margin-bottom:8px"
-      >
+<div class="input-row">
+  <input
+    id="todoInput"
+    type="text"
+    placeholder="مثلاً خرید نان"
+    onkeydown="if(event.key==='Enter')addTodo()"
+  >
 
-      <input
-        id="reminderTime"
-        type="datetime-local"
-        style="margin-bottom:10px"
-      >
+  <button class="primary-btn" onclick="addTodo()">
+    اضافه
+  </button>
+</div>
 
-      <button
-        class="primary-btn"
-        style="width:100%"
-        onclick="addReminder()"
-      >
-        ثبت یادآوری
-      </button>
+</div>
 
-    </div>
+<div id="todoList" class="list"></div>
 
-    <div id="reminderList" class="list"></div>
+</section>
 
-  </section>
+
+<!-- MONEY -->
+<section id="moneyScreen" class="screen">
+
+<div class="screen-header">
+  <button class="back-btn" onclick="goHome()">→</button>
+  <div class="screen-title">مدیریت پول</div>
+</div>
+
+<div class="stats-grid">
+
+<div class="stat">
+  <div class="stat-label">کل درآمد</div>
+  <div id="totalIncome" class="stat-value income">۰ ؋</div>
+</div>
+
+<div class="stat">
+  <div class="stat-label">کل مصرف</div>
+  <div id="totalExpense" class="stat-value expense">۰ ؋</div>
+</div>
+
+</div>
+
+<div class="card">
+
+<input
+  id="moneyDescription"
+  type="text"
+  placeholder="توضیح"
+  style="margin-bottom:8px"
+>
+
+<input
+  id="moneyAmount"
+  type="number"
+  inputmode="decimal"
+  placeholder="مبلغ به افغانی"
+  style="margin-bottom:8px"
+>
+
+<select id="moneyType" style="margin-bottom:10px">
+  <option value="expense">مصرف</option>
+  <option value="income">درآمد</option>
+</select>
+
+<button
+  class="primary-btn"
+  style="width:100%"
+  onclick="addMoney()"
+>
+ثبت
+</button>
+
+</div>
+
+<div id="moneyList" class="list"></div>
+
+</section>
+
+
+<!-- NOTES -->
+<section id="notesScreen" class="screen">
+
+<div class="screen-header">
+  <button class="back-btn" onclick="goHome()">→</button>
+  <div class="screen-title">یادداشت‌ها</div>
+</div>
+
+<div class="card">
+
+<textarea
+  id="noteInput"
+  placeholder="یادداشت خود را بنویسید..."
+></textarea>
+
+<button
+  class="primary-btn"
+  style="width:100%;margin-top:10px"
+  onclick="saveNote()"
+>
+ذخیره یادداشت
+</button>
+
+</div>
+
+<div id="notesList" class="list"></div>
+
+</section>
+
+
+<!-- SHOPPING -->
+<section id="shoppingScreen" class="screen">
+
+<div class="screen-header">
+  <button class="back-btn" onclick="goHome()">→</button>
+  <div class="screen-title">لیست خرید</div>
+</div>
+
+<div class="shopping-total">
+
+<div class="shopping-total-label">
+  مجموع قیمت خریدها
+</div>
+
+<div id="shoppingTotal" class="shopping-total-value">
+  ۰ ؋
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="shopping-form">
+
+<input
+  id="shoppingInput"
+  type="text"
+  placeholder="نام خرید"
+  onkeydown="if(event.key==='Enter')addShopping()"
+>
+
+<input
+  id="shoppingPrice"
+  type="number"
+  inputmode="decimal"
+  placeholder="قیمت به افغانی"
+  onkeydown="if(event.key==='Enter')addShopping()"
+>
+
+<button
+  class="primary-btn"
+  onclick="addShopping()"
+>
+اضافه
+</button>
+
+</div>
+
+<input
+  id="shoppingSearch"
+  type="search"
+  placeholder="🔍 جستجوی خرید..."
+  oninput="renderShopping()"
+>
+
+</div>
+
+<div id="shoppingList" class="list"></div>
+
+</section>
+
+
+<!-- REMINDER -->
+<section id="reminderScreen" class="screen">
+
+<div class="screen-header">
+  <button class="back-btn" onclick="goHome()">→</button>
+  <div class="screen-title">یادآوری</div>
+</div>
+
+<div class="card">
+
+<input
+  id="reminderInput"
+  type="text"
+  placeholder="موضوع یادآوری"
+  style="margin-bottom:8px"
+>
+
+<input
+  id="reminderTime"
+  type="datetime-local"
+  style="margin-bottom:10px"
+>
+
+<button
+  class="primary-btn"
+  style="width:100%"
+  onclick="addReminder()"
+>
+ثبت یادآوری
+</button>
+
+</div>
+
+<div id="reminderList" class="list"></div>
+
+</section>
 
 </div>
 
@@ -954,45 +911,45 @@
 <!-- EDIT SHOPPING MODAL -->
 <div id="shoppingEditModal" class="modal">
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <div class="modal-title">
-      ✏️ ویرایش خرید
-    </div>
+<div class="modal-title">
+✏️ ویرایش خرید
+</div>
 
-    <input
-      id="editShoppingName"
-      type="text"
-      placeholder="نام خرید"
-      style="margin-bottom:9px"
-    >
+<input
+  id="editShoppingName"
+  type="text"
+  placeholder="نام خرید"
+  style="margin-bottom:9px"
+>
 
-    <input
-      id="editShoppingPrice"
-      type="number"
-      inputmode="decimal"
-      placeholder="قیمت به افغانی"
-    >
+<input
+  id="editShoppingPrice"
+  type="number"
+  inputmode="decimal"
+  placeholder="قیمت به افغانی"
+>
 
-    <div class="modal-actions">
+<div class="modal-actions">
 
-      <button
-        class="secondary-btn"
-        onclick="closeShoppingEdit()"
-      >
-        انصراف
-      </button>
+<button
+  class="secondary-btn"
+  onclick="closeShoppingEdit()"
+>
+انصراف
+</button>
 
-      <button
-        class="primary-btn"
-        onclick="saveShoppingEdit()"
-      >
-        ذخیره
-      </button>
+<button
+  class="primary-btn"
+  onclick="saveShoppingEdit()"
+>
+ذخیره
+</button>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </div>
 
@@ -1000,1304 +957,1158 @@
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
 
-  <button
-    id="navHome"
-    class="nav-btn active"
-    onclick="showScreen('home')"
-  >
-    <span class="nav-icon">🏠</span>
-    خانه
-  </button>
+<button
+  id="navHome"
+  class="nav-btn active"
+  onclick="showScreen('home')"
+>
+<span class="nav-icon">🏠</span>
+خانه
+</button>
 
-  <button
-    id="navTodo"
-    class="nav-btn"
-    onclick="showScreen('todo')"
-  >
-    <span class="nav-icon">✅</span>
-    کارها
-  </button>
+<button
+  id="navTodo"
+  class="nav-btn"
+  onclick="showScreen('todo')"
+>
+<span class="nav-icon">✅</span>
+کارها
+</button>
 
-  <button
-    id="navMoney"
-    class="nav-btn"
-    onclick="showScreen('money')"
-  >
-    <span class="nav-icon">💰</span>
-    پول
-  </button>
+<button
+  id="navMoney"
+  class="nav-btn"
+  onclick="showScreen('money')"
+>
+<span class="nav-icon">💰</span>
+پول
+</button>
 
-  <button
-    id="navShopping"
-    class="nav-btn"
-    onclick="showScreen('shopping')"
-  >
-    <span class="nav-icon">🛒</span>
-    خرید
-  </button>
+<button
+  id="navShopping"
+  class="nav-btn"
+  onclick="showScreen('shopping')"
+>
+<span class="nav-icon">🛒</span>
+خرید
+</button>
 
-  <button
-    id="navNotes"
-    class="nav-btn"
-    onclick="showScreen('notes')"
-  >
-    <span class="nav-icon">📝</span>
-    یادداشت
-  </button>
+<button
+  id="navNotes"
+  class="nav-btn"
+  onclick="showScreen('notes')"
+>
+<span class="nav-icon">📝</span>
+یادداشت
+</button>
 
 </nav>
 
 
 <script>
 
-  /* =========================================================
-     HELPERS
-  ========================================================= */
+/* =========================
+   HELPERS
+========================= */
 
-  function formatNumber(number) {
-    return Number(number || 0).toLocaleString("fa-AF");
+function formatNumber(number){
+  return Number(number || 0).toLocaleString("fa-AF");
+}
+
+function formatDateTime(value){
+  try{
+    return new Date(value).toLocaleString("fa-AF");
+  }catch{
+    return value;
+  }
+}
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+const screenNames=[
+  "home",
+  "calculator",
+  "todo",
+  "money",
+  "notes",
+  "shopping",
+  "reminder"
+];
+
+function showScreen(name,addHistory=true){
+
+  if(!screenNames.includes(name)){
+    name="home";
   }
 
-  function formatDateTime(value) {
-    try {
-      return new Date(value).toLocaleString("fa-AF");
-    } catch {
-      return value;
-    }
-  }
-
-  function escapeHTML(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-
-  /* =========================================================
-     SCREEN NAVIGATION
-  ========================================================= */
-
-  const screenNames = [
-    "home",
-    "calculator",
-    "todo",
-    "money",
-    "notes",
-    "shopping",
-    "reminder"
-  ];
-
-  function showScreen(name, addHistory = true) {
-
-    if (!screenNames.includes(name)) {
-      name = "home";
-    }
-
-    document.querySelectorAll(".screen").forEach(screen => {
-      screen.classList.remove("active");
-    });
-
-    const target = document.getElementById(name + "Screen");
-
-    if (target) {
-      target.classList.add("active");
-    }
-
-    updateNavigation(name);
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-    if (addHistory) {
-      history.pushState(
-        { screen: name },
-        "",
-        "#" + name
-      );
-    }
-
-    if (name === "calculator") {
-      updateCalc();
-    }
-
-    if (name === "todo") {
-      renderTodos();
-    }
-
-    if (name === "money") {
-      renderMoney();
-    }
-
-    if (name === "notes") {
-      renderNotes();
-    }
-
-    if (name === "shopping") {
-      renderShopping();
-    }
-
-    if (name === "reminder") {
-      renderReminders();
-    }
-  }
-
-  function goHome() {
-    showScreen("home");
-  }
-
-  function updateNavigation(name) {
-
-    document.querySelectorAll(".nav-btn").forEach(btn => {
-      btn.classList.remove("active");
-    });
-
-    const map = {
-      home: "navHome",
-      todo: "navTodo",
-      money: "navMoney",
-      shopping: "navShopping",
-      notes: "navNotes"
-    };
-
-    if (map[name]) {
-      document
-        .getElementById(map[name])
-        ?.classList.add("active");
-    }
-  }
-
-  window.addEventListener("popstate", function() {
-
-    const hash =
-      location.hash.replace("#", "") || "home";
-
-    showScreen(hash, false);
-
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
   });
 
+  const target=document.getElementById(name+"Screen");
 
-  /* =========================================================
-     CALCULATOR
-  ========================================================= */
+  if(target){
+    target.classList.add("active");
+  }
 
-  let calcCurrent = "0";
-  let calcPrevious = null;
-  let calcOperatorValue = null;
-  let calcWaiting = false;
+  updateNavigation(name);
 
-  function roundResult(value) {
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
-    if (!Number.isFinite(value)) {
-      return "Error";
-    }
-
-    return String(
-      Math.round((value + Number.EPSILON) * 100000000) / 100000000
+  if(addHistory){
+    history.pushState(
+      {screen:name},
+      "",
+      "#"+name
     );
   }
 
-  function updateCalc() {
+  if(name==="calculator")updateCalc();
+  if(name==="todo")renderTodos();
+  if(name==="money")renderMoney();
+  if(name==="notes")renderNotes();
+  if(name==="shopping")renderShopping();
+  if(name==="reminder")renderReminders();
+}
 
-    document.getElementById("calcValue").textContent =
-      calcCurrent;
+function goHome(){
+  showScreen("home");
+}
 
-    let expression = "";
+function updateNavigation(name){
 
-    if (
-      calcPrevious !== null &&
-      calcOperatorValue
-    ) {
-      expression =
-        calcPrevious +
-        " " +
-        calcOperatorValue;
-    }
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn=>btn.classList.remove("active"));
 
-    document.getElementById("calcExpression").textContent =
-      expression;
+  const map={
+    home:"navHome",
+    todo:"navTodo",
+    money:"navMoney",
+    shopping:"navShopping",
+    notes:"navNotes"
+  };
+
+  if(map[name]){
+    document
+      .getElementById(map[name])
+      ?.classList.add("active");
+  }
+}
+
+window.addEventListener("popstate",()=>{
+  const hash=location.hash.replace("#","")||"home";
+  showScreen(hash,false);
+});
+
+
+/* =========================
+   CALCULATOR
+========================= */
+
+let calcCurrent="0";
+let calcPrevious=null;
+let calcOperatorValue=null;
+let calcWaiting=false;
+
+function roundResult(value){
+
+  if(!Number.isFinite(value)){
+    return "Error";
   }
 
-  function calcNumber(number) {
+  return String(
+    Math.round((value+Number.EPSILON)*100000000)/100000000
+  );
+}
 
-    if (calcWaiting) {
-      calcCurrent = number;
-      calcWaiting = false;
-    } else if (calcCurrent === "0") {
-      calcCurrent = number;
-    } else {
-      calcCurrent += number;
-    }
+function updateCalc(){
 
+  document.getElementById("calcValue").textContent=calcCurrent;
+
+  let expression="";
+
+  if(
+    calcPrevious!==null &&
+    calcOperatorValue
+  ){
+    expression=
+      calcPrevious+
+      " "+
+      calcOperatorValue;
+  }
+
+  document.getElementById("calcExpression").textContent=
+    expression;
+}
+
+function calcNumber(number){
+
+  if(calcCurrent==="Error"){
+    calcClear();
+  }
+
+  if(calcWaiting){
+    calcCurrent=number;
+    calcWaiting=false;
+  }else if(calcCurrent==="0"){
+    calcCurrent=number;
+  }else{
+    calcCurrent+=number;
+  }
+
+  updateCalc();
+}
+
+function calcDecimal(){
+
+  if(calcCurrent==="Error"){
+    calcClear();
+  }
+
+  if(calcWaiting){
+    calcCurrent="0.";
+    calcWaiting=false;
     updateCalc();
+    return;
   }
 
-  function calcDecimal() {
+  if(!calcCurrent.includes(".")){
+    calcCurrent+=".";
+  }
 
-    if (calcWaiting) {
-      calcCurrent = "0.";
-      calcWaiting = false;
+  updateCalc();
+}
+
+function calcOperator(operator){
+
+  const value=parseFloat(calcCurrent);
+
+  if(Number.isNaN(value))return;
+
+  if(
+    calcOperatorValue &&
+    !calcWaiting
+  ){
+    calculateOperation(value);
+  }
+
+  calcPrevious=parseFloat(calcCurrent);
+  calcOperatorValue=operator;
+  calcWaiting=true;
+
+  updateCalc();
+}
+
+function calculateOperation(currentValue){
+
+  const previous=parseFloat(calcPrevious);
+
+  let result=0;
+
+  if(calcOperatorValue==="+"){
+    result=previous+currentValue;
+  }
+
+  if(calcOperatorValue==="-"){
+    result=previous-currentValue;
+  }
+
+  if(calcOperatorValue==="*"){
+    result=previous*currentValue;
+  }
+
+  if(calcOperatorValue==="/"){
+
+    if(currentValue===0){
+      calcCurrent="Error";
+      calcPrevious=null;
+      calcOperatorValue=null;
+      calcWaiting=true;
       updateCalc();
       return;
     }
 
-    if (!calcCurrent.includes(".")) {
-      calcCurrent += ".";
-    }
-
-    updateCalc();
+    result=previous/currentValue;
   }
 
-  function calcOperator(operator) {
+  calcCurrent=roundResult(result);
+}
 
-    const value = parseFloat(calcCurrent);
+function calcEquals(){
 
-    if (calcOperatorValue && !calcWaiting) {
-      calculateOperation(value);
-    }
-
-    calcPrevious = parseFloat(calcCurrent);
-    calcOperatorValue = operator;
-    calcWaiting = true;
-
-    updateCalc();
+  if(
+    calcPrevious===null ||
+    !calcOperatorValue
+  ){
+    return;
   }
 
-  function calculateOperation(currentValue) {
+  calculateOperation(
+    parseFloat(calcCurrent)
+  );
 
-    const previous =
-      parseFloat(calcPrevious);
+  calcPrevious=null;
+  calcOperatorValue=null;
+  calcWaiting=true;
 
-    let result = 0;
+  updateCalc();
+}
 
-    if (calcOperatorValue === "+") {
-      result = previous + currentValue;
-    }
+function calcPercent(){
 
-    if (calcOperatorValue === "-") {
-      result = previous - currentValue;
-    }
+  const value=parseFloat(calcCurrent);
 
-    if (calcOperatorValue === "*") {
-      result = previous * currentValue;
-    }
+  if(Number.isNaN(value))return;
 
-    if (calcOperatorValue === "/") {
+  calcCurrent=roundResult(value/100);
 
-      if (currentValue === 0) {
-        calcCurrent = "Error";
-        calcPrevious = null;
-        calcOperatorValue = null;
-        calcWaiting = true;
-        updateCalc();
-        return;
-      }
+  updateCalc();
+}
 
-      result = previous / currentValue;
-    }
+function calcClear(){
 
-    calcCurrent = roundResult(result);
+  calcCurrent="0";
+  calcPrevious=null;
+  calcOperatorValue=null;
+  calcWaiting=false;
+
+  updateCalc();
+}
+
+function calcBackspace(){
+
+  if(
+    calcCurrent==="Error" ||
+    calcCurrent.length<=1
+  ){
+    calcCurrent="0";
+  }else{
+    calcCurrent=calcCurrent.slice(0,-1);
   }
 
-  function calcEquals() {
+  updateCalc();
+}
 
-    if (
-      calcPrevious === null ||
-      !calcOperatorValue
-    ) {
-      return;
-    }
 
-    calculateOperation(
-      parseFloat(calcCurrent)
-    );
+/* Keyboard calculator */
 
-    calcPrevious = null;
-    calcOperatorValue = null;
-    calcWaiting = true;
+document.addEventListener("keydown",event=>{
 
-    updateCalc();
+  if(
+    !document
+      .getElementById("calculatorScreen")
+      ?.classList.contains("active")
+  ){
+    return;
   }
 
-  function calcPercent() {
-
-    const value =
-      parseFloat(calcCurrent);
-
-    if (Number.isNaN(value)) {
-      return;
-    }
-
-    calcCurrent =
-      roundResult(value / 100);
-
-    updateCalc();
+  if(/^[0-9]$/.test(event.key)){
+    calcNumber(event.key);
   }
 
-  function calcClear() {
-
-    calcCurrent = "0";
-    calcPrevious = null;
-    calcOperatorValue = null;
-    calcWaiting = false;
-
-    updateCalc();
+  if(event.key==="."){
+    calcDecimal();
   }
 
-  function calcBackspace() {
-
-    if (
-      calcCurrent === "Error" ||
-      calcCurrent.length <= 1
-    ) {
-      calcCurrent = "0";
-    } else {
-      calcCurrent =
-        calcCurrent.slice(0, -1);
-    }
-
-    updateCalc();
+  if(["+","-","*","/"].includes(event.key)){
+    calcOperator(event.key);
   }
 
-  document.addEventListener("keydown", function(event) {
+  if(event.key==="Enter" || event.key==="="){
+    event.preventDefault();
+    calcEquals();
+  }
 
-    if (
-      document.getElementById("calculatorScreen")
-        ?.classList.contains("active")
-    ) {
+  if(event.key==="Escape"){
+    calcClear();
+  }
 
-      if (/^[0-9]$/.test(event.key)) {
-        calcNumber(event.key);
-      }
+  if(event.key==="Backspace"){
+    calcBackspace();
+  }
 
-      if (event.key === ".") {
-        calcDecimal();
-      }
+});
 
-      if (
-        ["+", "-", "*", "/"].includes(event.key)
-      ) {
-        calcOperator(event.key);
-      }
 
-      if (
-        event.key === "Enter" ||
-        event.key === "="
-      ) {
-        calcEquals();
-      }
+/* =========================
+   TODO
+========================= */
 
-      if (event.key === "Escape") {
-        calcClear();
-      }
+let todos=JSON.parse(
+  localStorage.getItem("daily_helper_todos")||"[]"
+);
 
-      if (event.key === "Backspace") {
-        calcBackspace();
-      }
+function saveTodos(){
 
-    }
+  localStorage.setItem(
+    "daily_helper_todos",
+    JSON.stringify(todos)
+  );
+}
 
+function addTodo(){
+
+  const input=document.getElementById("todoInput");
+  const text=input.value.trim();
+
+  if(!text){
+    alert("کار را وارد کنید.");
+    return;
+  }
+
+  todos.push({
+    id:Date.now(),
+    text:text,
+    done:false
   });
 
+  saveTodos();
 
-  /* =========================================================
-     TODO
-  ========================================================= */
+  input.value="";
 
-  let todos =
-    JSON.parse(
-      localStorage.getItem(
-        "daily_helper_todos"
-      ) || "[]"
+  renderTodos();
+}
+
+function toggleTodo(id){
+
+  todos=todos.map(item=>
+    item.id===id
+      ? {...item,done:!item.done}
+      : item
+  );
+
+  saveTodos();
+  renderTodos();
+}
+
+function deleteTodo(id){
+
+  todos=todos.filter(
+    item=>item.id!==id
+  );
+
+  saveTodos();
+  renderTodos();
+}
+
+function renderTodos(){
+
+  const list=document.getElementById("todoList");
+
+  if(!todos.length){
+    list.innerHTML=
+      '<div class="empty">هنوز کاری ثبت نشده است.</div>';
+    return;
+  }
+
+  list.innerHTML=todos.map(item=>`
+
+    <div class="list-item">
+
+      <div class="shopping-item-left">
+
+        <input
+          type="checkbox"
+          ${item.done?"checked":""}
+          onchange="toggleTodo(${item.id})"
+        >
+
+        <span
+          class="item-title"
+          style="${
+            item.done
+            ?"text-decoration:line-through;color:#9ca3af"
+            :""
+          }"
+        >
+          ${escapeHTML(item.text)}
+        </span>
+
+      </div>
+
+      <button
+        class="danger-btn"
+        onclick="deleteTodo(${item.id})"
+      >
+        حذف
+      </button>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* =========================
+   MONEY
+========================= */
+
+let transactions=JSON.parse(
+  localStorage.getItem("daily_helper_transactions")||"[]"
+);
+
+function saveTransactions(){
+
+  localStorage.setItem(
+    "daily_helper_transactions",
+    JSON.stringify(transactions)
+  );
+}
+
+function addMoney(){
+
+  const description=
+    document.getElementById("moneyDescription")
+      .value.trim();
+
+  const amount=
+    parseFloat(
+      document.getElementById("moneyAmount").value
     );
 
-  function saveTodos() {
+  const type=
+    document.getElementById("moneyType").value;
 
-    localStorage.setItem(
-      "daily_helper_todos",
-      JSON.stringify(todos)
-    );
+  if(!description){
+    alert("توضیح را وارد کنید.");
+    return;
   }
 
-  function addTodo() {
-
-    const input =
-      document.getElementById("todoInput");
-
-    const text =
-      input.value.trim();
-
-    if (!text) {
-      alert("کار را وارد کنید.");
-      return;
-    }
-
-    todos.push({
-      id: Date.now(),
-      text: text,
-      done: false
-    });
-
-    saveTodos();
-
-    input.value = "";
-
-    renderTodos();
+  if(!Number.isFinite(amount)||amount<=0){
+    alert("مبلغ معتبر وارد کنید.");
+    return;
   }
 
-  function toggleTodo(id) {
+  transactions.push({
+    id:Date.now(),
+    amount:amount,
+    type:type,
+    description:description,
+    date:new Date().toISOString()
+  });
 
-    todos =
-      todos.map(item =>
-        item.id === id
-          ? {
-              ...item,
-              done: !item.done
-            }
-          : item
-      );
+  saveTransactions();
 
-    saveTodos();
+  document.getElementById("moneyDescription").value="";
+  document.getElementById("moneyAmount").value="";
 
-    renderTodos();
-  }
+  renderMoney();
+}
 
-  function deleteTodo(id) {
+function deleteMoney(id){
 
-    todos =
-      todos.filter(
-        item => item.id !== id
-      );
+  transactions=transactions.filter(
+    item=>item.id!==id
+  );
 
-    saveTodos();
+  saveTransactions();
+  renderMoney();
+}
 
-    renderTodos();
-  }
+function renderMoney(){
 
-  function renderTodos() {
-
-    const list =
-      document.getElementById("todoList");
-
-    if (!todos.length) {
-
-      list.innerHTML =
-        '<div class="empty">هنوز کاری ثبت نشده است.</div>';
-
-      return;
-    }
-
-    list.innerHTML =
-      todos
-        .map(item => `
-          <div class="list-item">
-
-            <div class="shopping-item-left">
-
-              <input
-                type="checkbox"
-                ${item.done ? "checked" : ""}
-                onchange="toggleTodo(${item.id})"
-              >
-
-              <span
-                class="item-title"
-                style="${
-                  item.done
-                    ? "text-decoration:line-through;color:#9ca3af"
-                    : ""
-                }"
-              >
-                ${escapeHTML(item.text)}
-              </span>
-
-            </div>
-
-            <button
-              class="danger-btn"
-              onclick="deleteTodo(${item.id})"
-            >
-              حذف
-            </button>
-
-          </div>
-        `)
-        .join("");
-  }
-
-
-  /* =========================================================
-     MONEY
-  ========================================================= */
-
-  let transactions =
-    JSON.parse(
-      localStorage.getItem(
-        "daily_helper_transactions"
-      ) || "[]"
+  const income=transactions
+    .filter(item=>item.type==="income")
+    .reduce(
+      (sum,item)=>sum+Number(item.amount||0),
+      0
     );
 
-  function saveTransactions() {
-
-    localStorage.setItem(
-      "daily_helper_transactions",
-      JSON.stringify(transactions)
+  const expense=transactions
+    .filter(item=>item.type==="expense")
+    .reduce(
+      (sum,item)=>sum+Number(item.amount||0),
+      0
     );
+
+  document.getElementById("totalIncome")
+    .textContent=formatNumber(income)+" ؋";
+
+  document.getElementById("totalExpense")
+    .textContent=formatNumber(expense)+" ؋";
+
+  const list=document.getElementById("moneyList");
+
+  if(!transactions.length){
+    list.innerHTML=
+      '<div class="empty">هنوز تراکنشی ثبت نشده است.</div>';
+    return;
   }
 
-  function addMoney() {
+  list.innerHTML=transactions
+    .slice()
+    .reverse()
+    .map(item=>`
 
-    const description =
-      document
-        .getElementById("moneyDescription")
-        .value
-        .trim();
+      <div class="list-item">
 
-    const amount =
-      parseFloat(
-        document.getElementById("moneyAmount").value
-      );
+        <div class="item-main">
 
-    const type =
-      document.getElementById("moneyType").value;
-
-    if (!description) {
-      alert("توضیح را وارد کنید.");
-      return;
-    }
-
-    if (
-      !Number.isFinite(amount) ||
-      amount <= 0
-    ) {
-      alert("مبلغ معتبر وارد کنید.");
-      return;
-    }
-
-    transactions.push({
-      id: Date.now(),
-      amount: amount,
-      type: type,
-      description: description,
-      date: new Date().toISOString()
-    });
-
-    saveTransactions();
-
-    document.getElementById(
-      "moneyDescription"
-    ).value = "";
-
-    document.getElementById(
-      "moneyAmount"
-    ).value = "";
-
-    renderMoney();
-  }
-
-  function deleteMoney(id) {
-
-    transactions =
-      transactions.filter(
-        item => item.id !== id
-      );
-
-    saveTransactions();
-
-    renderMoney();
-  }
-
-  function renderMoney() {
-
-    const income =
-      transactions
-        .filter(item => item.type === "income")
-        .reduce(
-          (sum, item) =>
-            sum + Number(item.amount || 0),
-          0
-        );
-
-    const expense =
-      transactions
-        .filter(item => item.type === "expense")
-        .reduce(
-          (sum, item) =>
-            sum + Number(item.amount || 0),
-          0
-        );
-
-    document.getElementById(
-      "totalIncome"
-    ).textContent =
-      formatNumber(income) + " ؋";
-
-    document.getElementById(
-      "totalExpense"
-    ).textContent =
-      formatNumber(expense) + " ؋";
-
-    const list =
-      document.getElementById("moneyList");
-
-    if (!transactions.length) {
-
-      list.innerHTML =
-        '<div class="empty">هنوز تراکنشی ثبت نشده است.</div>';
-
-      return;
-    }
-
-    list.innerHTML =
-      transactions
-        .slice()
-        .reverse()
-        .map(item => `
-
-          <div class="list-item">
-
-            <div class="item-main">
-
-              <div class="item-title">
-                ${escapeHTML(item.description)}
-              </div>
-
-              <div class="item-meta">
-                ${formatDateTime(item.date)}
-              </div>
-
-            </div>
-
-            <div class="item-actions">
-
-              <strong
-                class="${
-                  item.type === "income"
-                    ? "income"
-                    : "expense"
-                }"
-              >
-                ${
-                  item.type === "income"
-                    ? "+"
-                    : "-"
-                }
-                ${formatNumber(item.amount)} ؋
-              </strong>
-
-              <button
-                class="danger-btn"
-                onclick="deleteMoney(${item.id})"
-              >
-                حذف
-              </button>
-
-            </div>
-
+          <div class="item-title">
+            ${escapeHTML(item.description)}
           </div>
 
-        `)
-        .join("");
-  }
-
-
-  /* =========================================================
-     NOTES
-  ========================================================= */
-
-  let notes =
-    JSON.parse(
-      localStorage.getItem(
-        "daily_helper_notes"
-      ) || "[]"
-    );
-
-  function saveNote() {
-
-    const input =
-      document.getElementById("noteInput");
-
-    const text =
-      input.value.trim();
-
-    if (!text) {
-      alert("یادداشت را وارد کنید.");
-      return;
-    }
-
-    notes.push({
-      id: Date.now(),
-      text: text,
-      date: new Date().toISOString()
-    });
-
-    localStorage.setItem(
-      "daily_helper_notes",
-      JSON.stringify(notes)
-    );
-
-    input.value = "";
-
-    renderNotes();
-  }
-
-  function deleteNote(id) {
-
-    notes =
-      notes.filter(
-        item => item.id !== id
-      );
-
-    localStorage.setItem(
-      "daily_helper_notes",
-      JSON.stringify(notes)
-    );
-
-    renderNotes();
-  }
-
-  function renderNotes() {
-
-    const list =
-      document.getElementById("notesList");
-
-    if (!notes.length) {
-
-      list.innerHTML =
-        '<div class="empty">هنوز یادداشتی ثبت نشده است.</div>';
-
-      return;
-    }
-
-    list.innerHTML =
-      notes
-        .slice()
-        .reverse()
-        .map(item => `
-
-          <div class="list-item">
-
-            <div class="item-main">
-
-              <div class="item-title">
-                ${escapeHTML(item.text)}
-              </div>
-
-              <div class="item-meta">
-                ${formatDateTime(item.date)}
-              </div>
-
-            </div>
-
-            <button
-              class="danger-btn"
-              onclick="deleteNote(${item.id})"
-            >
-              حذف
-            </button>
-
+          <div class="item-meta">
+            ${formatDateTime(item.date)}
           </div>
 
-        `)
-        .join("");
+        </div>
+
+        <div class="item-actions">
+
+          <strong
+            class="${
+              item.type==="income"
+              ?"income"
+              :"expense"
+            }"
+          >
+            ${item.type==="income"?"+":"-"}
+            ${formatNumber(item.amount)} ؋
+          </strong>
+
+          <button
+            class="danger-btn"
+            onclick="deleteMoney(${item.id})"
+          >
+            حذف
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+}
+
+
+/* =========================
+   NOTES
+========================= */
+
+let notes=JSON.parse(
+  localStorage.getItem("daily_helper_notes")||"[]"
+);
+
+function saveNote(){
+
+  const input=document.getElementById("noteInput");
+  const text=input.value.trim();
+
+  if(!text){
+    alert("یادداشت را وارد کنید.");
+    return;
   }
 
+  notes.push({
+    id:Date.now(),
+    text:text,
+    date:new Date().toISOString()
+  });
 
-  /* =========================================================
-     SHOPPING
-  ========================================================= */
+  localStorage.setItem(
+    "daily_helper_notes",
+    JSON.stringify(notes)
+  );
 
-  let shopping =
-    JSON.parse(
-      localStorage.getItem(
-        "daily_helper_shopping"
-      ) || "[]"
-    );
+  input.value="";
 
-  function saveShopping() {
+  renderNotes();
+}
 
-    localStorage.setItem(
-      "daily_helper_shopping",
-      JSON.stringify(shopping)
-    );
+function deleteNote(id){
+
+  notes=notes.filter(
+    item=>item.id!==id
+  );
+
+  localStorage.setItem(
+    "daily_helper_notes",
+    JSON.stringify(notes)
+  );
+
+  renderNotes();
+}
+
+function renderNotes(){
+
+  const list=document.getElementById("notesList");
+
+  if(!notes.length){
+    list.innerHTML=
+      '<div class="empty">هنوز یادداشتی ثبت نشده است.</div>';
+    return;
   }
 
-  function addShopping() {
+  list.innerHTML=notes
+    .slice()
+    .reverse()
+    .map(item=>`
 
-    const input =
-      document.getElementById(
-        "shoppingInput"
-      );
+      <div class="list-item">
 
-    const priceInput =
-      document.getElementById(
-        "shoppingPrice"
-      );
+        <div class="item-main">
 
-    const text =
-      input.value.trim();
+          <div class="item-title">
+            ${escapeHTML(item.text)}
+          </div>
 
-    const price =
-      parseFloat(priceInput.value) || 0;
+          <div class="item-meta">
+            ${formatDateTime(item.date)}
+          </div>
 
-    if (!text) {
-      alert("نام خرید را وارد کنید.");
-      return;
-    }
+        </div>
 
-    shopping.push({
-      id: Date.now(),
-      text: text,
-      price: price,
-      checked: false
-    });
+        <button
+          class="danger-btn"
+          onclick="deleteNote(${item.id})"
+        >
+          حذف
+        </button>
 
-    saveShopping();
+      </div>
 
-    input.value = "";
-    priceInput.value = "";
+    `).join("");
+}
 
-    renderShopping();
+
+/* =========================
+   SHOPPING
+========================= */
+
+let shopping=JSON.parse(
+  localStorage.getItem("daily_helper_shopping")||"[]"
+);
+
+/* برای خریدهای قدیمی که قیمت ندارند */
+shopping=shopping.map(item=>({
+  ...item,
+  price:Number(item.price)||0
+}));
+
+function saveShopping(){
+
+  localStorage.setItem(
+    "daily_helper_shopping",
+    JSON.stringify(shopping)
+  );
+}
+
+function addShopping(){
+
+  const input=
+    document.getElementById("shoppingInput");
+
+  const priceInput=
+    document.getElementById("shoppingPrice");
+
+  const text=input.value.trim();
+
+  const price=
+    parseFloat(priceInput.value)||0;
+
+  if(!text){
+    alert("نام خرید را وارد کنید.");
+    return;
   }
 
-  function toggleShopping(id) {
+  shopping.push({
+    id:Date.now(),
+    text:text,
+    price:price,
+    checked:false
+  });
 
-    shopping =
-      shopping.map(item =>
-        item.id === id
-          ? {
-              ...item,
-              checked: !item.checked
-            }
-          : item
-      );
+  saveShopping();
 
-    saveShopping();
+  input.value="";
+  priceInput.value="";
 
-    renderShopping();
-  }
+  renderShopping();
+}
 
-  function deleteShopping(id) {
+function toggleShopping(id){
 
-    shopping =
-      shopping.filter(
-        item => item.id !== id
-      );
+  shopping=shopping.map(item=>
+    item.id===id
+      ? {...item,checked:!item.checked}
+      : item
+  );
 
-    saveShopping();
+  saveShopping();
+  renderShopping();
+}
 
-    renderShopping();
-  }
+function deleteShopping(id){
+
+  shopping=shopping.filter(
+    item=>item.id!==id
+  );
+
+  saveShopping();
+  renderShopping();
+}
 
 
-  /* =========================================================
-     SHOPPING EDIT
-  ========================================================= */
+/* =========================
+   SHOPPING EDIT
+========================= */
 
-  let editingShoppingId = null;
+let editingShoppingId=null;
 
-  function openShoppingEdit(id) {
+function openShoppingEdit(id){
 
-    const item =
-      shopping.find(
-        item => item.id === id
-      );
+  const item=shopping.find(
+    item=>item.id===id
+  );
 
-    if (!item) {
-      return;
-    }
+  if(!item)return;
 
-    editingShoppingId = id;
+  editingShoppingId=id;
 
+  document.getElementById(
+    "editShoppingName"
+  ).value=item.text||"";
+
+  document.getElementById(
+    "editShoppingPrice"
+  ).value=item.price||0;
+
+  document.getElementById(
+    "shoppingEditModal"
+  ).classList.add("show");
+}
+
+function closeShoppingEdit(){
+
+  editingShoppingId=null;
+
+  document.getElementById(
+    "shoppingEditModal"
+  ).classList.remove("show");
+}
+
+function saveShoppingEdit(){
+
+  if(editingShoppingId===null)return;
+
+  const name=
     document.getElementById(
       "editShoppingName"
-    ).value =
-      item.text || "";
+    ).value.trim();
 
-    document.getElementById(
-      "editShoppingPrice"
-    ).value =
-      item.price || 0;
-
-    document
-      .getElementById(
-        "shoppingEditModal"
-      )
-      .classList.add("show");
-
-    setTimeout(() => {
-
-      document
-        .getElementById(
-          "editShoppingName"
-        )
-        .focus();
-
-    }, 100);
-  }
-
-  function closeShoppingEdit() {
-
-    editingShoppingId = null;
-
-    document
-      .getElementById(
-        "shoppingEditModal"
-      )
-      .classList.remove("show");
-  }
-
-  function saveShoppingEdit() {
-
-    if (editingShoppingId === null) {
-      return;
-    }
-
-    const name =
-      document
-        .getElementById(
-          "editShoppingName"
-        )
-        .value
-        .trim();
-
-    const price =
-      parseFloat(
-        document.getElementById(
-          "editShoppingPrice"
-        ).value
-      ) || 0;
-
-    if (!name) {
-      alert("نام خرید را وارد کنید.");
-      return;
-    }
-
-    shopping =
-      shopping.map(item =>
-        item.id === editingShoppingId
-          ? {
-              ...item,
-              text: name,
-              price: price
-            }
-          : item
-      );
-
-    saveShopping();
-
-    closeShoppingEdit();
-
-    renderShopping();
-  }
-
-  document
-    .getElementById(
-      "shoppingEditModal"
-    )
-    .addEventListener(
-      "click",
-      function(event) {
-
-        if (event.target === this) {
-          closeShoppingEdit();
-        }
-
-      }
-    );
-
-  function renderShopping() {
-
-    const list =
+  const price=
+    parseFloat(
       document.getElementById(
-        "shoppingList"
-      );
+        "editShoppingPrice"
+      ).value
+    )||0;
 
-    const search =
-      (
-        document.getElementById(
-          "shoppingSearch"
-        )?.value || ""
-      )
-        .trim()
-        .toLowerCase();
-
-    const total =
-      shopping.reduce(
-        (sum, item) =>
-          sum +
-          (Number(item.price) || 0),
-        0
-      );
-
-    document.getElementById(
-      "shoppingTotal"
-    ).textContent =
-      formatNumber(total) + " ؋";
-
-    let visibleItems =
-      shopping.filter(item =>
-        String(item.text || "")
-          .toLowerCase()
-          .includes(search)
-      );
-
-    if (!visibleItems.length) {
-
-      if (shopping.length) {
-
-        list.innerHTML =
-          '<div class="empty">موردی با این نام پیدا نشد.</div>';
-
-      } else {
-
-        list.innerHTML =
-          '<div class="empty">لیست خرید خالی است.</div>';
-
-      }
-
-      return;
-    }
-
-    list.innerHTML =
-      visibleItems
-        .map(item => `
-
-          <div class="list-item">
-
-            <div class="shopping-item-left">
-
-              <input
-                type="checkbox"
-                ${item.checked ? "checked" : ""}
-                onchange="toggleShopping(${item.id})"
-              >
-
-              <span
-                class="shopping-name"
-                style="${
-                  item.checked
-                    ? "text-decoration:line-through;color:#9ca3af"
-                    : ""
-                }"
-              >
-                ${escapeHTML(item.text)}
-              </span>
-
-            </div>
-
-            <div class="item-actions">
-
-              <span class="shopping-price">
-                ${formatNumber(item.price || 0)} ؋
-              </span>
-
-              <button
-                class="edit-btn"
-                onclick="openShoppingEdit(${item.id})"
-              >
-                ✏️
-              </button>
-
-              <button
-                class="danger-btn"
-                onclick="deleteShopping(${item.id})"
-              >
-                حذف
-              </button>
-
-            </div>
-
-          </div>
-
-        `)
-        .join("");
+  if(!name){
+    alert("نام خرید را وارد کنید.");
+    return;
   }
 
+  shopping=shopping.map(item=>
+    item.id===editingShoppingId
+      ? {
+          ...item,
+          text:name,
+          price:price
+        }
+      : item
+  );
 
-  /* =========================================================
-     REMINDERS
-  ========================================================= */
+  saveShopping();
 
-  let reminders =
-    JSON.parse(
-      localStorage.getItem(
-        "daily_helper_reminders"
-      ) || "[]"
-    );
+  closeShoppingEdit();
 
-  function saveReminders() {
+  renderShopping();
+}
 
-    localStorage.setItem(
-      "daily_helper_reminders",
-      JSON.stringify(reminders)
-    );
+document.getElementById(
+  "shoppingEditModal"
+).addEventListener("click",function(event){
+
+  if(event.target===this){
+    closeShoppingEdit();
   }
 
-  function addReminder() {
+});
 
-    const text =
-      document
-        .getElementById("reminderInput")
-        .value
-        .trim();
 
-    const time =
-      document
-        .getElementById("reminderTime")
-        .value;
+function renderShopping(){
 
-    if (!text) {
-      alert("موضوع یادآوری را وارد کنید.");
-      return;
-    }
+  const list=
+    document.getElementById("shoppingList");
 
-    if (!time) {
-      alert("زمان یادآوری را انتخاب کنید.");
-      return;
-    }
+  const search=
+    (
+      document.getElementById(
+        "shoppingSearch"
+      )?.value||""
+    ).trim().toLowerCase();
 
-    reminders.push({
-      id: Date.now(),
-      text: text,
-      time: time
-    });
+  const total=shopping.reduce(
+    (sum,item)=>
+      sum+(Number(item.price)||0),
+    0
+  );
 
-    saveReminders();
+  document.getElementById(
+    "shoppingTotal"
+  ).textContent=
+    formatNumber(total)+" ؋";
 
+  const visibleItems=shopping.filter(item=>
+    String(item.text||"")
+      .toLowerCase()
+      .includes(search)
+  );
+
+  if(!visibleItems.length){
+
+    list.innerHTML=shopping.length
+      ? '<div class="empty">موردی پیدا نشد.</div>'
+      : '<div class="empty">لیست خرید خالی است.</div>';
+
+    return;
+  }
+
+  list.innerHTML=visibleItems.map(item=>`
+
+    <div class="list-item">
+
+      <div class="shopping-item-left">
+
+        <input
+          type="checkbox"
+          ${item.checked?"checked":""}
+          onchange="toggleShopping(${item.id})"
+        >
+
+        <span
+          class="shopping-name"
+          style="${
+            item.checked
+            ?"text-decoration:line-through;color:#9ca3af"
+            :""
+          }"
+        >
+          ${escapeHTML(item.text)}
+        </span>
+
+      </div>
+
+      <div class="item-actions">
+
+        <span class="shopping-price">
+          ${formatNumber(item.price||0)} ؋
+        </span>
+
+        <button
+          class="edit-btn"
+          onclick="openShoppingEdit(${item.id})"
+        >
+          ✏️
+        </button>
+
+        <button
+          class="danger-btn"
+          onclick="deleteShopping(${item.id})"
+        >
+          حذف
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* =========================
+   REMINDERS
+========================= */
+
+let reminders=JSON.parse(
+  localStorage.getItem("daily_helper_reminders")||"[]"
+);
+
+function saveReminders(){
+
+  localStorage.setItem(
+    "daily_helper_reminders",
+    JSON.stringify(reminders)
+  );
+}
+
+function addReminder(){
+
+  const text=
     document.getElementById(
       "reminderInput"
-    ).value = "";
+    ).value.trim();
 
+  const time=
     document.getElementById(
       "reminderTime"
-    ).value = "";
+    ).value;
 
-    renderReminders();
+  if(!text){
+    alert("موضوع یادآوری را وارد کنید.");
+    return;
   }
 
-  function deleteReminder(id) {
-
-    reminders =
-      reminders.filter(
-        item => item.id !== id
-      );
-
-    saveReminders();
-
-    renderReminders();
+  if(!time){
+    alert("زمان یادآوری را انتخاب کنید.");
+    return;
   }
 
-  function renderReminders() {
+  reminders.push({
+    id:Date.now(),
+    text:text,
+    time:time
+  });
 
-    const list =
-      document.getElementById(
-        "reminderList"
-      );
+  saveReminders();
 
-    if (!reminders.length) {
+  document.getElementById(
+    "reminderInput"
+  ).value="";
 
-      list.innerHTML =
-        '<div class="empty">هنوز یادآوری ثبت نشده است.</div>';
+  document.getElementById(
+    "reminderTime"
+  ).value="";
 
-      return;
-    }
+  renderReminders();
+}
 
-    list.innerHTML =
-      reminders
-        .slice()
-        .sort(
-          (a,b) =>
-            new Date(a.time) -
-            new Date(b.time)
-        )
-        .map(item => `
+function deleteReminder(id){
 
-          <div class="list-item">
+  reminders=reminders.filter(
+    item=>item.id!==id
+  );
 
-            <div class="item-main">
+  saveReminders();
+  renderReminders();
+}
 
-              <div class="item-title">
-                🔔 ${escapeHTML(item.text)}
-              </div>
+function renderReminders(){
 
-              <div class="item-meta">
-                ${formatDateTime(item.time)}
-              </div>
-
-            </div>
-
-            <button
-              class="danger-btn"
-              onclick="deleteReminder(${item.id})"
-            >
-              حذف
-            </button>
-
-          </div>
-
-        `)
-        .join("");
-  }
-
-
-  /* =========================================================
-     INITIALIZE
-  ========================================================= */
-
-  function initializeApp() {
-
-    renderTodos();
-    renderMoney();
-    renderNotes();
-    renderShopping();
-    renderReminders();
-    updateCalc();
-
-    const hash =
-      location.hash.replace("#", "");
-
-    if (
-      hash &&
-      screenNames.includes(hash)
-    ) {
-      showScreen(hash, false);
-    } else {
-      showScreen("home", false);
-    }
-
-  }
-
-  initializeApp();
-
-
-  /* =========================================================
-     SERVICE WORKER
-  ========================================================= */
-
-  if ("serviceWorker" in navigator) {
-
-    window.addEventListener(
-      "load",
-      function() {
-
-        navigator.serviceWorker
-          .register("./sw.js")
-          .catch(function(error) {
-            console.log(
-              "Service Worker Error:",
-              error
-            );
-          });
-
-      }
+  const list=
+    document.getElementById(
+      "reminderList"
     );
 
+  if(!reminders.length){
+
+    list.innerHTML=
+      '<div class="empty">هنوز یادآوری ثبت نشده است.</div>';
+
+    return;
   }
+
+  list.innerHTML=reminders
+    .slice()
+    .sort(
+      (a,b)=>
+        new Date(a.time)-new Date(b.time)
+    )
+    .map(item=>`
+
+      <div class="list-item">
+
+        <div class="item-main">
+
+          <div class="item-title">
+            🔔 ${escapeHTML(item.text)}
+          </div>
+
+          <div class="item-meta">
+            ${formatDateTime(item.time)}
+          </div>
+
+        </div>
+
+        <button
+          class="danger-btn"
+          onclick="deleteReminder(${item.id})"
+        >
+          حذف
+        </button>
+
+      </div>
+
+    `).join("");
+}
+
+
+/* =========================
+   START
+========================= */
+
+function initializeApp(){
+
+  renderTodos();
+  renderMoney();
+  renderNotes();
+  renderShopping();
+  renderReminders();
+  updateCalc();
+
+  const hash=
+    location.hash.replace("#","");
+
+  if(
+    hash &&
+    screenNames.includes(hash)
+  ){
+    showScreen(hash,false);
+  }else{
+    showScreen("home",false);
+  }
+}
+
+initializeApp();
+
+
+/* =========================
+   SERVICE WORKER
+========================= */
+
+if("serviceWorker" in navigator){
+
+  window.addEventListener("load",()=>{
+
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(error=>{
+        console.log(
+          "Service Worker Error:",
+          error
+        );
+      });
+
+  });
+
+}
 
 </script>
 
