@@ -3,680 +3,1063 @@
 
 <head>
 
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
-  <title>Daily Helper</title>
-
-  <meta
-    name="description"
-    content="Daily Helper - ابزارهای روزمره در یک برنامه"
-  >
-
-  <meta name="theme-color" content="#111827">
-
-  <!-- PWA -->
-  <link rel="manifest" href="./manifest.webmanifest">
-
-  <!-- Daily Helper SVG Icon -->
-  <link
-    rel="icon"
-    type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23111827'/%3E%3Crect x='82' y='82' width='348' height='348' rx='78' fill='white'/%3E%3Ccircle cx='168' cy='174' r='22' fill='%23111827'/%3E%3Cpath d='M157 174 L165 183 L181 162' fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='215' y='158' width='145' height='32' rx='16' fill='%23111827'/%3E%3Ccircle cx='168' cy='256' r='22' fill='%23111827'/%3E%3Cpath d='M157 256 L165 265 L181 244' fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='215' y='240' width='118' height='32' rx='16' fill='%239ca3af'/%3E%3Ccircle cx='168' cy='338' r='22' fill='%23111827'/%3E%3Cpath d='M157 338 L165 347 L181 326' fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='215' y='322' width='137' height='32' rx='16' fill='%239ca3af'/%3E%3Ccircle cx='365' cy='365' r='55' fill='%23111827'/%3E%3Ctext x='365' y='380' text-anchor='middle' font-family='Arial' font-size='38' font-weight='800' fill='white'%3EDH%3C/text%3E%3C/svg%3E"
-  >
-
-  <!-- iPhone -->
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
-  >
-
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="default"
-  >
-
-  <meta
-    name="apple-mobile-web-app-title"
-    content="Daily Helper"
-  >
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Tahoma,
-        Arial,
-        sans-serif;
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+>
 
-      background: #f5f7fb;
-      color: #111827;
-    }
+<title>Daily Helper</title>
 
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
-    }
+<meta
+  name="description"
+  content="Daily Helper - ابزارهای روزمره"
+>
 
-    button {
-      cursor: pointer;
-    }
+<meta name="theme-color" content="#0f172a">
 
-    /* HEADER */
+<link rel="manifest" href="./manifest.webmanifest">
 
-    header {
-      background:
-        linear-gradient(
-          135deg,
-          #111827,
-          #374151
-        );
+<link
+  rel="icon"
+  type="image/svg+xml"
+  href="./icon.svg"
+>
 
-      color: white;
+<link
+  rel="apple-touch-icon"
+  href="./icon.svg"
+>
 
-      padding:
-        calc(22px + env(safe-area-inset-top))
-        18px
-        25px;
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
 
-      border-radius: 0 0 28px 28px;
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+>
 
-      box-shadow:
-        0 8px 25px rgba(0,0,0,.12);
-    }
+<meta
+  name="apple-mobile-web-app-title"
+  content="Daily Helper"
+>
 
-    .header-inner {
-      max-width: 1100px;
-      margin: auto;
-    }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
+<style>
 
-    .brand-icon {
-      width: 55px;
-      height: 55px;
+/* =====================================================
+   RESET
+===================================================== */
 
-      border-radius: 17px;
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
 
-      background: white;
-      color: #111827;
+html{
+  scroll-behavior:smooth;
+}
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+body{
+  margin:0;
+  min-height:100vh;
 
-      font-size: 28px;
+  font-family:
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Tahoma,
+  Arial,
+  sans-serif;
 
-      box-shadow:
-        0 5px 15px rgba(0,0,0,.2);
-    }
+  background:#f5f7fb;
+  color:#111827;
 
-    .brand h1 {
-      margin: 0;
-      font-size: 25px;
-    }
+  padding-bottom:85px;
+}
 
-    .brand p {
-      margin: 4px 0 0;
-      opacity: .75;
-      font-size: 13px;
-    }
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
 
-    /* INSTALL */
+button{
+  cursor:pointer;
+}
 
-    .install-area {
-      margin-top: 16px;
-    }
 
-    #installBtn {
-      display: none;
+/* =====================================================
+   APP HEADER
+===================================================== */
 
-      width: 100%;
+.app-header{
 
-      border: 0;
-      border-radius: 15px;
+  background:
+  linear-gradient(
+    145deg,
+    #0f172a,
+    #1e293b
+  );
 
-      padding: 14px;
+  color:white;
 
-      background: white;
-      color: #111827;
+  padding:
+  calc(20px + env(safe-area-inset-top))
+  18px
+  25px;
 
-      font-weight: 800;
+  border-radius:
+  0 0 30px 30px;
 
-      box-shadow:
-        0 5px 18px rgba(0,0,0,.15);
-    }
+  box-shadow:
+  0 10px 35px rgba(15,23,42,.18);
+}
 
-    #installBtn:active {
-      transform: scale(.98);
-    }
+.header-content{
 
-    #iosHelp {
-      display: none;
+  max-width:900px;
 
-      margin-top: 10px;
+  margin:auto;
 
-      background:
-        rgba(255,255,255,.12);
+}
 
-      border:
-        1px solid rgba(255,255,255,.2);
+.top-row{
 
-      padding: 13px;
+  display:flex;
 
-      border-radius: 13px;
+  align-items:center;
 
-      font-size: 13px;
+  justify-content:space-between;
 
-      line-height: 1.9;
-    }
+  gap:15px;
+}
 
-    /* MAIN */
+.profile{
 
-    main {
-      max-width: 1100px;
-      margin: auto;
+  display:flex;
 
-      padding:
-        20px
-        15px
-        60px;
-    }
+  align-items:center;
 
-    .welcome {
-      margin-bottom: 18px;
-    }
+  gap:12px;
+}
 
-    .welcome h2 {
-      margin: 0;
-      font-size: 22px;
-    }
+.profile-icon{
 
-    .welcome p {
-      margin: 7px 0 0;
-      color: #6b7280;
-    }
+  width:52px;
+  height:52px;
 
-    /* TOOLS */
+  border-radius:16px;
 
-    .tools {
-      display: grid;
+  background:white;
 
-      grid-template-columns:
-        repeat(4, 1fr);
+  display:flex;
 
-      gap: 13px;
-    }
+  align-items:center;
 
-    .tool-card {
-      border: 0;
+  justify-content:center;
 
-      background: white;
+  overflow:hidden;
 
-      border-radius: 19px;
+  box-shadow:
+  0 5px 20px rgba(0,0,0,.2);
+}
 
-      padding: 19px 12px;
+.profile-icon img{
 
-      min-height: 125px;
+  width:100%;
+  height:100%;
 
-      box-shadow:
-        0 5px 18px rgba(17,24,39,.07);
+  object-fit:cover;
+}
 
-      display: flex;
+.profile-text h1{
 
-      flex-direction: column;
+  margin:0;
 
-      align-items: center;
-      justify-content: center;
+  font-size:21px;
 
-      gap: 8px;
+  font-weight:850;
+}
 
-      transition: .15s;
-    }
+.profile-text p{
 
-    .tool-card:active {
-      transform: scale(.96);
-    }
+  margin:4px 0 0;
 
-    .tool-icon {
-      font-size: 31px;
-    }
+  color:#cbd5e1;
 
-    .tool-title {
-      font-weight: 800;
-      font-size: 14px;
-    }
+  font-size:12px;
+}
 
-    .tool-desc {
-      color: #9ca3af;
-      font-size: 11px;
-      text-align: center;
-    }
+.header-action{
 
-    /* SECTION */
+  width:42px;
+  height:42px;
 
-    .section {
-      margin-top: 20px;
+  border:0;
 
-      background: white;
+  border-radius:14px;
 
-      border-radius: 22px;
+  background:
+  rgba(255,255,255,.1);
 
-      padding: 18px;
+  color:white;
 
-      box-shadow:
-        0 5px 18px rgba(17,24,39,.07);
-    }
+  font-size:20px;
+}
 
-    .section-title {
-      display: flex;
 
-      align-items: center;
-      justify-content: space-between;
+/* =====================================================
+   HERO
+===================================================== */
 
-      margin-bottom: 15px;
-    }
+.hero{
 
-    .section-title h3 {
-      margin: 0;
-      font-size: 19px;
-    }
+  margin-top:22px;
 
-    .section-title span {
-      color: #6b7280;
-      font-size: 12px;
-    }
+  padding:18px;
 
-    /* FORM */
+  border-radius:22px;
 
-    .form-grid {
-      display: grid;
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,255,255,.15),
+    rgba(255,255,255,.06)
+  );
 
-      grid-template-columns:
-        1fr 1fr;
+  border:
+  1px solid rgba(255,255,255,.12);
 
-      gap: 10px;
-    }
+  backdrop-filter:blur(10px);
+}
 
-    .full {
-      grid-column: 1 / -1;
-    }
+.hero-small{
 
-    input,
-    textarea,
-    select {
+  color:#cbd5e1;
 
-      width: 100%;
+  font-size:12px;
 
-      border:
-        1px solid #e5e7eb;
+  margin-bottom:6px;
+}
 
-      background: #f9fafb;
+.hero-title{
 
-      border-radius: 12px;
+  font-size:22px;
 
-      padding: 12px;
+  font-weight:850;
 
-      outline: none;
+  margin-bottom:5px;
+}
 
-      color: #111827;
-    }
+.hero-description{
 
-    input:focus,
-    textarea:focus,
-    select:focus {
+  color:#cbd5e1;
 
-      border-color: #111827;
+  font-size:12px;
 
-      background: white;
-    }
+  line-height:1.8;
+}
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
 
-    .primary {
+/* =====================================================
+   MAIN
+===================================================== */
 
-      width: 100%;
+main{
 
-      border: 0;
+  width:100%;
 
-      border-radius: 12px;
+  max-width:900px;
 
-      padding: 12px;
+  margin:auto;
 
-      background: #111827;
+  padding:18px 14px 30px;
+}
 
-      color: white;
 
-      font-weight: 800;
-    }
+/* =====================================================
+   SECTION HEADER
+===================================================== */
 
-    .primary:active {
-      transform: scale(.98);
-    }
+.section-heading{
 
-    /* LIST */
+  display:flex;
 
-    .list {
+  align-items:center;
 
-      margin-top: 15px;
+  justify-content:space-between;
 
-      display: flex;
+  margin:
+  5px 2px
+  13px;
+}
 
-      flex-direction: column;
+.section-heading h2{
 
-      gap: 9px;
-    }
+  margin:0;
 
-    .empty {
+  font-size:18px;
 
-      text-align: center;
+  font-weight:850;
+}
 
-      padding: 22px 10px;
+.section-heading span{
 
-      color: #9ca3af;
+  color:#94a3b8;
 
-      font-size: 14px;
-    }
+  font-size:11px;
+}
 
-    .item {
 
-      background: #f9fafb;
+/* =====================================================
+   QUICK TOOLS
+===================================================== */
 
-      border:
-        1px solid #edf0f3;
+.quick-tools{
 
-      border-radius: 14px;
+  display:grid;
 
-      padding: 12px;
+  grid-template-columns:
+  repeat(4,1fr);
 
-      display: flex;
+  gap:10px;
+}
 
-      align-items: center;
+.quick-card{
 
-      gap: 10px;
-    }
+  border:0;
 
-    .item-main {
+  background:white;
 
-      flex: 1;
+  border-radius:19px;
 
-      min-width: 0;
-    }
+  padding:15px 8px;
 
-    .item-title {
+  min-height:105px;
 
-      font-weight: 700;
+  display:flex;
 
-      word-break: break-word;
-    }
+  flex-direction:column;
 
-    .item-sub {
+  align-items:center;
 
-      color: #6b7280;
+  justify-content:center;
 
-      font-size: 12px;
+  gap:8px;
 
-      margin-top: 4px;
+  box-shadow:
+  0 5px 20px rgba(15,23,42,.06);
 
-      white-space: pre-wrap;
+  transition:
+  transform .15s,
+  box-shadow .15s;
+}
 
-      word-break: break-word;
-    }
+.quick-card:active{
 
-    .delete {
+  transform:scale(.95);
 
-      border: 0;
+  box-shadow:
+  0 2px 8px rgba(15,23,42,.1);
+}
 
-      background: #fee2e2;
+.quick-icon{
 
-      color: #b91c1c;
+  width:43px;
+  height:43px;
 
-      width: 35px;
-      height: 35px;
+  border-radius:14px;
 
-      border-radius: 10px;
+  display:flex;
 
-      flex-shrink: 0;
-    }
+  align-items:center;
 
-    .check {
+  justify-content:center;
 
-      width: 22px;
-      height: 22px;
+  font-size:22px;
 
-      accent-color: #111827;
+  background:#f1f5f9;
+}
 
-      flex-shrink: 0;
-    }
+.quick-title{
 
-    .done {
+  font-size:12px;
 
-      text-decoration: line-through;
+  font-weight:800;
+}
 
-      opacity: .5;
-    }
+.quick-sub{
 
-    /* MONEY */
+  font-size:9px;
 
-    .money-summary {
+  color:#94a3b8;
+}
 
-      display: grid;
 
-      grid-template-columns:
-        repeat(3,1fr);
+/* =====================================================
+   INSTALL
+===================================================== */
 
-      gap: 10px;
+.install-card{
 
-      margin-bottom: 15px;
-    }
+  display:none;
 
-    .money-box {
+  margin-top:15px;
 
-      background: #f9fafb;
+  background:white;
 
-      border-radius: 14px;
+  border-radius:18px;
 
-      padding: 13px;
+  padding:14px;
 
-      text-align: center;
-    }
+  box-shadow:
+  0 5px 20px rgba(15,23,42,.06);
+}
 
-    .money-box small {
+.install-card button{
 
-      display: block;
+  width:100%;
 
-      color: #6b7280;
+  border:0;
 
-      margin-bottom: 5px;
-    }
+  border-radius:13px;
 
-    .money-box strong {
-      font-size: 18px;
-    }
+  padding:13px;
 
-    /* CALCULATOR */
+  background:#111827;
 
-    .calculator {
+  color:white;
 
-      max-width: 430px;
+  font-weight:800;
+}
 
-      margin: auto;
-    }
+#iosHelp{
 
-    .calc-display {
+  display:none;
 
-      width: 100%;
+  margin-top:10px;
 
-      background: #111827;
+  padding:12px;
 
-      color: white;
+  border-radius:12px;
 
-      border: 0;
+  background:#f8fafc;
 
-      border-radius: 16px;
+  color:#64748b;
 
-      padding: 20px 15px;
+  font-size:12px;
 
-      font-size: 30px;
+  line-height:1.8;
+}
 
-      text-align: left;
 
-      direction: ltr;
+/* =====================================================
+   GENERAL CARD
+===================================================== */
 
-      margin-bottom: 10px;
-    }
+.app-card{
 
-    .calc-buttons {
+  margin-top:18px;
 
-      display: grid;
+  background:white;
 
-      grid-template-columns:
-        repeat(4,1fr);
+  border-radius:23px;
 
-      gap: 8px;
-    }
+  padding:17px;
 
-    .calc-buttons button {
+  box-shadow:
+  0 5px 22px rgba(15,23,42,.06);
+}
 
-      border: 0;
+.card-header{
 
-      min-height: 58px;
+  display:flex;
 
-      border-radius: 13px;
+  align-items:center;
 
-      background: #f3f4f6;
+  gap:10px;
 
-      font-size: 19px;
+  margin-bottom:15px;
+}
 
-      font-weight: 700;
-    }
+.card-icon{
 
-    .calc-buttons button:active {
-      transform: scale(.95);
-    }
+  width:42px;
+  height:42px;
 
-    .calc-equals {
+  border-radius:13px;
 
-      background: #111827 !important;
+  background:#f1f5f9;
 
-      color: white;
-    }
+  display:flex;
 
-    .calc-clear {
+  align-items:center;
 
-      background: #fee2e2 !important;
+  justify-content:center;
 
-      color: #b91c1c;
-    }
+  font-size:21px;
+}
 
-    /* REMINDER */
+.card-header-text{
 
-    .reminder-due {
+  flex:1;
+}
 
-      border-color: #f59e0b;
+.card-header-text h3{
 
-      background: #fffbeb;
-    }
+  margin:0;
 
-    .reminder-past {
-      opacity: .6;
-    }
+  font-size:17px;
+}
 
-    .reminder-time {
+.card-header-text p{
 
-      color: #6b7280;
+  margin:3px 0 0;
 
-      font-size: 12px;
-    }
+  color:#94a3b8;
 
-    /* FOOTER */
+  font-size:10px;
+}
 
-    footer {
 
-      text-align: center;
+/* =====================================================
+   FORM
+===================================================== */
 
-      color: #9ca3af;
+.form-grid{
 
-      font-size: 12px;
+  display:grid;
 
-      padding:
-        15px
-        10px
-        45px;
-    }
+  grid-template-columns:
+  1fr 1fr;
 
-    /* MOBILE */
+  gap:9px;
+}
 
-    @media(max-width:700px) {
+.full{
 
-      .tools {
+  grid-column:
+  1 / -1;
+}
 
-        grid-template-columns:
-          repeat(2,1fr);
-      }
+input,
+textarea,
+select{
 
-      .money-summary {
+  width:100%;
 
-        grid-template-columns: 1fr;
-      }
+  border:
+  1px solid #e5e7eb;
 
-      .form-grid {
+  background:#f8fafc;
 
-        grid-template-columns: 1fr;
-      }
+  border-radius:13px;
 
-      .full {
+  padding:12px;
 
-        grid-column: auto;
-      }
+  color:#111827;
 
-      main {
+  outline:none;
+}
 
-        padding-left: 12px;
-        padding-right: 12px;
-      }
-    }
+input:focus,
+textarea:focus,
+select:focus{
 
-    @media(max-width:380px) {
+  border-color:#94a3b8;
 
-      .tool-card {
-        min-height: 115px;
-      }
+  background:white;
+}
 
-      .calc-buttons button {
-        min-height: 53px;
-      }
-    }
+textarea{
 
-  </style>
+  min-height:100px;
+
+  resize:vertical;
+}
+
+.primary{
+
+  width:100%;
+
+  border:0;
+
+  border-radius:13px;
+
+  padding:12px;
+
+  background:#111827;
+
+  color:white;
+
+  font-weight:800;
+}
+
+.primary:active{
+
+  transform:scale(.98);
+}
+
+
+/* =====================================================
+   LIST
+===================================================== */
+
+.list{
+
+  margin-top:13px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:8px;
+}
+
+.empty{
+
+  text-align:center;
+
+  color:#94a3b8;
+
+  padding:20px 8px;
+
+  font-size:12px;
+}
+
+.item{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  padding:12px;
+
+  border:
+  1px solid #edf0f3;
+
+  background:#f8fafc;
+
+  border-radius:15px;
+}
+
+.item-main{
+
+  flex:1;
+
+  min-width:0;
+}
+
+.item-title{
+
+  font-size:13px;
+
+  font-weight:750;
+
+  word-break:break-word;
+}
+
+.item-sub{
+
+  color:#94a3b8;
+
+  font-size:11px;
+
+  line-height:1.7;
+
+  margin-top:3px;
+
+  white-space:pre-wrap;
+
+  word-break:break-word;
+}
+
+.delete{
+
+  width:34px;
+  height:34px;
+
+  border:0;
+
+  border-radius:10px;
+
+  background:#fee2e2;
+
+  color:#b91c1c;
+
+  flex-shrink:0;
+}
+
+.check{
+
+  width:21px;
+  height:21px;
+
+  accent-color:#111827;
+
+  flex-shrink:0;
+}
+
+.done{
+
+  text-decoration:line-through;
+
+  opacity:.45;
+}
+
+
+/* =====================================================
+   MONEY
+===================================================== */
+
+.money-summary{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(3,1fr);
+
+  gap:8px;
+
+  margin-bottom:13px;
+}
+
+.money-box{
+
+  padding:13px 8px;
+
+  border-radius:15px;
+
+  background:#f8fafc;
+
+  text-align:center;
+}
+
+.money-box small{
+
+  display:block;
+
+  color:#94a3b8;
+
+  font-size:10px;
+
+  margin-bottom:5px;
+}
+
+.money-box strong{
+
+  font-size:15px;
+}
+
+
+/* =====================================================
+   CALCULATOR
+===================================================== */
+
+.calculator{
+
+  max-width:430px;
+
+  margin:auto;
+}
+
+.calc-display{
+
+  width:100%;
+
+  border:0;
+
+  background:#0f172a;
+
+  color:white;
+
+  border-radius:18px;
+
+  padding:19px 15px;
+
+  font-size:29px;
+
+  text-align:left;
+
+  direction:ltr;
+
+  margin-bottom:9px;
+}
+
+.calc-buttons{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(4,1fr);
+
+  gap:7px;
+}
+
+.calc-buttons button{
+
+  border:0;
+
+  min-height:57px;
+
+  border-radius:14px;
+
+  background:#f1f5f9;
+
+  font-size:18px;
+
+  font-weight:750;
+}
+
+.calc-buttons button:active{
+
+  transform:scale(.94);
+}
+
+.calc-clear{
+
+  background:#fee2e2 !important;
+
+  color:#b91c1c;
+}
+
+.calc-equals{
+
+  background:#111827 !important;
+
+  color:white;
+}
+
+
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+
+  position:fixed;
+
+  z-index:100;
+
+  bottom:0;
+
+  left:0;
+  right:0;
+
+  padding:
+  8px
+  10px
+  calc(8px + env(safe-area-inset-bottom));
+
+  background:
+  rgba(255,255,255,.94);
+
+  backdrop-filter:
+  blur(18px);
+
+  border-top:
+  1px solid #e5e7eb;
+
+  box-shadow:
+  0 -5px 25px rgba(15,23,42,.08);
+}
+
+.bottom-inner{
+
+  max-width:550px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(4,1fr);
+
+  gap:5px;
+}
+
+.nav-button{
+
+  border:0;
+
+  background:transparent;
+
+  padding:7px 4px;
+
+  border-radius:13px;
+
+  color:#94a3b8;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:3px;
+
+  font-size:9px;
+}
+
+.nav-button span:first-child{
+
+  font-size:20px;
+}
+
+.nav-button.active{
+
+  color:#111827;
+
+  background:#f1f5f9;
+
+  font-weight:800;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+  text-align:center;
+
+  color:#94a3b8;
+
+  font-size:10px;
+
+  padding:15px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+  .quick-tools{
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+  }
+
+  .quick-card{
+
+    min-height:94px;
+
+    padding:10px 4px;
+
+  }
+
+  .quick-icon{
+
+    width:38px;
+    height:38px;
+
+    font-size:19px;
+
+  }
+
+  .quick-title{
+
+    font-size:10px;
+
+  }
+
+  .quick-sub{
+
+    display:none;
+
+  }
+
+}
+
+@media(max-width:430px){
+
+  .quick-tools{
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+  }
+
+  .quick-card{
+
+    min-height:90px;
+
+  }
+
+  .form-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .full{
+
+    grid-column:auto;
+
+  }
+
+  .money-summary{
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+  }
+
+}
+
+@media(min-width:701px){
+
+  .bottom-nav{
+
+    display:none;
+
+  }
+
+  body{
+
+    padding-bottom:0;
+
+  }
+
+}
+
+
+/* =====================================================
+   REMINDER
+===================================================== */
+
+.reminder-due{
+
+  border-color:#f59e0b;
+
+  background:#fffbeb;
+}
+
+.reminder-past{
+
+  opacity:.55;
+}
+
+.reminder-time{
+
+  color:#94a3b8;
+
+  font-size:10px;
+}
+
+</style>
 
 </head>
 
@@ -684,63 +1067,75 @@
 <body>
 
 
-<header>
+<!-- ===================================================
+     HEADER
+=================================================== -->
 
-  <div class="header-inner">
+<header class="app-header">
 
-    <div class="brand">
+<div class="header-content">
 
-      <div class="brand-icon">
-        📱
-      </div>
+<div class="top-row">
 
-      <div>
+<div class="profile">
 
-        <h1>
-          Daily Helper
-        </h1>
+<div class="profile-icon">
 
-        <p>
-          ابزارهای روزمره در یک برنامه
-        </p>
+<img
+  src="./icon.svg"
+  alt="Daily Helper"
+>
 
-      </div>
+</div>
 
-    </div>
+<div class="profile-text">
+
+<h1>
+Daily Helper
+</h1>
+
+<p>
+دستیار روزمره شما
+</p>
+
+</div>
+
+</div>
 
 
-    <div class="install-area">
+<button
+  class="header-action"
+  onclick="scrollToSection('calculatorSection')"
+>
+🧮
+</button>
 
-      <button
-        id="installBtn"
-      >
-        📲 نصب Daily Helper
-      </button>
+</div>
 
 
-      <div
-        id="iosHelp"
-      >
+<div class="hero">
 
-        🍎 <b>نصب روی iPhone / iPad</b>
+<div class="hero-small">
+امروز
+</div>
 
-        <br>
+<div
+  class="hero-title"
+  id="todayText"
+>
+خوش آمدید 👋
+</div>
 
-        در Safari روی
-        <b>Share</b>
-        بزنید.
+<div class="hero-description">
 
-        <br>
+کارها، یادداشت‌ها، خریدها و هزینه‌های روزانه‌ات را
+در یکجا مدیریت کن.
 
-        سپس
-        <b>Add to Home Screen</b>
-        را انتخاب کنید.
+</div>
 
-      </div>
+</div>
 
-    </div>
-
-  </div>
+</div>
 
 </header>
 
@@ -748,694 +1143,897 @@
 <main>
 
 
-  <div class="welcome">
+<!-- ===================================================
+     QUICK TOOLS
+=================================================== -->
 
-    <h2>
-      سلام 👋
-    </h2>
+<div class="section-heading">
 
-    <p>
-      کارهای روزانه‌ات را ساده‌تر مدیریت کن.
-    </p>
+<h2>
+دسترسی سریع
+</h2>
 
-  </div>
+<span>
+Daily Tools
+</span>
 
+</div>
 
-  <!-- TOOLS -->
 
-  <div class="tools">
+<div class="quick-tools">
 
 
-    <button
-      class="tool-card"
-      onclick="scrollToSection('todoSection')"
-    >
+<button
+  class="quick-card"
+  onclick="scrollToSection('todoSection')"
+>
 
-      <div class="tool-icon">
-        ✅
-      </div>
+<div class="quick-icon">
+✅
+</div>
 
-      <div class="tool-title">
-        کارهای من
-      </div>
+<div class="quick-title">
+کارهای من
+</div>
 
-      <div class="tool-desc">
-        To-Do List
-      </div>
+<div class="quick-sub">
+To-Do
+</div>
 
-    </button>
+</button>
 
 
-    <button
-      class="tool-card"
-      onclick="scrollToSection('moneySection')"
-    >
+<button
+  class="quick-card"
+  onclick="scrollToSection('moneySection')"
+>
 
-      <div class="tool-icon">
-        💰
-      </div>
+<div class="quick-icon">
+💰
+</div>
 
-      <div class="tool-title">
-        دخل و خرج
-      </div>
+<div class="quick-title">
+دخل و خرج
+</div>
 
-      <div class="tool-desc">
-        درآمد و مصارف
-      </div>
+<div class="quick-sub">
+Money
+</div>
 
-    </button>
+</button>
 
 
-    <button
-      class="tool-card"
-      onclick="scrollToSection('notesSection')"
-    >
+<button
+  class="quick-card"
+  onclick="scrollToSection('notesSection')"
+>
 
-      <div class="tool-icon">
-        📝
-      </div>
+<div class="quick-icon">
+📝
+</div>
 
-      <div class="tool-title">
-        یادداشت
-      </div>
+<div class="quick-title">
+یادداشت
+</div>
 
-      <div class="tool-desc">
-        Notes
-      </div>
+<div class="quick-sub">
+Notes
+</div>
 
-    </button>
+</button>
 
 
-    <button
-      class="tool-card"
-      onclick="scrollToSection('shoppingSection')"
-    >
+<button
+  class="quick-card"
+  onclick="scrollToSection('shoppingSection')"
+>
 
-      <div class="tool-icon">
-        🛒
-      </div>
+<div class="quick-icon">
+🛒
+</div>
 
-      <div class="tool-title">
-        لیست خرید
-      </div>
+<div class="quick-title">
+خرید
+</div>
 
-      <div class="tool-desc">
-        Shopping List
-      </div>
+<div class="quick-sub">
+Shopping
+</div>
 
-    </button>
+</button>
 
 
-    <button
-      class="tool-card"
-      onclick="scrollToSection('reminderSection')"
-    >
+<button
+  class="quick-card"
+  onclick="scrollToSection('reminderSection')"
+>
 
-      <div class="tool-icon">
-        🔔
-      </div>
+<div class="quick-icon">
+🔔
+</div>
 
-      <div class="tool-title">
-        یادآور
-      </div>
+<div class="quick-title">
+یادآور
+</div>
 
-      <div class="tool-desc">
-        Reminder
-      </div>
+<div class="quick-sub">
+Reminder
+</div>
 
-    </button>
+</button>
 
 
-    <button
-      class="tool-card"
-      onclick="scrollToSection('calculatorSection')"
-    >
+<button
+  class="quick-card"
+  onclick="scrollToSection('calculatorSection')"
+>
 
-      <div class="tool-icon">
-        🧮
-      </div>
+<div class="quick-icon">
+🧮
+</div>
 
-      <div class="tool-title">
-        ماشین‌حساب
-      </div>
+<div class="quick-title">
+ماشین‌حساب
+</div>
 
-      <div class="tool-desc">
-        Calculator
-      </div>
+<div class="quick-sub">
+Calculator
+</div>
 
-    </button>
+</button>
 
 
-    <button
-      class="tool-card"
-      onclick="comingSoon('تبدیل واحد')"
-    >
+<button
+  class="quick-card"
+  onclick="comingSoon('تبدیل واحد')"
+>
 
-      <div class="tool-icon">
-        🔄
-      </div>
+<div class="quick-icon">
+🔄
+</div>
 
-      <div class="tool-title">
-        تبدیل واحد
-      </div>
+<div class="quick-title">
+تبدیل واحد
+</div>
 
-      <div class="tool-desc">
-        به‌زودی
-      </div>
+<div class="quick-sub">
+Soon
+</div>
 
-    </button>
+</button>
 
 
-    <button
-      class="tool-card"
-      onclick="comingSoon('تنظیمات')"
-    >
+<button
+  class="quick-card"
+  onclick="comingSoon('تنظیمات')"
+>
 
-      <div class="tool-icon">
-        ⚙️
-      </div>
+<div class="quick-icon">
+⚙️
+</div>
 
-      <div class="tool-title">
-        تنظیمات
-      </div>
+<div class="quick-title">
+تنظیمات
+</div>
 
-      <div class="tool-desc">
-        به‌زودی
-      </div>
+<div class="quick-sub">
+Settings
+</div>
 
-    </button>
+</button>
 
+</div>
 
-  </div>
 
+<!-- INSTALL -->
 
-  <!-- TODO -->
+<div
+  class="install-card"
+  id="installCard"
+>
 
-  <section
-    class="section"
-    id="todoSection"
-  >
+<button
+  id="installBtn"
+>
+📲 نصب Daily Helper
+</button>
 
-    <div class="section-title">
+<div id="iosHelp">
 
-      <h3>
-        ✅ کارهای من
-      </h3>
+🍎 برای نصب در iPhone / iPad:
 
-      <span id="todoCount">
-        0 کار
-      </span>
+<br>
 
-    </div>
+در Safari روی
+<b>Share</b>
+بزنید و سپس
+<b>Add to Home Screen</b>
+را انتخاب کنید.
 
+</div>
 
-    <div class="form-grid">
+</div>
 
-      <input
-        id="todoInput"
-        class="full"
-        type="text"
-        placeholder="مثلاً: خرید نان"
-      >
 
-      <button
-        class="primary full"
-        onclick="addTodo()"
-      >
-        افزودن کار
-      </button>
+<!-- ===================================================
+     TODO
+=================================================== -->
 
-    </div>
+<section
+  class="app-card"
+  id="todoSection"
+>
 
+<div class="card-header">
 
-    <div
-      class="list"
-      id="todoList"
-    ></div>
+<div class="card-icon">
+✅
+</div>
 
-  </section>
+<div class="card-header-text">
 
+<h3>
+کارهای من
+</h3>
 
-  <!-- MONEY -->
+<p>
+کارهای روزانه را مدیریت کن
+</p>
 
-  <section
-    class="section"
-    id="moneySection"
-  >
+</div>
 
-    <div class="section-title">
+<span
+  id="todoCount"
+>
+0 کار
+</span>
 
-      <h3>
-        💰 دخل و خرج
-      </h3>
+</div>
 
-      <span>
-        مالی شخصی
-      </span>
 
-    </div>
+<div class="form-grid">
 
+<input
+  id="todoInput"
+  class="full"
+  placeholder="مثلاً خرید نان"
+/>
 
-    <div class="money-summary">
+<button
+  class="primary full"
+  onclick="addTodo()"
+>
+افزودن کار
+</button>
 
-      <div class="money-box">
+</div>
 
-        <small>
-          درآمد
-        </small>
 
-        <strong id="totalIncome">
-          0
-        </strong>
+<div
+  class="list"
+  id="todoList"
+></div>
 
-      </div>
+</section>
 
 
-      <div class="money-box">
+<!-- ===================================================
+     MONEY
+=================================================== -->
 
-        <small>
-          مصرف
-        </small>
+<section
+  class="app-card"
+  id="moneySection"
+>
 
-        <strong id="totalExpense">
-          0
-        </strong>
+<div class="card-header">
 
-      </div>
+<div class="card-icon">
+💰
+</div>
 
+<div class="card-header-text">
 
-      <div class="money-box">
+<h3>
+دخل و خرج
+</h3>
 
-        <small>
-          مانده
-        </small>
+<p>
+مدیریت درآمد و مصارف
+</p>
 
-        <strong id="totalBalance">
-          0
-        </strong>
+</div>
 
-      </div>
+</div>
 
-    </div>
 
+<div class="money-summary">
 
-    <div class="form-grid">
+<div class="money-box">
 
-      <input
-        id="moneyTitle"
-        type="text"
-        placeholder="عنوان"
-      >
+<small>
+درآمد
+</small>
 
-      <input
-        id="moneyAmount"
-        type="number"
-        min="0"
-        step="any"
-        placeholder="مبلغ"
-      >
+<strong id="totalIncome">
+0
+</strong>
 
-      <select id="moneyType">
+</div>
 
-        <option value="income">
-          درآمد
-        </option>
 
-        <option value="expense">
-          مصرف
-        </option>
+<div class="money-box">
 
-      </select>
+<small>
+مصرف
+</small>
 
+<strong id="totalExpense">
+0
+</strong>
 
-      <button
-        class="primary"
-        onclick="addTransaction()"
-      >
-        افزودن
-      </button>
+</div>
 
-    </div>
 
+<div class="money-box">
 
-    <div
-      class="list"
-      id="moneyList"
-    ></div>
+<small>
+مانده
+</small>
 
-  </section>
+<strong id="totalBalance">
+0
+</strong>
 
+</div>
 
-  <!-- NOTES -->
+</div>
 
-  <section
-    class="section"
-    id="notesSection"
-  >
 
-    <div class="section-title">
+<div class="form-grid">
 
-      <h3>
-        📝 یادداشت‌ها
-      </h3>
+<input
+  id="moneyTitle"
+  placeholder="عنوان"
+/>
 
-      <span>
-        یادداشت‌های شخصی
-      </span>
+<input
+  id="moneyAmount"
+  type="number"
+  min="0"
+  step="any"
+  placeholder="مبلغ"
+/>
 
-    </div>
+<select id="moneyType">
 
+<option value="income">
+درآمد
+</option>
 
-    <div class="form-grid">
+<option value="expense">
+مصرف
+</option>
 
-      <input
-        id="noteTitle"
-        class="full"
-        type="text"
-        placeholder="عنوان یادداشت"
-      >
+</select>
 
-      <textarea
-        id="noteContent"
-        class="full"
-        placeholder="متن یادداشت..."
-      ></textarea>
+<button
+  class="primary"
+  onclick="addTransaction()"
+>
+افزودن
+</button>
 
+</div>
 
-      <button
-        class="primary full"
-        onclick="addNote()"
-      >
-        ذخیره یادداشت
-      </button>
 
-    </div>
+<div
+  class="list"
+  id="moneyList"
+></div>
 
+</section>
 
-    <div
-      class="list"
-      id="notesList"
-    ></div>
 
-  </section>
+<!-- ===================================================
+     NOTES
+=================================================== -->
 
+<section
+  class="app-card"
+  id="notesSection"
+>
 
-  <!-- SHOPPING -->
+<div class="card-header">
 
-  <section
-    class="section"
-    id="shoppingSection"
-  >
+<div class="card-icon">
+📝
+</div>
 
-    <div class="section-title">
+<div class="card-header-text">
 
-      <h3>
-        🛒 لیست خرید
-      </h3>
+<h3>
+یادداشت‌ها
+</h3>
 
-      <span id="shoppingCount">
-        0 مورد
-      </span>
+<p>
+ایده‌ها و نوشته‌های خودت
+</p>
 
-    </div>
+</div>
 
+</div>
 
-    <div class="form-grid">
 
-      <input
-        id="shoppingInput"
-        class="full"
-        type="text"
-        placeholder="مثلاً: شیر"
-      >
+<div class="form-grid">
 
+<input
+  id="noteTitle"
+  class="full"
+  placeholder="عنوان یادداشت"
+/>
 
-      <button
-        class="primary full"
-        onclick="addShopping()"
-      >
-        افزودن به لیست
-      </button>
+<textarea
+  id="noteContent"
+  class="full"
+  placeholder="متن یادداشت..."
+></textarea>
 
-    </div>
 
+<button
+  class="primary full"
+  onclick="addNote()"
+>
+ذخیره یادداشت
+</button>
 
-    <div
-      class="list"
-      id="shoppingList"
-    ></div>
+</div>
 
-  </section>
 
+<div
+  class="list"
+  id="notesList"
+></div>
 
-  <!-- REMINDER -->
+</section>
 
-  <section
-    class="section"
-    id="reminderSection"
-  >
 
-    <div class="section-title">
+<!-- ===================================================
+     SHOPPING
+=================================================== -->
 
-      <h3>
-        🔔 یادآورها
-      </h3>
+<section
+  class="app-card"
+  id="shoppingSection"
+>
 
-      <span>
-        یادآوری کارها
-      </span>
+<div class="card-header">
 
-    </div>
+<div class="card-icon">
+🛒
+</div>
 
+<div class="card-header-text">
 
-    <div class="form-grid">
+<h3>
+لیست خرید
+</h3>
 
-      <input
-        id="reminderTitle"
-        class="full"
-        type="text"
-        placeholder="عنوان یادآور"
-      >
+<p>
+چیزهایی که باید بخری
+</p>
 
-      <input
-        id="reminderDate"
-        type="date"
-      >
+</div>
 
-      <input
-        id="reminderTime"
-        type="time"
-      >
+<span
+  id="shoppingCount"
+>
+0 مورد
+</span>
 
+</div>
 
-      <button
-        class="primary full"
-        onclick="addReminder()"
-      >
-        افزودن یادآور
-      </button>
 
+<div class="form-grid">
 
-      <button
-        class="primary full"
-        onclick="enableNotifications()"
-      >
-        🔔 فعال‌کردن اعلان‌ها
-      </button>
+<input
+  id="shoppingInput"
+  class="full"
+  placeholder="مثلاً شیر"
+/>
 
-    </div>
+<button
+  class="primary full"
+  onclick="addShopping()"
+>
+افزودن به لیست
+</button>
 
+</div>
 
-    <div
-      class="list"
-      id="reminderList"
-    ></div>
 
-  </section>
+<div
+  class="list"
+  id="shoppingList"
+></div>
 
+</section>
 
-  <!-- CALCULATOR -->
 
-  <section
-    class="section"
-    id="calculatorSection"
-  >
+<!-- ===================================================
+     REMINDER
+=================================================== -->
 
-    <div class="section-title">
+<section
+  class="app-card"
+  id="reminderSection"
+>
 
-      <h3>
-        🧮 ماشین‌حساب
-      </h3>
+<div class="card-header">
 
-      <span>
-        بدون اینترنت
-      </span>
+<div class="card-icon">
+🔔
+</div>
 
-    </div>
+<div class="card-header-text">
 
+<h3>
+یادآورها
+</h3>
 
-    <div class="calculator">
+<p>
+قرارها و کارهای مهم
+</p>
 
+</div>
 
-      <input
-        id="calcDisplay"
-        class="calc-display"
-        type="text"
-        value="0"
-        readonly
-      >
+</div>
 
 
-      <div class="calc-buttons">
+<div class="form-grid">
 
+<input
+  id="reminderTitle"
+  class="full"
+  placeholder="عنوان یادآور"
+/>
 
-        <button
-          class="calc-clear"
-          onclick="calcClear()"
-        >
-          C
-        </button>
+<input
+  id="reminderDate"
+  type="date"
+/>
 
+<input
+  id="reminderTime"
+  type="time"
+/>
 
-        <button
-          onclick="calcBackspace()"
-        >
-          ⌫
-        </button>
 
+<button
+  class="primary full"
+  onclick="addReminder()"
+>
+افزودن یادآور
+</button>
 
-        <button
-          onclick="calcPercent()"
-        >
-          %
-        </button>
 
+<button
+  class="primary full"
+  onclick="enableNotifications()"
+>
+🔔 فعال‌کردن اعلان‌ها
+</button>
 
-        <button
-          onclick="calcOperator('/')"
-        >
-          ÷
-        </button>
+</div>
 
 
-        <button onclick="calcNumber('7')">
-          7
-        </button>
+<div
+  class="list"
+  id="reminderList"
+></div>
 
-        <button onclick="calcNumber('8')">
-          8
-        </button>
+</section>
 
-        <button onclick="calcNumber('9')">
-          9
-        </button>
 
-        <button onclick="calcOperator('*')">
-          ×
-        </button>
+<!-- ===================================================
+     CALCULATOR
+=================================================== -->
 
+<section
+  class="app-card"
+  id="calculatorSection"
+>
 
-        <button onclick="calcNumber('4')">
-          4
-        </button>
+<div class="card-header">
 
-        <button onclick="calcNumber('5')">
-          5
-        </button>
+<div class="card-icon">
+🧮
+</div>
 
-        <button onclick="calcNumber('6')">
-          6
-        </button>
+<div class="card-header-text">
 
-        <button onclick="calcOperator('-')">
-          −
-        </button>
+<h3>
+ماشین‌حساب
+</h3>
 
+<p>
+محاسبات روزانه
+</p>
 
-        <button onclick="calcNumber('1')">
-          1
-        </button>
+</div>
 
-        <button onclick="calcNumber('2')">
-          2
-        </button>
+</div>
 
-        <button onclick="calcNumber('3')">
-          3
-        </button>
 
-        <button onclick="calcOperator('+')">
-          +
-        </button>
+<div class="calculator">
 
 
-        <button onclick="calcNumber('0')">
-          0
-        </button>
+<input
+  id="calcDisplay"
+  class="calc-display"
+  value="0"
+  readonly
+>
 
-        <button onclick="calcDecimal()">
-          .
-        </button>
 
-        <button
-          class="calc-equals"
-          onclick="calcEquals()"
-        >
-          =
-        </button>
+<div class="calc-buttons">
 
-        <button
-          class="calc-equals"
-          onclick="calcEquals()"
-        >
-          =
-        </button>
+<button
+  class="calc-clear"
+  onclick="calcClear()"
+>
+C
+</button>
 
+<button
+  onclick="calcBackspace()"
+>
+⌫
+</button>
 
-      </div>
+<button
+  onclick="calcPercent()"
+>
+%
+</button>
 
-    </div>
+<button
+  onclick="calcOperator('/')"
+>
+÷
+</button>
 
-  </section>
+
+<button onclick="calcNumber('7')">
+7
+</button>
+
+<button onclick="calcNumber('8')">
+8
+</button>
+
+<button onclick="calcNumber('9')">
+9
+</button>
+
+<button onclick="calcOperator('*')">
+×
+</button>
+
+
+<button onclick="calcNumber('4')">
+4
+</button>
+
+<button onclick="calcNumber('5')">
+5
+</button>
+
+<button onclick="calcNumber('6')">
+6
+</button>
+
+<button onclick="calcOperator('-')">
+−
+</button>
+
+
+<button onclick="calcNumber('1')">
+1
+</button>
+
+<button onclick="calcNumber('2')">
+2
+</button>
+
+<button onclick="calcNumber('3')">
+3
+</button>
+
+<button onclick="calcOperator('+')">
++
+</button>
+
+
+<button onclick="calcNumber('0')">
+0
+</button>
+
+<button onclick="calcDecimal()">
+.
+</button>
+
+<button
+  class="calc-equals"
+  onclick="calcEquals()"
+>
+=
+</button>
+
+<button
+  class="calc-equals"
+  onclick="calcEquals()"
+>
+=
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+Daily Helper © 2026
+
+<br>
+
+ساده • سریع • کاربردی
+
+</footer>
 
 
 </main>
 
 
-<footer>
+<!-- ===================================================
+     BOTTOM NAV
+=================================================== -->
 
-  Daily Helper © 2026
+<nav class="bottom-nav">
 
-  <br>
+<div class="bottom-inner">
 
-  ابزارهای روزمره، ساده و رایگان
 
-</footer>
+<button
+  class="nav-button active"
+  onclick="goHome(this)"
+>
+
+<span>
+🏠
+</span>
+
+<span>
+خانه
+</span>
+
+</button>
+
+
+<button
+  class="nav-button"
+  onclick="goToNav('todoSection',this)"
+>
+
+<span>
+✅
+</span>
+
+<span>
+کارها
+</span>
+
+</button>
+
+
+<button
+  class="nav-button"
+  onclick="goToNav('moneySection',this)"
+>
+
+<span>
+💰
+</span>
+
+<span>
+مالی
+</span>
+
+</button>
+
+
+<button
+  class="nav-button"
+  onclick="goToNav('notesSection',this)"
+>
+
+<span>
+📝
+</span>
+
+<span>
+یادداشت
+</span>
+
+</button>
+
+
+</div>
+
+</nav>
 
 
 <script>
 
-/* =========================================================
-   GENERAL
-========================================================= */
+/* =====================================================
+   HELPERS
+===================================================== */
 
-function scrollToSection(id) {
+function scrollToSection(id){
 
-  const element =
-    document.getElementById(id);
+  const el =
+  document.getElementById(id);
 
-  if (element) {
+  if(el){
 
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+    el.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
     });
 
   }
 
 }
 
-function comingSoon(name) {
+
+function goHome(button){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  setActiveNav(button);
+
+}
+
+
+function goToNav(id,button){
+
+  scrollToSection(id);
+
+  setActiveNav(button);
+
+}
+
+
+function setActiveNav(button){
+
+  document
+  .querySelectorAll(".nav-button")
+  .forEach(item=>{
+    item.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+}
+
+
+function comingSoon(name){
 
   alert(
     name +
@@ -1444,42 +2042,74 @@ function comingSoon(name) {
 
 }
 
-function escapeHTML(value) {
+
+function escapeHTML(value){
 
   return String(value)
 
-    .replace(/&/g, "&amp;")
+  .replace(/&/g,"&amp;")
 
-    .replace(/</g, "&lt;")
+  .replace(/</g,"&lt;")
 
-    .replace(/>/g, "&gt;")
+  .replace(/>/g,"&gt;")
 
-    .replace(/"/g, "&quot;")
+  .replace(/"/g,"&quot;")
 
-    .replace(/'/g, "&#039;");
-
-}
-
-function formatNumber(number) {
-
-  return Number(number).toLocaleString("fa-AF");
+  .replace(/'/g,"&#039;");
 
 }
 
 
-/* =========================================================
-   TODO
-========================================================= */
+function formatNumber(number){
 
-let todos =
-  JSON.parse(
-    localStorage.getItem(
-      "daily_helper_todos"
-    ) || "[]"
+  return Number(number)
+  .toLocaleString("fa-AF");
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function showToday(){
+
+  const now =
+  new Date();
+
+  const text =
+  now.toLocaleDateString(
+    "fa-AF",
+    {
+      weekday:"long",
+      day:"numeric",
+      month:"long"
+    }
   );
 
+  document.getElementById(
+    "todayText"
+  ).textContent =
+  text + " 👋";
 
-function saveTodos() {
+}
+
+showToday();
+
+
+/* =====================================================
+   TODO
+===================================================== */
+
+let todos =
+JSON.parse(
+localStorage.getItem(
+"daily_helper_todos"
+) || "[]"
+);
+
+
+function saveTodos(){
 
   localStorage.setItem(
     "daily_helper_todos",
@@ -1489,18 +2119,17 @@ function saveTodos() {
 }
 
 
-function addTodo() {
+function addTodo(){
 
   const input =
-    document.getElementById(
-      "todoInput"
-    );
+  document.getElementById(
+    "todoInput"
+  );
 
   const text =
-    input.value.trim();
+  input.value.trim();
 
-
-  if (!text) {
+  if(!text){
 
     alert(
       "لطفاً نام کار را وارد کنید."
@@ -1510,19 +2139,17 @@ function addTodo() {
 
   }
 
-
   todos.unshift({
 
-    id: Date.now(),
+    id:Date.now(),
 
-    text,
+    text:text,
 
-    done: false
+    done:false
 
   });
 
-
-  input.value = "";
+  input.value="";
 
   saveTodos();
 
@@ -1531,36 +2158,21 @@ function addTodo() {
 }
 
 
-function toggleTodo(id) {
+function toggleTodo(id){
 
   todos =
-    todos.map(todo => {
+  todos.map(todo=>{
 
-      if (todo.id === id) {
+    if(todo.id===id){
 
-        todo.done =
-          !todo.done;
+      todo.done=
+      !todo.done;
 
-      }
+    }
 
-      return todo;
+    return todo;
 
-    });
-
-
-  saveTodos();
-
-  renderTodos();
-
-}
-
-
-function deleteTodo(id) {
-
-  todos =
-    todos.filter(
-      todo => todo.id !== id
-    );
+  });
 
   saveTodos();
 
@@ -1569,83 +2181,93 @@ function deleteTodo(id) {
 }
 
 
-function renderTodos() {
+function deleteTodo(id){
+
+  todos=
+  todos.filter(
+    todo=>todo.id!==id
+  );
+
+  saveTodos();
+
+  renderTodos();
+
+}
+
+
+function renderTodos(){
 
   const list =
-    document.getElementById(
-      "todoList"
-    );
+  document.getElementById(
+    "todoList"
+  );
 
   const count =
-    document.getElementById(
-      "todoCount"
-    );
-
+  document.getElementById(
+    "todoCount"
+  );
 
   count.textContent =
-    todos.length + " کار";
+  todos.length+" کار";
 
+  if(!todos.length){
 
-  if (!todos.length) {
-
-    list.innerHTML =
-      '<div class="empty">هنوز کاری اضافه نشده است.</div>';
+    list.innerHTML=
+    '<div class="empty">هنوز کاری اضافه نشده است.</div>';
 
     return;
 
   }
 
+  list.innerHTML=
+  todos.map(todo=>`
 
-  list.innerHTML =
-    todos.map(todo => `
+  <div class="item">
 
-      <div class="item">
+    <input
+      class="check"
+      type="checkbox"
+      ${todo.done?"checked":""}
+      onchange="toggleTodo(${todo.id})"
+    >
 
-        <input
-          class="check"
-          type="checkbox"
-          ${todo.done ? "checked" : ""}
-          onchange="toggleTodo(${todo.id})"
-        >
+    <div class="item-main">
 
-        <div class="item-main">
-
-          <div class="item-title
-            ${todo.done ? "done" : ""}">
-
-            ${escapeHTML(todo.text)}
-
-          </div>
-
-        </div>
-
-        <button
-          class="delete"
-          onclick="deleteTodo(${todo.id})"
-        >
-          🗑
-        </button>
-
+      <div
+        class="item-title ${todo.done?"done":""}"
+      >
+        ${escapeHTML(todo.text)}
       </div>
 
-    `).join("");
+    </div>
+
+    <button
+      class="delete"
+      onclick="deleteTodo(${todo.id})"
+    >
+      🗑
+    </button>
+
+  </div>
+
+  `).join("");
 
 }
 
 
-/* =========================================================
+/* =====================================================
    MONEY
-========================================================= */
+===================================================== */
 
 let transactions =
-  JSON.parse(
-    localStorage.getItem(
-      "daily_helper_transactions"
-    ) || "[]"
-  );
+JSON.parse(
+localStorage.getItem(
+"daily_helper_transactions"
+) || "[]"
+);
 
 
-function saveTransactions() {
+function saveTransactions(){
 
   localStorage.setItem(
     "daily_helper_transactions",
@@ -1655,29 +2277,26 @@ function saveTransactions() {
 }
 
 
-function addTransaction() {
+function addTransaction(){
 
   const title =
-    document.getElementById(
-      "moneyTitle"
-    ).value.trim();
-
+  document.getElementById(
+    "moneyTitle"
+  ).value.trim();
 
   const amount =
-    parseFloat(
-      document.getElementById(
-        "moneyAmount"
-      ).value
-    );
-
+  parseFloat(
+    document.getElementById(
+      "moneyAmount"
+    ).value
+  );
 
   const type =
-    document.getElementById(
-      "moneyType"
-    ).value;
+  document.getElementById(
+    "moneyType"
+  ).value;
 
-
-  if (!title) {
+  if(!title){
 
     alert("عنوان را وارد کنید.");
 
@@ -1685,11 +2304,10 @@ function addTransaction() {
 
   }
 
-
-  if (
+  if(
     !Number.isFinite(amount) ||
-    amount < 0
-  ) {
+    amount<0
+  ){
 
     alert(
       "مبلغ معتبر وارد کنید."
@@ -1699,47 +2317,29 @@ function addTransaction() {
 
   }
 
-
   transactions.unshift({
 
-    id: Date.now(),
+    id:Date.now(),
 
-    title,
+    title:title,
 
-    amount,
+    amount:amount,
 
-    type,
+    type:type,
 
     date:
-      new Date()
-        .toLocaleDateString("fa-AF")
+    new Date()
+    .toLocaleDateString("fa-AF")
 
   });
-
 
   document.getElementById(
     "moneyTitle"
-  ).value = "";
-
+  ).value="";
 
   document.getElementById(
     "moneyAmount"
-  ).value = "";
-
-
-  saveTransactions();
-
-  renderTransactions();
-
-}
-
-
-function deleteTransaction(id) {
-
-  transactions =
-    transactions.filter(
-      item => item.id !== id
-    );
+  ).value="";
 
   saveTransactions();
 
@@ -1748,129 +2348,125 @@ function deleteTransaction(id) {
 }
 
 
-function renderTransactions() {
+function deleteTransaction(id){
+
+  transactions=
+  transactions.filter(
+    item=>item.id!==id
+  );
+
+  saveTransactions();
+
+  renderTransactions();
+
+}
+
+
+function renderTransactions(){
 
   const list =
-    document.getElementById(
-      "moneyList"
-    );
+  document.getElementById(
+    "moneyList"
+  );
 
+  let income=0;
 
-  let income = 0;
+  let expense=0;
 
-  let expense = 0;
+  transactions.forEach(item=>{
 
+    if(item.type==="income")
+      income+=Number(item.amount);
 
-  transactions.forEach(item => {
-
-    if (item.type === "income") {
-
-      income +=
-        Number(item.amount);
-
-    } else {
-
-      expense +=
-        Number(item.amount);
-
-    }
+    else
+      expense+=Number(item.amount);
 
   });
 
-
-  const balance =
-    income - expense;
-
-
   document.getElementById(
     "totalIncome"
-  ).textContent =
-    formatNumber(income);
-
+  ).textContent=
+  formatNumber(income);
 
   document.getElementById(
     "totalExpense"
-  ).textContent =
-    formatNumber(expense);
-
+  ).textContent=
+  formatNumber(expense);
 
   document.getElementById(
     "totalBalance"
-  ).textContent =
-    formatNumber(balance);
+  ).textContent=
+  formatNumber(
+    income-expense
+  );
 
+  if(!transactions.length){
 
-  if (!transactions.length) {
-
-    list.innerHTML =
-      '<div class="empty">هنوز تراکنشی ثبت نشده است.</div>';
+    list.innerHTML=
+    '<div class="empty">هنوز تراکنشی ثبت نشده است.</div>';
 
     return;
 
   }
 
+  list.innerHTML=
+  transactions.map(item=>`
 
-  list.innerHTML =
-    transactions.map(item => `
+  <div class="item">
 
-      <div class="item">
+    <div class="item-main">
 
-        <div class="item-main">
+      <div class="item-title">
 
-          <div class="item-title">
-
-            ${escapeHTML(
-              item.title
-            )}
-
-          </div>
-
-          <div class="item-sub">
-
-            ${
-              item.type === "income"
-              ? "درآمد"
-              : "مصرف"
-            }
-
-            •
-            ${formatNumber(item.amount)}
-
-            •
-            ${item.date}
-
-          </div>
-
-        </div>
-
-
-        <button
-          class="delete"
-          onclick="deleteTransaction(${item.id})"
-        >
-          🗑
-        </button>
+        ${escapeHTML(item.title)}
 
       </div>
 
-    `).join("");
+      <div class="item-sub">
+
+        ${
+          item.type==="income"
+          ?"درآمد"
+          :"مصرف"
+        }
+
+        •
+        ${formatNumber(item.amount)}
+
+        •
+        ${item.date}
+
+      </div>
+
+    </div>
+
+    <button
+      class="delete"
+      onclick="deleteTransaction(${item.id})"
+    >
+      🗑
+    </button>
+
+  </div>
+
+  `).join("");
 
 }
 
 
-/* =========================================================
+/* =====================================================
    NOTES
-========================================================= */
+===================================================== */
 
 let notes =
-  JSON.parse(
-    localStorage.getItem(
-      "daily_helper_notes"
-    ) || "[]"
-  );
+JSON.parse(
+localStorage.getItem(
+"daily_helper_notes"
+) || "[]"
+);
 
 
-function saveNotes() {
+function saveNotes(){
 
   localStorage.setItem(
     "daily_helper_notes",
@@ -1880,21 +2476,19 @@ function saveNotes() {
 }
 
 
-function addNote() {
+function addNote(){
 
   const title =
-    document.getElementById(
-      "noteTitle"
-    ).value.trim();
-
+  document.getElementById(
+    "noteTitle"
+  ).value.trim();
 
   const content =
-    document.getElementById(
-      "noteContent"
-    ).value.trim();
+  document.getElementById(
+    "noteContent"
+  ).value.trim();
 
-
-  if (!title && !content) {
+  if(!title && !content){
 
     alert(
       "یادداشت خالی است."
@@ -1904,46 +2498,28 @@ function addNote() {
 
   }
 
-
   notes.unshift({
 
-    id: Date.now(),
+    id:Date.now(),
 
     title:
-      title || "بدون عنوان",
+    title||"بدون عنوان",
 
-    content,
+    content:content,
 
     date:
-      new Date()
-        .toLocaleDateString("fa-AF")
+    new Date()
+    .toLocaleDateString("fa-AF")
 
   });
 
-
   document.getElementById(
     "noteTitle"
-  ).value = "";
-
+  ).value="";
 
   document.getElementById(
     "noteContent"
-  ).value = "";
-
-
-  saveNotes();
-
-  renderNotes();
-
-}
-
-
-function deleteNote(id) {
-
-  notes =
-    notes.filter(
-      note => note.id !== id
-    );
+  ).value="";
 
   saveNotes();
 
@@ -1952,78 +2528,84 @@ function deleteNote(id) {
 }
 
 
-function renderNotes() {
+function deleteNote(id){
+
+  notes=
+  notes.filter(
+    note=>note.id!==id
+  );
+
+  saveNotes();
+
+  renderNotes();
+
+}
+
+
+function renderNotes(){
 
   const list =
-    document.getElementById(
-      "notesList"
-    );
+  document.getElementById(
+    "notesList"
+  );
 
+  if(!notes.length){
 
-  if (!notes.length) {
-
-    list.innerHTML =
-      '<div class="empty">هنوز یادداشتی وجود ندارد.</div>';
+    list.innerHTML=
+    '<div class="empty">هنوز یادداشتی وجود ندارد.</div>';
 
     return;
 
   }
 
+  list.innerHTML=
+  notes.map(note=>`
 
-  list.innerHTML =
-    notes.map(note => `
+  <div class="item">
 
-      <div class="item">
+    <div class="item-main">
 
-        <div class="item-main">
+      <div class="item-title">
 
-          <div class="item-title">
-
-            ${escapeHTML(
-              note.title
-            )}
-
-          </div>
-
-
-          <div class="item-sub">
-
-            ${escapeHTML(
-              note.content
-            )}
-
-          </div>
-
-        </div>
-
-
-        <button
-          class="delete"
-          onclick="deleteNote(${note.id})"
-        >
-          🗑
-        </button>
+        ${escapeHTML(note.title)}
 
       </div>
 
-    `).join("");
+      <div class="item-sub">
+
+        ${escapeHTML(note.content)}
+
+      </div>
+
+    </div>
+
+    <button
+      class="delete"
+      onclick="deleteNote(${note.id})"
+    >
+      🗑
+    </button>
+
+  </div>
+
+  `).join("");
 
 }
 
 
-/* =========================================================
+/* =====================================================
    SHOPPING
-========================================================= */
+===================================================== */
 
 let shopping =
-  JSON.parse(
-    localStorage.getItem(
-      "daily_helper_shopping"
-    ) || "[]"
-  );
+JSON.parse(
+localStorage.getItem(
+"daily_helper_shopping"
+) || "[]"
+);
 
 
-function saveShopping() {
+function saveShopping(){
 
   localStorage.setItem(
     "daily_helper_shopping",
@@ -2033,19 +2615,17 @@ function saveShopping() {
 }
 
 
-function addShopping() {
+function addShopping(){
 
   const input =
-    document.getElementById(
-      "shoppingInput"
-    );
-
+  document.getElementById(
+    "shoppingInput"
+  );
 
   const text =
-    input.value.trim();
+  input.value.trim();
 
-
-  if (!text) {
+  if(!text){
 
     alert(
       "نام کالا را وارد کنید."
@@ -2055,43 +2635,17 @@ function addShopping() {
 
   }
 
-
   shopping.unshift({
 
-    id: Date.now(),
+    id:Date.now(),
 
-    text,
+    text:text,
 
-    bought: false
+    bought:false
 
   });
 
-
-  input.value = "";
-
-  saveShopping();
-
-  renderShopping();
-
-}
-
-
-function toggleShopping(id) {
-
-  shopping =
-    shopping.map(item => {
-
-      if (item.id === id) {
-
-        item.bought =
-          !item.bought;
-
-      }
-
-      return item;
-
-    });
-
+  input.value="";
 
   saveShopping();
 
@@ -2100,12 +2654,21 @@ function toggleShopping(id) {
 }
 
 
-function deleteShopping(id) {
+function toggleShopping(id){
 
-  shopping =
-    shopping.filter(
-      item => item.id !== id
-    );
+  shopping=
+  shopping.map(item=>{
+
+    if(item.id===id){
+
+      item.bought=
+      !item.bought;
+
+    }
+
+    return item;
+
+  });
 
   saveShopping();
 
@@ -2114,97 +2677,99 @@ function deleteShopping(id) {
 }
 
 
-function renderShopping() {
+function deleteShopping(id){
+
+  shopping=
+  shopping.filter(
+    item=>item.id!==id
+  );
+
+  saveShopping();
+
+  renderShopping();
+
+}
+
+
+function renderShopping(){
 
   const list =
-    document.getElementById(
-      "shoppingList"
-    );
-
+  document.getElementById(
+    "shoppingList"
+  );
 
   const count =
-    document.getElementById(
-      "shoppingCount"
-    );
-
+  document.getElementById(
+    "shoppingCount"
+  );
 
   const bought =
-    shopping.filter(
-      item => item.bought
-    ).length;
+  shopping.filter(
+    item=>item.bought
+  ).length;
 
+  count.textContent=
+  shopping.length+
+  " مورد";
 
-  count.textContent =
-    shopping.length +
-    " مورد • " +
-    bought +
-    " خرید شده";
+  if(!shopping.length){
 
-
-  if (!shopping.length) {
-
-    list.innerHTML =
-      '<div class="empty">لیست خرید خالی است.</div>';
+    list.innerHTML=
+    '<div class="empty">لیست خرید خالی است.</div>';
 
     return;
 
   }
 
+  list.innerHTML=
+  shopping.map(item=>`
 
-  list.innerHTML =
-    shopping.map(item => `
+  <div class="item">
 
-      <div class="item">
+    <input
+      class="check"
+      type="checkbox"
+      ${item.bought?"checked":""}
+      onchange="toggleShopping(${item.id})"
+    >
 
-        <input
-          class="check"
-          type="checkbox"
-          ${item.bought ? "checked" : ""}
-          onchange="toggleShopping(${item.id})"
-        >
+    <div class="item-main">
 
-
-        <div class="item-main">
-
-          <div class="item-title
-            ${item.bought ? "done" : ""}">
-
-            ${escapeHTML(
-              item.text
-            )}
-
-          </div>
-
-        </div>
-
-
-        <button
-          class="delete"
-          onclick="deleteShopping(${item.id})"
-        >
-          🗑
-        </button>
-
+      <div
+        class="item-title ${item.bought?"done":""}"
+      >
+        ${escapeHTML(item.text)}
       </div>
 
-    `).join("");
+    </div>
+
+    <button
+      class="delete"
+      onclick="deleteShopping(${item.id})"
+    >
+      🗑
+    </button>
+
+  </div>
+
+  `).join("");
 
 }
 
 
-/* =========================================================
+/* =====================================================
    REMINDER
-========================================================= */
+===================================================== */
 
 let reminders =
-  JSON.parse(
-    localStorage.getItem(
-      "daily_helper_reminders"
-    ) || "[]"
-  );
+JSON.parse(
+localStorage.getItem(
+"daily_helper_reminders"
+) || "[]"
+);
 
 
-function saveReminders() {
+function saveReminders(){
 
   localStorage.setItem(
     "daily_helper_reminders",
@@ -2214,52 +2779,29 @@ function saveReminders() {
 }
 
 
-async function enableNotifications() {
+async function enableNotifications(){
 
-  if (!("Notification" in window)) {
+  if(!("Notification" in window)){
 
     alert(
-      "این مرورگر اعلان‌ها را پشتیبانی نمی‌کند."
+      "مرورگر شما اعلان را پشتیبانی نمی‌کند."
     );
 
     return;
 
   }
 
+  const permission =
+  await Notification.requestPermission();
 
-  try {
+  if(permission==="granted"){
 
-    const permission =
-      await Notification.requestPermission();
-
-
-    if (permission === "granted") {
-
-      new Notification(
-        "Daily Helper",
-        {
-          body:
-            "اعلان‌های Daily Helper فعال شد."
-        }
-      );
-
-
-      alert(
-        "اعلان‌ها فعال شد."
-      );
-
-    } else {
-
-      alert(
-        "اجازه اعلان داده نشد."
-      );
-
-    }
-
-  } catch (error) {
-
-    alert(
-      "فعال‌کردن اعلان‌ها ممکن نشد."
+    new Notification(
+      "Daily Helper",
+      {
+        body:
+        "اعلان‌های Daily Helper فعال شد."
+      }
     );
 
   }
@@ -2267,27 +2809,24 @@ async function enableNotifications() {
 }
 
 
-function addReminder() {
+function addReminder(){
 
   const title =
-    document.getElementById(
-      "reminderTitle"
-    ).value.trim();
-
+  document.getElementById(
+    "reminderTitle"
+  ).value.trim();
 
   const date =
-    document.getElementById(
-      "reminderDate"
-    ).value;
-
+  document.getElementById(
+    "reminderDate"
+  ).value;
 
   const time =
-    document.getElementById(
-      "reminderTime"
-    ).value;
+  document.getElementById(
+    "reminderTime"
+  ).value;
 
-
-  if (!title) {
+  if(!title){
 
     alert(
       "عنوان یادآور را وارد کنید."
@@ -2297,8 +2836,7 @@ function addReminder() {
 
   }
 
-
-  if (!date || !time) {
+  if(!date||!time){
 
     alert(
       "تاریخ و ساعت را انتخاب کنید."
@@ -2308,60 +2846,31 @@ function addReminder() {
 
   }
 
-
   reminders.push({
 
-    id: Date.now(),
+    id:Date.now(),
 
-    title,
+    title:title,
 
-    date,
+    date:date,
 
-    time,
+    time:time,
 
-    notified: false
+    notified:false
 
   });
 
-
   document.getElementById(
     "reminderTitle"
-  ).value = "";
-
+  ).value="";
 
   document.getElementById(
     "reminderDate"
-  ).value = "";
-
+  ).value="";
 
   document.getElementById(
     "reminderTime"
-  ).value = "";
-
-
-  saveReminders();
-
-  renderReminders();
-
-
-  if (
-    "Notification" in window &&
-    Notification.permission === "default"
-  ) {
-
-    Notification.requestPermission();
-
-  }
-
-}
-
-
-function deleteReminder(id) {
-
-  reminders =
-    reminders.filter(
-      item => item.id !== id
-    );
+  ).value="";
 
   saveReminders();
 
@@ -2370,170 +2879,148 @@ function deleteReminder(id) {
 }
 
 
-function reminderDateTime(item) {
+function deleteReminder(id){
+
+  reminders=
+  reminders.filter(
+    item=>item.id!==id
+  );
+
+  saveReminders();
+
+  renderReminders();
+
+}
+
+
+function reminderDateTime(item){
 
   return new Date(
-    item.date +
-    "T" +
+    item.date+
+    "T"+
     item.time
   );
 
 }
 
 
-function renderReminders() {
+function renderReminders(){
 
   const list =
-    document.getElementById(
-      "reminderList"
-    );
+  document.getElementById(
+    "reminderList"
+  );
 
+  if(!reminders.length){
 
-  if (!reminders.length) {
-
-    list.innerHTML =
-      '<div class="empty">هنوز یادآوری اضافه نشده است.</div>';
+    list.innerHTML=
+    '<div class="empty">هنوز یادآوری اضافه نشده است.</div>';
 
     return;
 
   }
 
+  const now =
+  new Date();
 
   const sorted =
-    [...reminders].sort(
-      (a,b) =>
-        reminderDateTime(a) -
-        reminderDateTime(b)
-    );
+  [...reminders].sort(
+    (a,b)=>
+    reminderDateTime(a)-
+    reminderDateTime(b)
+  );
 
+  list.innerHTML=
+  sorted.map(item=>{
 
-  const now =
-    new Date();
+    const target =
+    reminderDateTime(item);
 
+    const past =
+    target<now;
 
-  list.innerHTML =
-    sorted.map(item => {
+    return `
 
-      const target =
-        reminderDateTime(item);
+    <div class="item
+      ${past?"reminder-past":""}
+    ">
 
+      <div class="item-main">
 
-      const past =
-        target < now;
+        <div class="item-title">
 
-
-      const due =
-        Math.abs(
-          target - now
-        ) < 60000;
-
-
-      return `
-
-        <div class="item
-          ${due ? "reminder-due" : ""}
-          ${past ? "reminder-past" : ""}
-        ">
-
-          <div class="item-main">
-
-            <div class="item-title">
-
-              ${escapeHTML(
-                item.title
-              )}
-
-            </div>
-
-
-            <div class="reminder-time">
-
-              📅 ${item.date}
-
-              &nbsp;
-
-              ⏰ ${item.time}
-
-              ${past ? " • گذشته" : ""}
-
-            </div>
-
-          </div>
-
-
-          <button
-            class="delete"
-            onclick="deleteReminder(${item.id})"
-          >
-            🗑
-          </button>
+          ${escapeHTML(item.title)}
 
         </div>
 
-      `;
+        <div class="reminder-time">
 
-    }).join("");
+          📅 ${item.date}
+
+          •
+          ⏰ ${item.time}
+
+        </div>
+
+      </div>
+
+      <button
+        class="delete"
+        onclick="deleteReminder(${item.id})"
+      >
+        🗑
+      </button>
+
+    </div>
+
+    `;
+
+  }).join("");
 
 }
 
 
-/* =========================================================
+/* =====================================================
    REMINDER CHECK
-========================================================= */
+===================================================== */
 
-function checkReminders() {
+function checkReminders(){
 
   const now =
-    new Date();
+  new Date();
 
+  let changed=false;
 
-  let changed =
-    false;
-
-
-  reminders.forEach(item => {
+  reminders.forEach(item=>{
 
     const target =
-      reminderDateTime(item);
-
+    reminderDateTime(item);
 
     const difference =
-      Math.abs(
-        now - target
-      );
+    Math.abs(
+      now-target
+    );
 
-
-    if (
-      difference <= 30000 &&
+    if(
+      difference<=30000 &&
       !item.notified
-    ) {
+    ){
 
-      item.notified =
-        true;
+      item.notified=true;
 
+      changed=true;
 
-      changed =
-        true;
-
-
-      if (
+      if(
         "Notification" in window &&
-        Notification.permission === "granted"
-      ) {
+        Notification.permission==="granted"
+      ){
 
         new Notification(
-          "🔔 " + item.title,
+          "🔔 "+item.title,
           {
             body:
-              "زمان یادآوری شما رسیده است."
+            "زمان یادآوری شما رسیده است."
           }
-        );
-
-      } else {
-
-        alert(
-          "🔔 یادآور\n\n" +
-          item.title
         );
 
       }
@@ -2542,8 +3029,7 @@ function checkReminders() {
 
   });
 
-
-  if (changed) {
+  if(changed){
 
     saveReminders();
 
@@ -2554,155 +3040,127 @@ function checkReminders() {
 }
 
 
-/* =========================================================
+/* =====================================================
    CALCULATOR
-========================================================= */
+===================================================== */
 
-let calcCurrent = "0";
+let calcCurrent="0";
 
-let calcPrevious = null;
+let calcPrevious=null;
 
-let calcOperatorValue = null;
+let calcOperatorValue=null;
 
-let calcWaiting = false;
+let calcWaiting=false;
 
 
-function updateCalc() {
+function updateCalc(){
 
   document.getElementById(
     "calcDisplay"
-  ).value =
-    calcCurrent;
+  ).value=
+  calcCurrent;
 
 }
 
 
-function calcNumber(number) {
+function calcNumber(number){
 
-  if (calcWaiting) {
+  if(calcWaiting){
 
-    calcCurrent =
-      number;
+    calcCurrent=number;
 
-    calcWaiting =
-      false;
+    calcWaiting=false;
 
   }
 
-  else if (
-    calcCurrent === "0"
-  ) {
+  else if(calcCurrent==="0"){
 
-    calcCurrent =
-      number;
+    calcCurrent=number;
 
   }
 
-  else {
+  else{
 
-    calcCurrent +=
-      number;
+    calcCurrent+=number;
 
   }
-
 
   updateCalc();
 
 }
 
 
-function calcDecimal() {
+function calcDecimal(){
 
-  if (calcWaiting) {
+  if(calcWaiting){
 
-    calcCurrent =
-      "0.";
+    calcCurrent="0.";
 
-    calcWaiting =
-      false;
+    calcWaiting=false;
 
   }
 
-  else if (
+  else if(
     !calcCurrent.includes(".")
-  ) {
+  ){
 
-    calcCurrent +=
-      ".";
+    calcCurrent+=".";
 
   }
-
 
   updateCalc();
 
 }
 
 
-function calcOperator(operator) {
+function calcOperator(operator){
 
-  const value =
-    parseFloat(
-      calcCurrent
-    );
+  const value=
+  parseFloat(calcCurrent);
 
-
-  if (
+  if(
     calcOperatorValue &&
     calcWaiting
-  ) {
+  ){
 
-    calcOperatorValue =
-      operator;
+    calcOperatorValue=
+    operator;
 
     return;
 
   }
 
+  if(calcPrevious===null){
 
-  if (
-    calcPrevious === null
-  ) {
-
-    calcPrevious =
-      value;
+    calcPrevious=value;
 
   }
 
-  else if (
-    calcOperatorValue
-  ) {
+  else if(calcOperatorValue){
 
-    const result =
-      calculateOperation(
-        calcPrevious,
-        value,
-        calcOperatorValue
-      );
+    const result=
+    calculateOperation(
+      calcPrevious,
+      value,
+      calcOperatorValue
+    );
 
+    calcCurrent=
+    String(
+      roundResult(result)
+    );
 
-    calcCurrent =
-      String(
-        roundResult(result)
-      );
-
-
-    calcPrevious =
-      parseFloat(
-        calcCurrent
-      );
-
+    calcPrevious=
+    parseFloat(calcCurrent);
 
     updateCalc();
 
   }
 
+  calcOperatorValue=
+  operator;
 
-  calcOperatorValue =
-    operator;
-
-
-  calcWaiting =
-    true;
+  calcWaiting=true;
 
 }
 
@@ -2711,405 +3169,319 @@ function calculateOperation(
   a,
   b,
   operator
-) {
+){
 
-  if (operator === "+")
-    return a + b;
+  if(operator==="+")
+    return a+b;
 
-  if (operator === "-")
-    return a - b;
+  if(operator==="-")
+    return a-b;
 
-  if (operator === "*")
-    return a * b;
+  if(operator==="*")
+    return a*b;
 
-  if (operator === "/")
-    return b === 0 ? 0 : a / b;
+  if(operator==="/")
+    return b===0?0:a/b;
 
   return b;
 
 }
 
 
-function calcEquals() {
+function calcEquals(){
 
-  if (
-    calcOperatorValue === null ||
-    calcPrevious === null
-  ) {
+  if(
+    calcOperatorValue===null||
+    calcPrevious===null
+  ){
 
     return;
 
   }
 
+  const value=
+  parseFloat(calcCurrent);
 
-  const value =
-    parseFloat(
-      calcCurrent
-    );
+  const result=
+  calculateOperation(
+    calcPrevious,
+    value,
+    calcOperatorValue
+  );
 
+  calcCurrent=
+  String(
+    roundResult(result)
+  );
 
-  const result =
-    calculateOperation(
-      calcPrevious,
-      value,
-      calcOperatorValue
-    );
+  calcPrevious=null;
 
+  calcOperatorValue=null;
 
-  calcCurrent =
-    String(
-      roundResult(result)
-    );
-
-
-  calcPrevious =
-    null;
-
-  calcOperatorValue =
-    null;
-
-  calcWaiting =
-    false;
-
+  calcWaiting=false;
 
   updateCalc();
 
 }
 
 
-function calcPercent() {
+function calcPercent(){
 
-  const value =
-    parseFloat(
-      calcCurrent
-    );
+  const value=
+  parseFloat(calcCurrent);
 
-
-  calcCurrent =
-    String(
-      roundResult(
-        value / 100
-      )
-    );
-
+  calcCurrent=
+  String(
+    roundResult(
+      value/100
+    )
+  );
 
   updateCalc();
 
 }
 
 
-function calcClear() {
+function calcClear(){
 
-  calcCurrent =
-    "0";
+  calcCurrent="0";
 
-  calcPrevious =
-    null;
+  calcPrevious=null;
 
-  calcOperatorValue =
-    null;
+  calcOperatorValue=null;
 
-  calcWaiting =
-    false;
-
+  calcWaiting=false;
 
   updateCalc();
 
 }
 
 
-function calcBackspace() {
+function calcBackspace(){
 
-  if (
-    calcCurrent.length <= 1 ||
-    calcCurrent === "0"
-  ) {
+  if(
+    calcCurrent.length<=1||
+    calcCurrent==="0"
+  ){
 
-    calcCurrent =
-      "0";
+    calcCurrent="0";
 
   }
 
-  else {
+  else{
 
-    calcCurrent =
-      calcCurrent.slice(
-        0,
-        -1
-      );
+    calcCurrent=
+    calcCurrent.slice(0,-1);
 
   }
-
 
   updateCalc();
 
 }
 
 
-function roundResult(number) {
+function roundResult(number){
 
-  if (
-    !Number.isFinite(number)
-  ) {
-
+  if(!Number.isFinite(number))
     return 0;
 
-  }
-
-
   return Math.round(
-    number * 100000000
-  ) / 100000000;
+    number*100000000
+  )/100000000;
 
 }
 
 
-/* =========================================================
-   KEYBOARD CALCULATOR
-========================================================= */
+/* =====================================================
+   KEYBOARD
+===================================================== */
 
 document.addEventListener(
-  "keydown",
-  function(event) {
+"keydown",
+function(event){
 
-    const key =
-      event.key;
+  const key=
+  event.key;
 
+  if(
+    key>="0" &&
+    key<="9"
+  ){
 
-    if (
-      key >= "0" &&
-      key <= "9"
-    ) {
-
-      calcNumber(key);
-
-      return;
-
-    }
-
-
-    if (key === ".") {
-
-      calcDecimal();
-
-      return;
-
-    }
-
-
-    if (
-      key === "+" ||
-      key === "-" ||
-      key === "*" ||
-      key === "/"
-    ) {
-
-      calcOperator(key);
-
-      return;
-
-    }
-
-
-    if (
-      key === "Enter" ||
-      key === "="
-    ) {
-
-      calcEquals();
-
-      return;
-
-    }
-
-
-    if (key === "Escape") {
-
-      calcClear();
-
-      return;
-
-    }
-
-
-    if (
-      key === "Backspace"
-    ) {
-
-      calcBackspace();
-
-    }
+    calcNumber(key);
 
   }
+
+  else if(key==="."){
+
+    calcDecimal();
+
+  }
+
+  else if(
+    ["+","-","*","/"]
+    .includes(key)
+  ){
+
+    calcOperator(key);
+
+  }
+
+  else if(
+    key==="Enter"||
+    key==="="
+  ){
+
+    calcEquals();
+
+  }
+
+  else if(key==="Escape"){
+
+    calcClear();
+
+  }
+
+  else if(
+    key==="Backspace"
+  ){
+
+    calcBackspace();
+
+  }
+
+});
+
+
+/* =====================================================
+   PWA INSTALL
+===================================================== */
+
+let deferredPrompt=null;
+
+const installBtn=
+document.getElementById(
+"installBtn"
 );
 
+const installCard=
+document.getElementById(
+"installCard"
+);
 
-/* =========================================================
-   PWA INSTALL
-========================================================= */
-
-let deferredPrompt =
-  null;
-
-
-const installBtn =
-  document.getElementById(
-    "installBtn"
-  );
-
-
-const iosHelp =
-  document.getElementById(
-    "iosHelp"
-  );
+const iosHelp=
+document.getElementById(
+"iosHelp"
+);
 
 
 window.addEventListener(
-  "beforeinstallprompt",
-  function(event) {
+"beforeinstallprompt",
+event=>{
 
-    event.preventDefault();
+  event.preventDefault();
 
-    deferredPrompt =
-      event;
+  deferredPrompt=event;
 
-    installBtn.style.display =
-      "block";
+  installCard.style.display=
+  "block";
 
-  }
-);
+});
 
 
 installBtn.addEventListener(
-  "click",
-  async function() {
+"click",
+async()=>{
 
-    if (!deferredPrompt) {
+  if(!deferredPrompt)
+    return;
 
-      return;
+  deferredPrompt.prompt();
 
-    }
+  await deferredPrompt.userChoice;
 
+  deferredPrompt=null;
 
-    deferredPrompt.prompt();
+  installCard.style.display=
+  "none";
 
-
-    const result =
-      await deferredPrompt.userChoice;
-
-
-    if (
-      result.outcome ===
-      "accepted"
-    ) {
-
-      installBtn.style.display =
-        "none";
-
-    }
-
-
-    deferredPrompt =
-      null;
-
-  }
-);
+});
 
 
 window.addEventListener(
-  "appinstalled",
-  function() {
+"appinstalled",
+()=>{
 
-    installBtn.style.display =
-      "none";
+  installCard.style.display=
+  "none";
 
-  }
-);
+});
 
 
-/* =========================================================
-   iPHONE
-========================================================= */
-
-function isIOS() {
+function isIOS(){
 
   return /iphone|ipad|ipod/i
-    .test(
-      navigator.userAgent
-    );
+  .test(
+    navigator.userAgent
+  );
 
 }
 
 
-function isStandalone() {
+function isStandalone(){
 
-  return (
-
+  return(
+    window.navigator.standalone===true
+  )||
+  (
     window.matchMedia &&
     window.matchMedia(
       "(display-mode: standalone)"
     ).matches
-
-  ) ||
-
-  window.navigator.standalone === true;
-
-}
-
-
-if (
-  isIOS() &&
-  !isStandalone()
-) {
-
-  setTimeout(
-    function() {
-
-      iosHelp.style.display =
-        "block";
-
-    },
-    1000
   );
 
 }
 
 
-/* =========================================================
-   SERVICE WORKER
-========================================================= */
+if(
+  isIOS() &&
+  !isStandalone()
+){
 
-if (
+  installCard.style.display=
+  "block";
+
+  iosHelp.style.display=
+  "block";
+
+}
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if(
   "serviceWorker" in navigator
-) {
+){
 
   window.addEventListener(
     "load",
-    function() {
+    ()=>{
 
       navigator.serviceWorker
-        .register("./sw.js")
-
-        .then(
-          function() {
-
-            console.log(
-              "Daily Helper PWA ready"
-            );
-
-          }
+      .register("./sw.js")
+      .then(
+        ()=>console.log(
+          "Daily Helper PWA ready"
         )
-
-        .catch(
-          function(error) {
-
-            console.log(
-              "PWA error:",
-              error
-            );
-
-          }
-        );
+      )
+      .catch(
+        error=>console.log(
+          "PWA error:",
+          error
+        )
+      );
 
     }
   );
@@ -3117,53 +3489,37 @@ if (
 }
 
 
-/* =========================================================
-   ENTER BUTTONS
-========================================================= */
+/* =====================================================
+   ENTER SHORTCUTS
+===================================================== */
 
 document
-  .getElementById(
-    "todoInput"
-  )
-  .addEventListener(
-    "keydown",
-    function(e) {
+.getElementById("todoInput")
+.addEventListener(
+"keydown",
+event=>{
 
-      if (
-        e.key === "Enter"
-      ) {
+  if(event.key==="Enter")
+    addTodo();
 
-        addTodo();
-
-      }
-
-    }
-  );
+});
 
 
 document
-  .getElementById(
-    "shoppingInput"
-  )
-  .addEventListener(
-    "keydown",
-    function(e) {
+.getElementById("shoppingInput")
+.addEventListener(
+"keydown",
+event=>{
 
-      if (
-        e.key === "Enter"
-      ) {
+  if(event.key==="Enter")
+    addShopping();
 
-        addShopping();
-
-      }
-
-    }
-  );
+});
 
 
-/* =========================================================
-   INITIAL LOAD
-========================================================= */
+/* =====================================================
+   INITIALIZE
+===================================================== */
 
 renderTodos();
 
@@ -3177,12 +3533,10 @@ renderReminders();
 
 updateCalc();
 
-
 setInterval(
   checkReminders,
   30000
 );
-
 
 setInterval(
   renderReminders,
@@ -3190,7 +3544,6 @@ setInterval(
 );
 
 </script>
-
 
 </body>
 </html>
