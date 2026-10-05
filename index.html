@@ -1,315 +1,727 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111827">
+<meta name="description" content="Daily Helper - ابزارهای روزمره">
 
-  <meta name="theme-color" content="#111827">
-  <meta name="description" content="Daily Helper - ابزارهای روزمره شما">
+<title>Daily Helper</title>
 
-  <title>Daily Helper</title>
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+body{
+  font-family:Arial,Tahoma,sans-serif;
+  background:#f5f7fb;
+  color:#111827;
+  min-height:100vh;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #111827;
-      min-height: 100vh;
-    }
+.header{
+  background:linear-gradient(135deg,#111827,#2563eb);
+  color:white;
+  padding:25px 18px 45px;
+  border-radius:0 0 30px 30px;
+}
 
-    .header {
-      background: linear-gradient(135deg, #111827, #2563eb);
-      color: white;
-      padding: 28px 20px 45px;
-      border-radius: 0 0 30px 30px;
-    }
+.header-content{
+  max-width:1100px;
+  margin:auto;
+}
 
-    .header-content {
-      max-width: 1100px;
-      margin: auto;
-    }
+.logo{
+  font-size:24px;
+  font-weight:bold;
+  margin-bottom:25px;
+}
 
-    .logo {
-      font-size: 25px;
-      font-weight: bold;
-      margin-bottom: 25px;
-    }
+.welcome{
+  font-size:28px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
 
-    .welcome {
-      font-size: 29px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
+.subtitle{
+  opacity:.85;
+  font-size:15px;
+}
 
-    .subtitle {
-      opacity: 0.85;
-      font-size: 15px;
-    }
+.container{
+  max-width:1100px;
+  margin:-25px auto 40px;
+  padding:0 16px;
+}
 
-    .container {
-      max-width: 1100px;
-      margin: -25px auto 40px;
-      padding: 0 16px;
-    }
+/* TOOLS */
 
-    .tools {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
+.tools{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
 
-    .tool {
-      background: white;
-      border-radius: 20px;
-      padding: 22px 15px;
-      text-align: center;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.07);
-      cursor: pointer;
-      transition: 0.2s;
-    }
+.tool{
+  background:white;
+  border-radius:20px;
+  padding:21px 12px;
+  text-align:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.07);
+  cursor:pointer;
+  transition:.2s;
+}
 
-    .tool:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.11);
-    }
+.tool:hover{
+  transform:translateY(-3px);
+}
 
-    .icon {
-      font-size: 35px;
-      margin-bottom: 10px;
-    }
+.icon{
+  font-size:34px;
+  margin-bottom:9px;
+}
 
-    .tool h3 {
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
+.tool h3{
+  font-size:16px;
+  margin-bottom:5px;
+}
 
-    .tool p {
-      color: #6b7280;
-      font-size: 12px;
-    }
+.tool p{
+  color:#6b7280;
+  font-size:12px;
+}
 
-    .section {
-      margin-top: 30px;
-    }
+/* SECTIONS */
 
-    .section-title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
+.section{
+  margin-top:30px;
+}
 
-    .quick {
-      background: white;
-      border-radius: 22px;
-      padding: 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-    }
+.section-title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
 
-    .quick-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
+/* TODO */
 
-    .quick-text h3 {
-      margin-bottom: 7px;
-    }
+.todo-box{
+  background:white;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 6px 20px rgba(0,0,0,.06);
+}
 
-    .quick-text p {
-      color: #6b7280;
-      font-size: 13px;
-    }
+.todo-input{
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+}
 
-    .button {
-      border: none;
-      background: #2563eb;
-      color: white;
-      padding: 12px 18px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 14px;
-      white-space: nowrap;
-    }
+.todo-input input{
+  flex:1;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:13px;
+  font-size:15px;
+  outline:none;
+}
 
-    .button:hover {
-      background: #1d4ed8;
-    }
+.todo-input input:focus{
+  border-color:#2563eb;
+}
 
-    .footer {
-      text-align: center;
-      padding: 25px;
-      color: #6b7280;
-      font-size: 13px;
-    }
+.button{
+  border:0;
+  background:#2563eb;
+  color:white;
+  padding:12px 18px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:14px;
+}
 
-    @media (max-width: 800px) {
-      .tools {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+.button:hover{
+  background:#1d4ed8;
+}
 
-    @media (max-width: 480px) {
-      .header {
-        padding: 22px 16px 40px;
-      }
+.todo-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
 
-      .welcome {
-        font-size: 24px;
-      }
+.todo-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:13px;
+  background:#f8fafc;
+  border-radius:13px;
+}
 
-      .tools {
-        gap: 10px;
-      }
+.todo-check{
+  width:20px;
+  height:20px;
+  cursor:pointer;
+}
 
-      .tool {
-        padding: 18px 10px;
-      }
+.todo-text{
+  flex:1;
+  font-size:15px;
+}
 
-      .icon {
-        font-size: 30px;
-      }
+.todo-item.done .todo-text{
+  text-decoration:line-through;
+  color:#9ca3af;
+}
 
-      .quick-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
+.delete-btn{
+  border:0;
+  background:#fee2e2;
+  color:#dc2626;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:16px;
+}
 
-      .button {
-        width: 100%;
-      }
-    }
-  </style>
+.empty{
+  text-align:center;
+  padding:20px;
+  color:#9ca3af;
+  font-size:14px;
+}
+
+.todo-stats{
+  margin-top:15px;
+  color:#6b7280;
+  font-size:13px;
+}
+
+/* QUICK */
+
+.quick{
+  background:white;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 6px 20px rgba(0,0,0,.06);
+}
+
+.quick-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.quick-text h3{
+  margin-bottom:7px;
+}
+
+.quick-text p{
+  color:#6b7280;
+  font-size:13px;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  padding:25px;
+  color:#6b7280;
+  font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+  .tools{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:480px){
+
+  .header{
+    padding:22px 16px 40px;
+  }
+
+  .welcome{
+    font-size:24px;
+  }
+
+  .tools{
+    gap:10px;
+  }
+
+  .tool{
+    padding:18px 10px;
+  }
+
+  .icon{
+    font-size:30px;
+  }
+
+  .todo-input{
+    flex-direction:column;
+  }
+
+  .todo-input .button{
+    width:100%;
+  }
+
+  .quick-row{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .button{
+    width:100%;
+  }
+
+}
+</style>
 </head>
 
 <body>
 
-  <header class="header">
-    <div class="header-content">
-      <div class="logo">🟦 Daily Helper</div>
+<header class="header">
 
-      <div class="welcome">
-        سلام 👋
-      </div>
+  <div class="header-content">
 
-      <div class="subtitle">
-        ابزارهای روزمره‌ات همیشه یک‌جا
-      </div>
+    <div class="logo">
+      🟦 Daily Helper
     </div>
-  </header>
 
-  <main class="container">
+    <div class="welcome">
+      سلام 👋
+    </div>
 
-    <section class="tools">
+    <div class="subtitle">
+      ابزارهای روزمره‌ات همیشه یک‌جا
+    </div>
 
-      <div class="tool" onclick="openTool('todo')">
-        <div class="icon">✅</div>
-        <h3>کارهای من</h3>
-        <p>مدیریت کارهای روزانه</p>
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <!-- TOOLS -->
+
+  <section class="tools">
+
+    <div class="tool" onclick="scrollToTodo()">
+      <div class="icon">✅</div>
+      <h3>کارهای من</h3>
+      <p>مدیریت کارهای روزانه</p>
+    </div>
+
+    <div class="tool" onclick="comingSoon('یادداشت')">
+      <div class="icon">📝</div>
+      <h3>یادداشت</h3>
+      <p>یادداشت سریع</p>
+    </div>
+
+    <div class="tool" onclick="comingSoon('دخل و خرج')">
+      <div class="icon">💰</div>
+      <h3>دخل و خرج</h3>
+      <p>مدیریت هزینه‌ها</p>
+    </div>
+
+    <div class="tool" onclick="comingSoon('لیست خرید')">
+      <div class="icon">🛒</div>
+      <h3>لیست خرید</h3>
+      <p>خریدهای امروز</p>
+    </div>
+
+    <div class="tool" onclick="comingSoon('یادآور')">
+      <div class="icon">🔔</div>
+      <h3>یادآور</h3>
+      <p>کارهای مهم</p>
+    </div>
+
+    <div class="tool" onclick="comingSoon('ماشین حساب')">
+      <div class="icon">🧮</div>
+      <h3>ماشین حساب</h3>
+      <p>محاسبات سریع</p>
+    </div>
+
+    <div class="tool" onclick="comingSoon('تبدیل واحد')">
+      <div class="icon">🔄</div>
+      <h3>تبدیل واحد</h3>
+      <p>واحد و ارز</p>
+    </div>
+
+    <div class="tool" onclick="comingSoon('تنظیمات')">
+      <div class="icon">⚙️</div>
+      <h3>تنظیمات</h3>
+      <p>تنظیم برنامه</p>
+    </div>
+
+  </section>
+
+
+  <!-- TODO -->
+
+  <section class="section" id="todoSection">
+
+    <div class="section-title">
+      ✅ کارهای من
+    </div>
+
+    <div class="todo-box">
+
+      <div class="todo-input">
+
+        <input
+          id="todoInput"
+          type="text"
+          placeholder="مثلاً: خرید نان..."
+          maxlength="150"
+          onkeydown="handleEnter(event)"
+        >
+
+        <button class="button" onclick="addTodo()">
+          + افزودن
+        </button>
+
       </div>
 
-      <div class="tool" onclick="openTool('notes')">
-        <div class="icon">📝</div>
-        <h3>یادداشت</h3>
-        <p>یادداشت سریع</p>
-      </div>
+      <div id="todoList" class="todo-list"></div>
 
-      <div class="tool" onclick="openTool('money')">
-        <div class="icon">💰</div>
-        <h3>دخل و خرج</h3>
-        <p>مدیریت هزینه‌ها</p>
-      </div>
+      <div id="todoStats" class="todo-stats"></div>
 
-      <div class="tool" onclick="openTool('shopping')">
-        <div class="icon">🛒</div>
-        <h3>لیست خرید</h3>
-        <p>خریدهای امروز</p>
-      </div>
+    </div>
 
-      <div class="tool" onclick="openTool('reminder')">
-        <div class="icon">🔔</div>
-        <h3>یادآور</h3>
-        <p>کارهای مهم</p>
-      </div>
+  </section>
 
-      <div class="tool" onclick="openTool('calculator')">
-        <div class="icon">🧮</div>
-        <h3>ماشین حساب</h3>
-        <p>محاسبات سریع</p>
-      </div>
 
-      <div class="tool" onclick="openTool('converter')">
-        <div class="icon">🔄</div>
-        <h3>تبدیل واحد</h3>
-        <p>واحد و ارز</p>
-      </div>
+  <!-- QUICK -->
 
-      <div class="tool" onclick="openTool('settings')">
-        <div class="icon">⚙️</div>
-        <h3>تنظیمات</h3>
-        <p>تنظیم برنامه</p>
-      </div>
+  <section class="section">
 
-    </section>
+    <div class="section-title">
+      ⚡ شروع سریع
+    </div>
 
-    <section class="section">
+    <div class="quick">
 
-      <div class="section-title">
-        شروع سریع ⚡
-      </div>
+      <div class="quick-row">
 
-      <div class="quick">
+        <div class="quick-text">
 
-        <div class="quick-row">
+          <h3>
+            یک کار جدید اضافه کن
+          </h3>
 
-          <div class="quick-text">
-            <h3>یک کار جدید اضافه کن</h3>
-            <p>
-              کارهای مهم امروزت را ثبت کن تا فراموش نشوند.
-            </p>
-          </div>
-
-          <button class="button" onclick="openTool('todo')">
-            + افزودن کار
-          </button>
+          <p>
+            کارهای مهم امروزت را ثبت کن تا فراموش نشوند.
+          </p>
 
         </div>
 
+        <button class="button" onclick="focusTodo()">
+          + افزودن کار
+        </button>
+
       </div>
 
-    </section>
+    </div>
 
-  </main>
+  </section>
 
-  <footer class="footer">
-    Daily Helper © 2026
-  </footer>
+</main>
 
-  <script>
-    function openTool(tool) {
-      const names = {
-        todo: "کارهای من",
-        notes: "یادداشت",
-        money: "دخل و خرج",
-        shopping: "لیست خرید",
-        reminder: "یادآور",
-        calculator: "ماشین حساب",
-        converter: "تبدیل واحد",
-        settings: "تنظیمات"
-      };
 
-      alert(
-        names[tool] +
-        " به‌زودی فعال می‌شود 🚀"
-      );
+<footer class="footer">
+  Daily Helper © 2026
+</footer>
+
+
+<script>
+
+/* =========================
+   TODO DATA
+========================= */
+
+let todos = JSON.parse(
+  localStorage.getItem("daily_helper_todos") || "[]"
+);
+
+
+/* =========================
+   SAVE
+========================= */
+
+function saveTodos(){
+
+  localStorage.setItem(
+    "daily_helper_todos",
+    JSON.stringify(todos)
+  );
+
+}
+
+
+/* =========================
+   DISPLAY
+========================= */
+
+function renderTodos(){
+
+  const list = document.getElementById("todoList");
+  const stats = document.getElementById("todoStats");
+
+  list.innerHTML = "";
+
+  if(todos.length === 0){
+
+    list.innerHTML = `
+      <div class="empty">
+        هنوز کاری ثبت نشده است 🌱
+      </div>
+    `;
+
+    stats.textContent = "";
+
+    return;
+  }
+
+
+  todos.forEach(function(todo){
+
+    const item = document.createElement("div");
+
+    item.className =
+      "todo-item" +
+      (todo.done ? " done" : "");
+
+
+    item.innerHTML = `
+
+      <input
+        class="todo-check"
+        type="checkbox"
+        ${todo.done ? "checked" : ""}
+        onchange="toggleTodo(${todo.id})"
+      >
+
+      <div class="todo-text">
+        ${escapeHTML(todo.text)}
+      </div>
+
+      <button
+        class="delete-btn"
+        onclick="deleteTodo(${todo.id})"
+      >
+        🗑️
+      </button>
+
+    `;
+
+    list.appendChild(item);
+
+  });
+
+
+  const completed =
+    todos.filter(t => t.done).length;
+
+  stats.textContent =
+    "مجموع: " +
+    todos.length +
+    " | انجام‌شده: " +
+    completed;
+
+}
+
+
+/* =========================
+   ADD
+========================= */
+
+function addTodo(){
+
+  const input =
+    document.getElementById("todoInput");
+
+  const text =
+    input.value.trim();
+
+  if(!text){
+
+    alert("لطفاً یک کار وارد کن.");
+
+    input.focus();
+
+    return;
+  }
+
+
+  todos.unshift({
+
+    id: Date.now(),
+
+    text: text,
+
+    done: false
+
+  });
+
+
+  saveTodos();
+
+  renderTodos();
+
+  input.value = "";
+
+  input.focus();
+
+}
+
+
+/* =========================
+   ENTER
+========================= */
+
+function handleEnter(event){
+
+  if(event.key === "Enter"){
+
+    addTodo();
+
+  }
+
+}
+
+
+/* =========================
+   COMPLETE
+========================= */
+
+function toggleTodo(id){
+
+  todos = todos.map(function(todo){
+
+    if(todo.id === id){
+
+      todo.done = !todo.done;
+
     }
-  </script>
+
+    return todo;
+
+  });
+
+
+  saveTodos();
+
+  renderTodos();
+
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+function deleteTodo(id){
+
+  todos =
+    todos.filter(function(todo){
+
+      return todo.id !== id;
+
+    });
+
+
+  saveTodos();
+
+  renderTodos();
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+
+}
+
+
+/* =========================
+   SCROLL
+========================= */
+
+function scrollToTodo(){
+
+  document
+    .getElementById("todoSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+/* =========================
+   FOCUS
+========================= */
+
+function focusTodo(){
+
+  scrollToTodo();
+
+  setTimeout(function(){
+
+    document
+      .getElementById("todoInput")
+      .focus();
+
+  },500);
+
+}
+
+
+/* =========================
+   COMING SOON
+========================= */
+
+function comingSoon(name){
+
+  alert(
+    name +
+    " در مرحله بعدی فعال می‌شود 🚀"
+  );
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+renderTodos();
+
+</script>
 
 </body>
 </html>
