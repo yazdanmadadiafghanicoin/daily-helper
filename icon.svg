@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+
+  <rect
+    width="512"
+    height="512"
+    rx="112"
+    fill="#111827"
+  />
+
+  <rect
+    x="82"
+    y="82"
+    width="348"
+    height="348"
+    rx="78"
+    fill="#ffffff"
+  />
+
+  <!-- Row 1 -->
+  <circle
+    cx="168"
+    cy="174"
+    r="22"
+    fill="#111827"
+  />
+
+  <path
+    d="M157 174 L165 183 L181 162"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <rect
+    x="215"
+    y="158"
+    width="145"
+    height="32"
+    rx="16"
+    fill="#111827"
+  />
+
+  <!-- Row 2 -->
+  <circle
+    cx="168"
+    cy="256"
+    r="22"
+    fill="#111827"
+  />
+
+  <path
+    d="M157 256 L165 265 L181 244"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <rect
+    x="215"
+    y="240"
+    width="118"
+    height="32"
+    rx="16"
+    fill="#9ca3af"
+  />
+
+  <!-- Row 3 -->
+  <circle
+    cx="168"
+    cy="338"
+    r="22"
+    fill="#111827"
+  />
+
+  <path
+    d="M157 338 L165 347 L181 326"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <rect
+    x="215"
+    y="322"
+    width="137"
+    height="32"
+    rx="16"
+    fill="#9ca3af"
+  />
+
+  <!-- DH Badge -->
+  <circle
+    cx="365"
+    cy="365"
+    r="55"
+    fill="#111827"
+  />
+
+  <text
+    x="365"
+    y="380"
+    text-anchor="middle"
+    font-family="Arial, sans-serif"
+    font-size="38"
+    font-weight="800"
+    fill="#ffffff"
+  >
+    DH
+  </text>
+
+</svg>
