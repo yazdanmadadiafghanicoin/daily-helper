@@ -1,3547 +1,1992 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,viewport-fit=cover"
->
-
-<title>Daily Helper</title>
-
-<meta
-  name="description"
-  content="Daily Helper - ابزارهای روزمره"
->
-
-<meta name="theme-color" content="#0f172a">
-
-<link rel="manifest" href="./manifest.webmanifest">
-
-<link
-  rel="icon"
-  type="image/svg+xml"
-  href="./icon.svg"
->
-
-<link
-  rel="apple-touch-icon"
-  href="./icon.svg"
->
-
-<meta
-  name="apple-mobile-web-app-capable"
-  content="yes"
->
-
-<meta
-  name="apple-mobile-web-app-status-bar-style"
-  content="black-translucent"
->
-
-<meta
-  name="apple-mobile-web-app-title"
-  content="Daily Helper"
->
-
-
-<style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  margin:0;
-  min-height:100vh;
-
-  font-family:
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  Tahoma,
-  Arial,
-  sans-serif;
-
-  background:#f5f7fb;
-  color:#111827;
-
-  padding-bottom:85px;
-}
-
-button,
-input,
-textarea,
-select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-
-/* =====================================================
-   APP HEADER
-===================================================== */
-
-.app-header{
-
-  background:
-  linear-gradient(
-    145deg,
-    #0f172a,
-    #1e293b
-  );
-
-  color:white;
-
-  padding:
-  calc(20px + env(safe-area-inset-top))
-  18px
-  25px;
-
-  border-radius:
-  0 0 30px 30px;
-
-  box-shadow:
-  0 10px 35px rgba(15,23,42,.18);
-}
-
-.header-content{
-
-  max-width:900px;
-
-  margin:auto;
-
-}
-
-.top-row{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:15px;
-}
-
-.profile{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-}
-
-.profile-icon{
-
-  width:52px;
-  height:52px;
-
-  border-radius:16px;
-
-  background:white;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  overflow:hidden;
-
-  box-shadow:
-  0 5px 20px rgba(0,0,0,.2);
-}
-
-.profile-icon img{
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-}
-
-.profile-text h1{
-
-  margin:0;
-
-  font-size:21px;
-
-  font-weight:850;
-}
-
-.profile-text p{
-
-  margin:4px 0 0;
-
-  color:#cbd5e1;
-
-  font-size:12px;
-}
-
-.header-action{
-
-  width:42px;
-  height:42px;
-
-  border:0;
-
-  border-radius:14px;
-
-  background:
-  rgba(255,255,255,.1);
-
-  color:white;
-
-  font-size:20px;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero{
-
-  margin-top:22px;
-
-  padding:18px;
-
-  border-radius:22px;
-
-  background:
-  linear-gradient(
-    135deg,
-    rgba(255,255,255,.15),
-    rgba(255,255,255,.06)
-  );
-
-  border:
-  1px solid rgba(255,255,255,.12);
-
-  backdrop-filter:blur(10px);
-}
-
-.hero-small{
-
-  color:#cbd5e1;
-
-  font-size:12px;
-
-  margin-bottom:6px;
-}
-
-.hero-title{
-
-  font-size:22px;
-
-  font-weight:850;
-
-  margin-bottom:5px;
-}
-
-.hero-description{
-
-  color:#cbd5e1;
-
-  font-size:12px;
-
-  line-height:1.8;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-main{
-
-  width:100%;
-
-  max-width:900px;
-
-  margin:auto;
-
-  padding:18px 14px 30px;
-}
-
-
-/* =====================================================
-   SECTION HEADER
-===================================================== */
-
-.section-heading{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  margin:
-  5px 2px
-  13px;
-}
-
-.section-heading h2{
-
-  margin:0;
-
-  font-size:18px;
-
-  font-weight:850;
-}
-
-.section-heading span{
-
-  color:#94a3b8;
-
-  font-size:11px;
-}
-
-
-/* =====================================================
-   QUICK TOOLS
-===================================================== */
-
-.quick-tools{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(4,1fr);
-
-  gap:10px;
-}
-
-.quick-card{
-
-  border:0;
-
-  background:white;
-
-  border-radius:19px;
-
-  padding:15px 8px;
-
-  min-height:105px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  justify-content:center;
-
-  gap:8px;
-
-  box-shadow:
-  0 5px 20px rgba(15,23,42,.06);
-
-  transition:
-  transform .15s,
-  box-shadow .15s;
-}
-
-.quick-card:active{
-
-  transform:scale(.95);
-
-  box-shadow:
-  0 2px 8px rgba(15,23,42,.1);
-}
-
-.quick-icon{
-
-  width:43px;
-  height:43px;
-
-  border-radius:14px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:22px;
-
-  background:#f1f5f9;
-}
-
-.quick-title{
-
-  font-size:12px;
-
-  font-weight:800;
-}
-
-.quick-sub{
-
-  font-size:9px;
-
-  color:#94a3b8;
-}
-
-
-/* =====================================================
-   INSTALL
-===================================================== */
-
-.install-card{
-
-  display:none;
-
-  margin-top:15px;
-
-  background:white;
-
-  border-radius:18px;
-
-  padding:14px;
-
-  box-shadow:
-  0 5px 20px rgba(15,23,42,.06);
-}
-
-.install-card button{
-
-  width:100%;
-
-  border:0;
-
-  border-radius:13px;
-
-  padding:13px;
-
-  background:#111827;
-
-  color:white;
-
-  font-weight:800;
-}
-
-#iosHelp{
-
-  display:none;
-
-  margin-top:10px;
-
-  padding:12px;
-
-  border-radius:12px;
-
-  background:#f8fafc;
-
-  color:#64748b;
-
-  font-size:12px;
-
-  line-height:1.8;
-}
-
-
-/* =====================================================
-   GENERAL CARD
-===================================================== */
-
-.app-card{
-
-  margin-top:18px;
-
-  background:white;
-
-  border-radius:23px;
-
-  padding:17px;
-
-  box-shadow:
-  0 5px 22px rgba(15,23,42,.06);
-}
-
-.card-header{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin-bottom:15px;
-}
-
-.card-icon{
-
-  width:42px;
-  height:42px;
-
-  border-radius:13px;
-
-  background:#f1f5f9;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:21px;
-}
-
-.card-header-text{
-
-  flex:1;
-}
-
-.card-header-text h3{
-
-  margin:0;
-
-  font-size:17px;
-}
-
-.card-header-text p{
-
-  margin:3px 0 0;
-
-  color:#94a3b8;
-
-  font-size:10px;
-}
-
-
-/* =====================================================
-   FORM
-===================================================== */
-
-.form-grid{
-
-  display:grid;
-
-  grid-template-columns:
-  1fr 1fr;
-
-  gap:9px;
-}
-
-.full{
-
-  grid-column:
-  1 / -1;
-}
-
-input,
-textarea,
-select{
-
-  width:100%;
-
-  border:
-  1px solid #e5e7eb;
-
-  background:#f8fafc;
-
-  border-radius:13px;
-
-  padding:12px;
-
-  color:#111827;
-
-  outline:none;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-
-  border-color:#94a3b8;
-
-  background:white;
-}
-
-textarea{
-
-  min-height:100px;
-
-  resize:vertical;
-}
-
-.primary{
-
-  width:100%;
-
-  border:0;
-
-  border-radius:13px;
-
-  padding:12px;
-
-  background:#111827;
-
-  color:white;
-
-  font-weight:800;
-}
-
-.primary:active{
-
-  transform:scale(.98);
-}
-
-
-/* =====================================================
-   LIST
-===================================================== */
-
-.list{
-
-  margin-top:13px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  gap:8px;
-}
-
-.empty{
-
-  text-align:center;
-
-  color:#94a3b8;
-
-  padding:20px 8px;
-
-  font-size:12px;
-}
-
-.item{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  padding:12px;
-
-  border:
-  1px solid #edf0f3;
-
-  background:#f8fafc;
-
-  border-radius:15px;
-}
-
-.item-main{
-
-  flex:1;
-
-  min-width:0;
-}
-
-.item-title{
-
-  font-size:13px;
-
-  font-weight:750;
-
-  word-break:break-word;
-}
-
-.item-sub{
-
-  color:#94a3b8;
-
-  font-size:11px;
-
-  line-height:1.7;
-
-  margin-top:3px;
-
-  white-space:pre-wrap;
-
-  word-break:break-word;
-}
-
-.delete{
-
-  width:34px;
-  height:34px;
-
-  border:0;
-
-  border-radius:10px;
-
-  background:#fee2e2;
-
-  color:#b91c1c;
-
-  flex-shrink:0;
-}
-
-.check{
-
-  width:21px;
-  height:21px;
-
-  accent-color:#111827;
-
-  flex-shrink:0;
-}
-
-.done{
-
-  text-decoration:line-through;
-
-  opacity:.45;
-}
-
-
-/* =====================================================
-   MONEY
-===================================================== */
-
-.money-summary{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(3,1fr);
-
-  gap:8px;
-
-  margin-bottom:13px;
-}
-
-.money-box{
-
-  padding:13px 8px;
-
-  border-radius:15px;
-
-  background:#f8fafc;
-
-  text-align:center;
-}
-
-.money-box small{
-
-  display:block;
-
-  color:#94a3b8;
-
-  font-size:10px;
-
-  margin-bottom:5px;
-}
-
-.money-box strong{
-
-  font-size:15px;
-}
-
-
-/* =====================================================
-   CALCULATOR
-===================================================== */
-
-.calculator{
-
-  max-width:430px;
-
-  margin:auto;
-}
-
-.calc-display{
-
-  width:100%;
-
-  border:0;
-
-  background:#0f172a;
-
-  color:white;
-
-  border-radius:18px;
-
-  padding:19px 15px;
-
-  font-size:29px;
-
-  text-align:left;
-
-  direction:ltr;
-
-  margin-bottom:9px;
-}
-
-.calc-buttons{
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(4,1fr);
-
-  gap:7px;
-}
-
-.calc-buttons button{
-
-  border:0;
-
-  min-height:57px;
-
-  border-radius:14px;
-
-  background:#f1f5f9;
-
-  font-size:18px;
-
-  font-weight:750;
-}
-
-.calc-buttons button:active{
-
-  transform:scale(.94);
-}
-
-.calc-clear{
-
-  background:#fee2e2 !important;
-
-  color:#b91c1c;
-}
-
-.calc-equals{
-
-  background:#111827 !important;
-
-  color:white;
-}
-
-
-/* =====================================================
-   BOTTOM NAVIGATION
-===================================================== */
-
-.bottom-nav{
-
-  position:fixed;
-
-  z-index:100;
-
-  bottom:0;
-
-  left:0;
-  right:0;
-
-  padding:
-  8px
-  10px
-  calc(8px + env(safe-area-inset-bottom));
-
-  background:
-  rgba(255,255,255,.94);
-
-  backdrop-filter:
-  blur(18px);
-
-  border-top:
-  1px solid #e5e7eb;
-
-  box-shadow:
-  0 -5px 25px rgba(15,23,42,.08);
-}
-
-.bottom-inner{
-
-  max-width:550px;
-
-  margin:auto;
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(4,1fr);
-
-  gap:5px;
-}
-
-.nav-button{
-
-  border:0;
-
-  background:transparent;
-
-  padding:7px 4px;
-
-  border-radius:13px;
-
-  color:#94a3b8;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  gap:3px;
-
-  font-size:9px;
-}
-
-.nav-button span:first-child{
-
-  font-size:20px;
-}
-
-.nav-button.active{
-
-  color:#111827;
-
-  background:#f1f5f9;
-
-  font-weight:800;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer{
-
-  text-align:center;
-
-  color:#94a3b8;
-
-  font-size:10px;
-
-  padding:15px;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:700px){
-
-  .quick-tools{
-
-    grid-template-columns:
-    repeat(4,1fr);
-
-  }
-
-  .quick-card{
-
-    min-height:94px;
-
-    padding:10px 4px;
-
-  }
-
-  .quick-icon{
-
-    width:38px;
-    height:38px;
-
-    font-size:19px;
-
-  }
-
-  .quick-title{
-
-    font-size:10px;
-
-  }
-
-  .quick-sub{
-
-    display:none;
-
-  }
-
-}
-
-@media(max-width:430px){
-
-  .quick-tools{
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-  }
-
-  .quick-card{
-
-    min-height:90px;
-
-  }
-
-  .form-grid{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .full{
-
-    grid-column:auto;
-
-  }
-
-  .money-summary{
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-  }
-
-}
-
-@media(min-width:701px){
-
-  .bottom-nav{
-
-    display:none;
-
-  }
-
-  body{
-
-    padding-bottom:0;
-
-  }
-
-}
-
-
-/* =====================================================
-   REMINDER
-===================================================== */
-
-.reminder-due{
-
-  border-color:#f59e0b;
-
-  background:#fffbeb;
-}
-
-.reminder-past{
-
-  opacity:.55;
-}
-
-.reminder-time{
-
-  color:#94a3b8;
-
-  font-size:10px;
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Daily Helper - ابزارهای روزمره">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg">
+
+  <title>Daily Helper</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        Arial,
+        Tahoma,
+        sans-serif;
+      background: #f4f6fa;
+      color: #111827;
+    }
+
+    button,
+    input,
+    textarea {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =========================
+       APP
+    ========================= */
+
+    .app {
+      min-height: 100vh;
+    }
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+
+    .screen.active {
+      display: block;
+      animation: screenIn .2s ease;
+    }
+
+    @keyframes screenIn {
+      from {
+        opacity: 0;
+        transform: translateX(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .top-header {
+      background: #111827;
+      color: white;
+      padding:
+        calc(18px + env(safe-area-inset-top))
+        18px
+        18px;
+      border-radius: 0 0 24px 24px;
+    }
+
+    .header-row {
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 14px;
+      background: white;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .brand-icon img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      opacity: .65;
+      margin-top: 3px;
+    }
+
+    /* =========================
+       HOME
+    ========================= */
+
+    .home-content {
+      max-width: 900px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    .welcome {
+      margin-top: -2px;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: white;
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, .20);
+    }
+
+    .welcome small {
+      opacity: .8;
+    }
+
+    .welcome h1 {
+      margin: 8px 0;
+      font-size: 27px;
+    }
+
+    .welcome p {
+      margin: 0;
+      opacity: .9;
+      font-size: 14px;
+    }
+
+    .section-title {
+      margin: 26px 3px 13px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .quick-card {
+      border: 0;
+      background: white;
+      border-radius: 20px;
+      padding: 18px 14px;
+      min-height: 125px;
+      text-align: right;
+      box-shadow: 0 5px 18px rgba(15, 23, 42, .07);
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .quick-card:active {
+      transform: scale(.97);
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      font-size: 25px;
+      background: #eef2ff;
+      margin-bottom: 13px;
+    }
+
+    .quick-card h3 {
+      margin: 0 0 5px;
+      font-size: 15px;
+      color: #111827;
+    }
+
+    .quick-card p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 11px;
+    }
+
+    /* =========================
+       INTERNAL PAGE HEADER
+    ========================= */
+
+    .page-header {
+      background: #111827;
+      color: white;
+      padding:
+        calc(15px + env(safe-area-inset-top))
+        15px
+        15px;
+      border-radius: 0 0 22px 22px;
+    }
+
+    .page-header-row {
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-button {
+      border: 0;
+      background: rgba(255,255,255,.12);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      font-size: 25px;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .page-content {
+      max-width: 900px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .app-card {
+      background: white;
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 18px rgba(15,23,42,.07);
+    }
+
+    .input {
+      width: 100%;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      border-radius: 14px;
+      padding: 13px;
+      outline: none;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .input:focus {
+      border-color: #2563eb;
+      background: white;
+    }
+
+    .primary-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 13px;
+      background: #2563eb;
+      color: white;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .danger-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 8px 11px;
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 13px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .list-item:last-child {
+      border-bottom: 0;
+    }
+
+    /* =========================
+       CALCULATOR
+    ========================= */
+
+    .calculator {
+      max-width: 430px;
+      margin: auto;
+      background: #111827;
+      border-radius: 25px;
+      padding: 15px;
+      box-shadow: 0 15px 35px rgba(15,23,42,.18);
+    }
+
+    .calc-display {
+      min-height: 115px;
+      border-radius: 20px;
+      background: #020617;
+      color: white;
+      padding: 20px 15px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      font-size: 42px;
+      overflow: hidden;
+      word-break: break-all;
+      margin-bottom: 13px;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+    }
+
+    .calc-btn {
+      border: 0;
+      height: 64px;
+      border-radius: 17px;
+      background: #374151;
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .calc-btn:active {
+      transform: scale(.95);
+    }
+
+    .calc-btn.operator {
+      background: #2563eb;
+    }
+
+    .calc-btn.action {
+      background: #6b7280;
+    }
+
+    .calc-btn.equal {
+      background: #16a34a;
+    }
+
+    .calc-btn.zero {
+      grid-column: span 2;
+    }
+
+    /* =========================
+       MONEY
+    ========================= */
+
+    .money-summary {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .money-box {
+      background: #f8fafc;
+      border-radius: 17px;
+      padding: 16px;
+    }
+
+    .money-box small {
+      color: #6b7280;
+    }
+
+    .money-box strong {
+      display: block;
+      margin-top: 7px;
+      font-size: 19px;
+    }
+
+    /* =========================
+       BOTTOM NAV
+    ========================= */
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(15px);
+      border-top: 1px solid #e5e7eb;
+      padding:
+        8px
+        10px
+        calc(8px + env(safe-area-inset-bottom));
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: 600px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .nav-btn {
+      border: 0;
+      background: transparent;
+      padding: 8px;
+      color: #6b7280;
+      border-radius: 13px;
+      font-size: 12px;
+    }
+
+    .nav-btn.active {
+      background: #eef2ff;
+      color: #2563eb;
+      font-weight: 800;
+    }
+
+    .nav-icon {
+      display: block;
+      font-size: 21px;
+      margin-bottom: 2px;
+    }
+
+    /* =========================
+       DESKTOP
+    ========================= */
+
+    @media (min-width: 700px) {
+      .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .screen {
+        padding-bottom: 30px;
+      }
+
+      .bottom-nav {
+        display: none;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
-
-<!-- ===================================================
-     HEADER
-=================================================== -->
-
-<header class="app-header">
-
-<div class="header-content">
-
-<div class="top-row">
-
-<div class="profile">
-
-<div class="profile-icon">
-
-<img
-  src="./icon.svg"
-  alt="Daily Helper"
->
-
-</div>
-
-<div class="profile-text">
-
-<h1>
-Daily Helper
-</h1>
-
-<p>
-دستیار روزمره شما
-</p>
-
-</div>
-
-</div>
-
-
-<button
-  class="header-action"
-  onclick="scrollToSection('calculatorSection')"
->
-🧮
-</button>
-
-</div>
-
-
-<div class="hero">
-
-<div class="hero-small">
-امروز
-</div>
-
-<div
-  class="hero-title"
-  id="todayText"
->
-خوش آمدید 👋
-</div>
-
-<div class="hero-description">
-
-کارها، یادداشت‌ها، خریدها و هزینه‌های روزانه‌ات را
-در یکجا مدیریت کن.
-
-</div>
-
-</div>
-
-</div>
-
-</header>
-
-
-<main>
-
-
-<!-- ===================================================
-     QUICK TOOLS
-=================================================== -->
-
-<div class="section-heading">
-
-<h2>
-دسترسی سریع
-</h2>
-
-<span>
-Daily Tools
-</span>
-
-</div>
-
-
-<div class="quick-tools">
-
-
-<button
-  class="quick-card"
-  onclick="scrollToSection('todoSection')"
->
-
-<div class="quick-icon">
-✅
-</div>
-
-<div class="quick-title">
-کارهای من
-</div>
-
-<div class="quick-sub">
-To-Do
-</div>
-
-</button>
-
-
-<button
-  class="quick-card"
-  onclick="scrollToSection('moneySection')"
->
-
-<div class="quick-icon">
-💰
-</div>
-
-<div class="quick-title">
-دخل و خرج
-</div>
-
-<div class="quick-sub">
-Money
-</div>
-
-</button>
-
-
-<button
-  class="quick-card"
-  onclick="scrollToSection('notesSection')"
->
-
-<div class="quick-icon">
-📝
-</div>
-
-<div class="quick-title">
-یادداشت
-</div>
-
-<div class="quick-sub">
-Notes
-</div>
-
-</button>
-
-
-<button
-  class="quick-card"
-  onclick="scrollToSection('shoppingSection')"
->
-
-<div class="quick-icon">
-🛒
-</div>
-
-<div class="quick-title">
-خرید
-</div>
-
-<div class="quick-sub">
-Shopping
-</div>
-
-</button>
-
-
-<button
-  class="quick-card"
-  onclick="scrollToSection('reminderSection')"
->
-
-<div class="quick-icon">
-🔔
-</div>
-
-<div class="quick-title">
-یادآور
-</div>
-
-<div class="quick-sub">
-Reminder
-</div>
-
-</button>
-
-
-<button
-  class="quick-card"
-  onclick="scrollToSection('calculatorSection')"
->
-
-<div class="quick-icon">
-🧮
-</div>
-
-<div class="quick-title">
-ماشین‌حساب
-</div>
-
-<div class="quick-sub">
-Calculator
-</div>
-
-</button>
-
-
-<button
-  class="quick-card"
-  onclick="comingSoon('تبدیل واحد')"
->
-
-<div class="quick-icon">
-🔄
-</div>
-
-<div class="quick-title">
-تبدیل واحد
-</div>
-
-<div class="quick-sub">
-Soon
-</div>
-
-</button>
-
-
-<button
-  class="quick-card"
-  onclick="comingSoon('تنظیمات')"
->
-
-<div class="quick-icon">
-⚙️
-</div>
-
-<div class="quick-title">
-تنظیمات
-</div>
-
-<div class="quick-sub">
-Settings
-</div>
-
-</button>
-
-</div>
-
-
-<!-- INSTALL -->
-
-<div
-  class="install-card"
-  id="installCard"
->
-
-<button
-  id="installBtn"
->
-📲 نصب Daily Helper
-</button>
-
-<div id="iosHelp">
-
-🍎 برای نصب در iPhone / iPad:
-
-<br>
-
-در Safari روی
-<b>Share</b>
-بزنید و سپس
-<b>Add to Home Screen</b>
-را انتخاب کنید.
-
-</div>
-
-</div>
-
-
-<!-- ===================================================
-     TODO
-=================================================== -->
-
-<section
-  class="app-card"
-  id="todoSection"
->
-
-<div class="card-header">
-
-<div class="card-icon">
-✅
-</div>
-
-<div class="card-header-text">
-
-<h3>
-کارهای من
-</h3>
-
-<p>
-کارهای روزانه را مدیریت کن
-</p>
-
-</div>
-
-<span
-  id="todoCount"
->
-0 کار
-</span>
-
-</div>
-
-
-<div class="form-grid">
-
-<input
-  id="todoInput"
-  class="full"
-  placeholder="مثلاً خرید نان"
-/>
-
-<button
-  class="primary full"
-  onclick="addTodo()"
->
-افزودن کار
-</button>
-
-</div>
-
-
-<div
-  class="list"
-  id="todoList"
-></div>
-
-</section>
-
-
-<!-- ===================================================
-     MONEY
-=================================================== -->
-
-<section
-  class="app-card"
-  id="moneySection"
->
-
-<div class="card-header">
-
-<div class="card-icon">
-💰
-</div>
-
-<div class="card-header-text">
-
-<h3>
-دخل و خرج
-</h3>
-
-<p>
-مدیریت درآمد و مصارف
-</p>
-
-</div>
-
-</div>
-
-
-<div class="money-summary">
-
-<div class="money-box">
-
-<small>
-درآمد
-</small>
-
-<strong id="totalIncome">
-0
-</strong>
-
-</div>
-
-
-<div class="money-box">
-
-<small>
-مصرف
-</small>
-
-<strong id="totalExpense">
-0
-</strong>
-
-</div>
-
-
-<div class="money-box">
-
-<small>
-مانده
-</small>
-
-<strong id="totalBalance">
-0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="form-grid">
-
-<input
-  id="moneyTitle"
-  placeholder="عنوان"
-/>
-
-<input
-  id="moneyAmount"
-  type="number"
-  min="0"
-  step="any"
-  placeholder="مبلغ"
-/>
-
-<select id="moneyType">
-
-<option value="income">
-درآمد
-</option>
-
-<option value="expense">
-مصرف
-</option>
-
-</select>
-
-<button
-  class="primary"
-  onclick="addTransaction()"
->
-افزودن
-</button>
-
-</div>
-
-
-<div
-  class="list"
-  id="moneyList"
-></div>
-
-</section>
-
-
-<!-- ===================================================
-     NOTES
-=================================================== -->
-
-<section
-  class="app-card"
-  id="notesSection"
->
-
-<div class="card-header">
-
-<div class="card-icon">
-📝
-</div>
-
-<div class="card-header-text">
-
-<h3>
-یادداشت‌ها
-</h3>
-
-<p>
-ایده‌ها و نوشته‌های خودت
-</p>
-
-</div>
-
-</div>
-
-
-<div class="form-grid">
-
-<input
-  id="noteTitle"
-  class="full"
-  placeholder="عنوان یادداشت"
-/>
-
-<textarea
-  id="noteContent"
-  class="full"
-  placeholder="متن یادداشت..."
-></textarea>
-
-
-<button
-  class="primary full"
-  onclick="addNote()"
->
-ذخیره یادداشت
-</button>
-
-</div>
-
-
-<div
-  class="list"
-  id="notesList"
-></div>
-
-</section>
-
-
-<!-- ===================================================
-     SHOPPING
-=================================================== -->
-
-<section
-  class="app-card"
-  id="shoppingSection"
->
-
-<div class="card-header">
-
-<div class="card-icon">
-🛒
-</div>
-
-<div class="card-header-text">
-
-<h3>
-لیست خرید
-</h3>
-
-<p>
-چیزهایی که باید بخری
-</p>
-
-</div>
-
-<span
-  id="shoppingCount"
->
-0 مورد
-</span>
-
-</div>
-
-
-<div class="form-grid">
-
-<input
-  id="shoppingInput"
-  class="full"
-  placeholder="مثلاً شیر"
-/>
-
-<button
-  class="primary full"
-  onclick="addShopping()"
->
-افزودن به لیست
-</button>
-
-</div>
-
-
-<div
-  class="list"
-  id="shoppingList"
-></div>
-
-</section>
-
-
-<!-- ===================================================
-     REMINDER
-=================================================== -->
-
-<section
-  class="app-card"
-  id="reminderSection"
->
-
-<div class="card-header">
-
-<div class="card-icon">
-🔔
-</div>
-
-<div class="card-header-text">
-
-<h3>
-یادآورها
-</h3>
-
-<p>
-قرارها و کارهای مهم
-</p>
-
-</div>
-
-</div>
-
-
-<div class="form-grid">
-
-<input
-  id="reminderTitle"
-  class="full"
-  placeholder="عنوان یادآور"
-/>
-
-<input
-  id="reminderDate"
-  type="date"
-/>
-
-<input
-  id="reminderTime"
-  type="time"
-/>
-
-
-<button
-  class="primary full"
-  onclick="addReminder()"
->
-افزودن یادآور
-</button>
-
-
-<button
-  class="primary full"
-  onclick="enableNotifications()"
->
-🔔 فعال‌کردن اعلان‌ها
-</button>
-
-</div>
-
-
-<div
-  class="list"
-  id="reminderList"
-></div>
-
-</section>
-
-
-<!-- ===================================================
-     CALCULATOR
-=================================================== -->
-
-<section
-  class="app-card"
-  id="calculatorSection"
->
-
-<div class="card-header">
-
-<div class="card-icon">
-🧮
-</div>
-
-<div class="card-header-text">
-
-<h3>
-ماشین‌حساب
-</h3>
-
-<p>
-محاسبات روزانه
-</p>
-
-</div>
-
-</div>
-
-
-<div class="calculator">
-
-
-<input
-  id="calcDisplay"
-  class="calc-display"
-  value="0"
-  readonly
->
-
-
-<div class="calc-buttons">
-
-<button
-  class="calc-clear"
-  onclick="calcClear()"
->
-C
-</button>
-
-<button
-  onclick="calcBackspace()"
->
-⌫
-</button>
-
-<button
-  onclick="calcPercent()"
->
-%
-</button>
-
-<button
-  onclick="calcOperator('/')"
->
-÷
-</button>
-
-
-<button onclick="calcNumber('7')">
-7
-</button>
-
-<button onclick="calcNumber('8')">
-8
-</button>
-
-<button onclick="calcNumber('9')">
-9
-</button>
-
-<button onclick="calcOperator('*')">
-×
-</button>
-
-
-<button onclick="calcNumber('4')">
-4
-</button>
-
-<button onclick="calcNumber('5')">
-5
-</button>
-
-<button onclick="calcNumber('6')">
-6
-</button>
-
-<button onclick="calcOperator('-')">
-−
-</button>
-
-
-<button onclick="calcNumber('1')">
-1
-</button>
-
-<button onclick="calcNumber('2')">
-2
-</button>
-
-<button onclick="calcNumber('3')">
-3
-</button>
-
-<button onclick="calcOperator('+')">
-+
-</button>
-
-
-<button onclick="calcNumber('0')">
-0
-</button>
-
-<button onclick="calcDecimal()">
-.
-</button>
-
-<button
-  class="calc-equals"
-  onclick="calcEquals()"
->
-=
-</button>
-
-<button
-  class="calc-equals"
-  onclick="calcEquals()"
->
-=
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<footer>
-
-Daily Helper © 2026
-
-<br>
-
-ساده • سریع • کاربردی
-
-</footer>
-
-
-</main>
-
-
-<!-- ===================================================
-     BOTTOM NAV
-=================================================== -->
-
-<nav class="bottom-nav">
-
-<div class="bottom-inner">
-
-
-<button
-  class="nav-button active"
-  onclick="goHome(this)"
->
-
-<span>
-🏠
-</span>
-
-<span>
-خانه
-</span>
-
-</button>
-
-
-<button
-  class="nav-button"
-  onclick="goToNav('todoSection',this)"
->
-
-<span>
-✅
-</span>
-
-<span>
-کارها
-</span>
-
-</button>
-
-
-<button
-  class="nav-button"
-  onclick="goToNav('moneySection',this)"
->
-
-<span>
-💰
-</span>
-
-<span>
-مالی
-</span>
-
-</button>
-
-
-<button
-  class="nav-button"
-  onclick="goToNav('notesSection',this)"
->
-
-<span>
-📝
-</span>
-
-<span>
-یادداشت
-</span>
-
-</button>
-
-
-</div>
-
-</nav>
-
-
-<script>
-
-/* =====================================================
-   HELPERS
-===================================================== */
-
-function scrollToSection(id){
-
-  const el =
-  document.getElementById(id);
-
-  if(el){
-
-    el.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
-
-  }
-
-}
-
-
-function goHome(button){
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-  setActiveNav(button);
-
-}
-
-
-function goToNav(id,button){
-
-  scrollToSection(id);
-
-  setActiveNav(button);
-
-}
-
-
-function setActiveNav(button){
-
-  document
-  .querySelectorAll(".nav-button")
-  .forEach(item=>{
-    item.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-}
-
-
-function comingSoon(name){
-
-  alert(
-    name +
-    " به‌زودی اضافه می‌شود."
-  );
-
-}
-
-
-function escapeHTML(value){
-
-  return String(value)
-
-  .replace(/&/g,"&amp;")
-
-  .replace(/</g,"&lt;")
-
-  .replace(/>/g,"&gt;")
-
-  .replace(/"/g,"&quot;")
-
-  .replace(/'/g,"&#039;");
-
-}
-
-
-function formatNumber(number){
-
-  return Number(number)
-  .toLocaleString("fa-AF");
-
-}
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-function showToday(){
-
-  const now =
-  new Date();
-
-  const text =
-  now.toLocaleDateString(
-    "fa-AF",
-    {
-      weekday:"long",
-      day:"numeric",
-      month:"long"
-    }
-  );
-
-  document.getElementById(
-    "todayText"
-  ).textContent =
-  text + " 👋";
-
-}
-
-showToday();
-
-
-/* =====================================================
-   TODO
-===================================================== */
-
-let todos =
-JSON.parse(
-localStorage.getItem(
-"daily_helper_todos"
-) || "[]"
-);
-
-
-function saveTodos(){
-
-  localStorage.setItem(
-    "daily_helper_todos",
-    JSON.stringify(todos)
-  );
-
-}
-
-
-function addTodo(){
-
-  const input =
-  document.getElementById(
-    "todoInput"
-  );
-
-  const text =
-  input.value.trim();
-
-  if(!text){
-
-    alert(
-      "لطفاً نام کار را وارد کنید."
-    );
-
-    return;
-
-  }
-
-  todos.unshift({
-
-    id:Date.now(),
-
-    text:text,
-
-    done:false
-
-  });
-
-  input.value="";
-
-  saveTodos();
-
-  renderTodos();
-
-}
-
-
-function toggleTodo(id){
-
-  todos =
-  todos.map(todo=>{
-
-    if(todo.id===id){
-
-      todo.done=
-      !todo.done;
-
-    }
-
-    return todo;
-
-  });
-
-  saveTodos();
-
-  renderTodos();
-
-}
-
-
-function deleteTodo(id){
-
-  todos=
-  todos.filter(
-    todo=>todo.id!==id
-  );
-
-  saveTodos();
-
-  renderTodos();
-
-}
-
-
-function renderTodos(){
-
-  const list =
-  document.getElementById(
-    "todoList"
-  );
-
-  const count =
-  document.getElementById(
-    "todoCount"
-  );
-
-  count.textContent =
-  todos.length+" کار";
-
-  if(!todos.length){
-
-    list.innerHTML=
-    '<div class="empty">هنوز کاری اضافه نشده است.</div>';
-
-    return;
-
-  }
-
-  list.innerHTML=
-  todos.map(todo=>`
-
-  <div class="item">
-
-    <input
-      class="check"
-      type="checkbox"
-      ${todo.done?"checked":""}
-      onchange="toggleTodo(${todo.id})"
-    >
-
-    <div class="item-main">
-
-      <div
-        class="item-title ${todo.done?"done":""}"
-      >
-        ${escapeHTML(todo.text)}
-      </div>
-
-    </div>
-
-    <button
-      class="delete"
-      onclick="deleteTodo(${todo.id})"
-    >
-      🗑
-    </button>
-
-  </div>
-
-  `).join("");
-
-}
-
-
-/* =====================================================
-   MONEY
-===================================================== */
-
-let transactions =
-JSON.parse(
-localStorage.getItem(
-"daily_helper_transactions"
-) || "[]"
-);
-
-
-function saveTransactions(){
-
-  localStorage.setItem(
-    "daily_helper_transactions",
-    JSON.stringify(transactions)
-  );
-
-}
-
-
-function addTransaction(){
-
-  const title =
-  document.getElementById(
-    "moneyTitle"
-  ).value.trim();
-
-  const amount =
-  parseFloat(
-    document.getElementById(
-      "moneyAmount"
-    ).value
-  );
-
-  const type =
-  document.getElementById(
-    "moneyType"
-  ).value;
-
-  if(!title){
-
-    alert("عنوان را وارد کنید.");
-
-    return;
-
-  }
-
-  if(
-    !Number.isFinite(amount) ||
-    amount<0
-  ){
-
-    alert(
-      "مبلغ معتبر وارد کنید."
-    );
-
-    return;
-
-  }
-
-  transactions.unshift({
-
-    id:Date.now(),
-
-    title:title,
-
-    amount:amount,
-
-    type:type,
-
-    date:
-    new Date()
-    .toLocaleDateString("fa-AF")
-
-  });
-
-  document.getElementById(
-    "moneyTitle"
-  ).value="";
-
-  document.getElementById(
-    "moneyAmount"
-  ).value="";
-
-  saveTransactions();
-
-  renderTransactions();
-
-}
-
-
-function deleteTransaction(id){
-
-  transactions=
-  transactions.filter(
-    item=>item.id!==id
-  );
-
-  saveTransactions();
-
-  renderTransactions();
-
-}
-
-
-function renderTransactions(){
-
-  const list =
-  document.getElementById(
-    "moneyList"
-  );
-
-  let income=0;
-
-  let expense=0;
-
-  transactions.forEach(item=>{
-
-    if(item.type==="income")
-      income+=Number(item.amount);
-
-    else
-      expense+=Number(item.amount);
-
-  });
-
-  document.getElementById(
-    "totalIncome"
-  ).textContent=
-  formatNumber(income);
-
-  document.getElementById(
-    "totalExpense"
-  ).textContent=
-  formatNumber(expense);
-
-  document.getElementById(
-    "totalBalance"
-  ).textContent=
-  formatNumber(
-    income-expense
-  );
-
-  if(!transactions.length){
-
-    list.innerHTML=
-    '<div class="empty">هنوز تراکنشی ثبت نشده است.</div>';
-
-    return;
-
-  }
-
-  list.innerHTML=
-  transactions.map(item=>`
-
-  <div class="item">
-
-    <div class="item-main">
-
-      <div class="item-title">
-
-        ${escapeHTML(item.title)}
-
-      </div>
-
-      <div class="item-sub">
-
-        ${
-          item.type==="income"
-          ?"درآمد"
-          :"مصرف"
-        }
-
-        •
-        ${formatNumber(item.amount)}
-
-        •
-        ${item.date}
-
-      </div>
-
-    </div>
-
-    <button
-      class="delete"
-      onclick="deleteTransaction(${item.id})"
-    >
-      🗑
-    </button>
-
-  </div>
-
-  `).join("");
-
-}
-
-
-/* =====================================================
-   NOTES
-===================================================== */
-
-let notes =
-JSON.parse(
-localStorage.getItem(
-"daily_helper_notes"
-) || "[]"
-);
-
-
-function saveNotes(){
-
-  localStorage.setItem(
-    "daily_helper_notes",
-    JSON.stringify(notes)
-  );
-
-}
-
-
-function addNote(){
-
-  const title =
-  document.getElementById(
-    "noteTitle"
-  ).value.trim();
-
-  const content =
-  document.getElementById(
-    "noteContent"
-  ).value.trim();
-
-  if(!title && !content){
-
-    alert(
-      "یادداشت خالی است."
-    );
-
-    return;
-
-  }
-
-  notes.unshift({
-
-    id:Date.now(),
-
-    title:
-    title||"بدون عنوان",
-
-    content:content,
-
-    date:
-    new Date()
-    .toLocaleDateString("fa-AF")
-
-  });
-
-  document.getElementById(
-    "noteTitle"
-  ).value="";
-
-  document.getElementById(
-    "noteContent"
-  ).value="";
-
-  saveNotes();
-
-  renderNotes();
-
-}
-
-
-function deleteNote(id){
-
-  notes=
-  notes.filter(
-    note=>note.id!==id
-  );
-
-  saveNotes();
-
-  renderNotes();
-
-}
-
-
-function renderNotes(){
-
-  const list =
-  document.getElementById(
-    "notesList"
-  );
-
-  if(!notes.length){
-
-    list.innerHTML=
-    '<div class="empty">هنوز یادداشتی وجود ندارد.</div>';
-
-    return;
-
-  }
-
-  list.innerHTML=
-  notes.map(note=>`
-
-  <div class="item">
-
-    <div class="item-main">
-
-      <div class="item-title">
-
-        ${escapeHTML(note.title)}
-
-      </div>
-
-      <div class="item-sub">
-
-        ${escapeHTML(note.content)}
-
-      </div>
-
-    </div>
-
-    <button
-      class="delete"
-      onclick="deleteNote(${note.id})"
-    >
-      🗑
-    </button>
-
-  </div>
-
-  `).join("");
-
-}
-
-
-/* =====================================================
-   SHOPPING
-===================================================== */
-
-let shopping =
-JSON.parse(
-localStorage.getItem(
-"daily_helper_shopping"
-) || "[]"
-);
-
-
-function saveShopping(){
-
-  localStorage.setItem(
-    "daily_helper_shopping",
-    JSON.stringify(shopping)
-  );
-
-}
-
-
-function addShopping(){
-
-  const input =
-  document.getElementById(
-    "shoppingInput"
-  );
-
-  const text =
-  input.value.trim();
-
-  if(!text){
-
-    alert(
-      "نام کالا را وارد کنید."
-    );
-
-    return;
-
-  }
-
-  shopping.unshift({
-
-    id:Date.now(),
-
-    text:text,
-
-    bought:false
-
-  });
-
-  input.value="";
-
-  saveShopping();
-
-  renderShopping();
-
-}
-
-
-function toggleShopping(id){
-
-  shopping=
-  shopping.map(item=>{
-
-    if(item.id===id){
-
-      item.bought=
-      !item.bought;
-
-    }
-
-    return item;
-
-  });
-
-  saveShopping();
-
-  renderShopping();
-
-}
-
-
-function deleteShopping(id){
-
-  shopping=
-  shopping.filter(
-    item=>item.id!==id
-  );
-
-  saveShopping();
-
-  renderShopping();
-
-}
-
-
-function renderShopping(){
-
-  const list =
-  document.getElementById(
-    "shoppingList"
-  );
-
-  const count =
-  document.getElementById(
-    "shoppingCount"
-  );
-
-  const bought =
-  shopping.filter(
-    item=>item.bought
-  ).length;
-
-  count.textContent=
-  shopping.length+
-  " مورد";
-
-  if(!shopping.length){
-
-    list.innerHTML=
-    '<div class="empty">لیست خرید خالی است.</div>';
-
-    return;
-
-  }
-
-  list.innerHTML=
-  shopping.map(item=>`
-
-  <div class="item">
-
-    <input
-      class="check"
-      type="checkbox"
-      ${item.bought?"checked":""}
-      onchange="toggleShopping(${item.id})"
-    >
-
-    <div class="item-main">
-
-      <div
-        class="item-title ${item.bought?"done":""}"
-      >
-        ${escapeHTML(item.text)}
-      </div>
-
-    </div>
-
-    <button
-      class="delete"
-      onclick="deleteShopping(${item.id})"
-    >
-      🗑
-    </button>
-
-  </div>
-
-  `).join("");
-
-}
-
-
-/* =====================================================
-   REMINDER
-===================================================== */
-
-let reminders =
-JSON.parse(
-localStorage.getItem(
-"daily_helper_reminders"
-) || "[]"
-);
-
-
-function saveReminders(){
-
-  localStorage.setItem(
-    "daily_helper_reminders",
-    JSON.stringify(reminders)
-  );
-
-}
-
-
-async function enableNotifications(){
-
-  if(!("Notification" in window)){
-
-    alert(
-      "مرورگر شما اعلان را پشتیبانی نمی‌کند."
-    );
-
-    return;
-
-  }
-
-  const permission =
-  await Notification.requestPermission();
-
-  if(permission==="granted"){
-
-    new Notification(
-      "Daily Helper",
-      {
-        body:
-        "اعلان‌های Daily Helper فعال شد."
-      }
-    );
-
-  }
-
-}
-
-
-function addReminder(){
-
-  const title =
-  document.getElementById(
-    "reminderTitle"
-  ).value.trim();
-
-  const date =
-  document.getElementById(
-    "reminderDate"
-  ).value;
-
-  const time =
-  document.getElementById(
-    "reminderTime"
-  ).value;
-
-  if(!title){
-
-    alert(
-      "عنوان یادآور را وارد کنید."
-    );
-
-    return;
-
-  }
-
-  if(!date||!time){
-
-    alert(
-      "تاریخ و ساعت را انتخاب کنید."
-    );
-
-    return;
-
-  }
-
-  reminders.push({
-
-    id:Date.now(),
-
-    title:title,
-
-    date:date,
-
-    time:time,
-
-    notified:false
-
-  });
-
-  document.getElementById(
-    "reminderTitle"
-  ).value="";
-
-  document.getElementById(
-    "reminderDate"
-  ).value="";
-
-  document.getElementById(
-    "reminderTime"
-  ).value="";
-
-  saveReminders();
-
-  renderReminders();
-
-}
-
-
-function deleteReminder(id){
-
-  reminders=
-  reminders.filter(
-    item=>item.id!==id
-  );
-
-  saveReminders();
-
-  renderReminders();
-
-}
-
-
-function reminderDateTime(item){
-
-  return new Date(
-    item.date+
-    "T"+
-    item.time
-  );
-
-}
-
-
-function renderReminders(){
-
-  const list =
-  document.getElementById(
-    "reminderList"
-  );
-
-  if(!reminders.length){
-
-    list.innerHTML=
-    '<div class="empty">هنوز یادآوری اضافه نشده است.</div>';
-
-    return;
-
-  }
-
-  const now =
-  new Date();
-
-  const sorted =
-  [...reminders].sort(
-    (a,b)=>
-    reminderDateTime(a)-
-    reminderDateTime(b)
-  );
-
-  list.innerHTML=
-  sorted.map(item=>{
-
-    const target =
-    reminderDateTime(item);
-
-    const past =
-    target<now;
-
-    return `
-
-    <div class="item
-      ${past?"reminder-past":""}
-    ">
-
-      <div class="item-main">
-
-        <div class="item-title">
-
-          ${escapeHTML(item.title)}
-
+<div class="app">
+
+  <!-- =========================
+       HOME SCREEN
+  ========================= -->
+
+  <section id="homeScreen" class="screen active">
+
+    <header class="top-header">
+      <div class="header-row">
+
+        <div class="brand">
+          <div class="brand-icon">
+            <img src="./icon.svg" alt="Daily Helper">
+          </div>
+
+          <div>
+            <div class="brand-title">Daily Helper</div>
+            <div class="brand-subtitle">
+              ابزارهای روزمره در یک برنامه
+            </div>
+          </div>
         </div>
 
-        <div class="reminder-time">
+      </div>
+    </header>
 
-          📅 ${item.date}
+    <main class="home-content">
 
-          •
-          ⏰ ${item.time}
+      <section class="welcome">
+        <small>خوش آمدید 👋</small>
+        <h1>امروز چه کاری داری؟</h1>
+        <p>
+          ابزار مورد نیازت را انتخاب کن.
+        </p>
+      </section>
+
+      <div class="section-title">
+        ابزارهای من
+      </div>
+
+      <div class="tools-grid">
+
+        <button class="quick-card"
+          onclick="showScreen('calculator')">
+          <div class="tool-icon">🧮</div>
+          <h3>ماشین‌حساب</h3>
+          <p>محاسبه سریع</p>
+        </button>
+
+        <button class="quick-card"
+          onclick="showScreen('todo')">
+          <div class="tool-icon">✅</div>
+          <h3>کارهای من</h3>
+          <p>لیست کارهای روزانه</p>
+        </button>
+
+        <button class="quick-card"
+          onclick="showScreen('money')">
+          <div class="tool-icon">💰</div>
+          <h3>مدیریت پول</h3>
+          <p>درآمد و هزینه</p>
+        </button>
+
+        <button class="quick-card"
+          onclick="showScreen('notes')">
+          <div class="tool-icon">📝</div>
+          <h3>یادداشت‌ها</h3>
+          <p>یادداشت سریع</p>
+        </button>
+
+        <button class="quick-card"
+          onclick="showScreen('shopping')">
+          <div class="tool-icon">🛒</div>
+          <h3>لیست خرید</h3>
+          <p>خریدهای امروز</p>
+        </button>
+
+        <button class="quick-card"
+          onclick="showScreen('reminder')">
+          <div class="tool-icon">⏰</div>
+          <h3>یادآور</h3>
+          <p>یادآوری کارها</p>
+        </button>
+
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- =========================
+       CALCULATOR SCREEN
+  ========================= -->
+
+  <section id="calculatorScreen" class="screen">
+
+    <header class="page-header">
+      <div class="page-header-row">
+
+        <button class="back-button"
+          onclick="goHome()">←</button>
+
+        <div class="page-title">
+          🧮 ماشین‌حساب
+        </div>
+
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="calculator">
+
+        <div id="calcDisplay" class="calc-display">
+          0
+        </div>
+
+        <div class="calc-grid">
+
+          <button class="calc-btn action"
+            onclick="calcClear()">AC</button>
+
+          <button class="calc-btn action"
+            onclick="calcBackspace()">⌫</button>
+
+          <button class="calc-btn action"
+            onclick="calcPercent()">%</button>
+
+          <button class="calc-btn operator"
+            onclick="calcOperator('/')">÷</button>
+
+          <button class="calc-btn"
+            onclick="calcNumber('7')">7</button>
+
+          <button class="calc-btn"
+            onclick="calcNumber('8')">8</button>
+
+          <button class="calc-btn"
+            onclick="calcNumber('9')">9</button>
+
+          <button class="calc-btn operator"
+            onclick="calcOperator('*')">×</button>
+
+          <button class="calc-btn"
+            onclick="calcNumber('4')">4</button>
+
+          <button class="calc-btn"
+            onclick="calcNumber('5')">5</button>
+
+          <button class="calc-btn"
+            onclick="calcNumber('6')">6</button>
+
+          <button class="calc-btn operator"
+            onclick="calcOperator('-')">−</button>
+
+          <button class="calc-btn"
+            onclick="calcNumber('1')">1</button>
+
+          <button class="calc-btn"
+            onclick="calcNumber('2')">2</button>
+
+          <button class="calc-btn"
+            onclick="calcNumber('3')">3</button>
+
+          <button class="calc-btn operator"
+            onclick="calcOperator('+')">+</button>
+
+          <button class="calc-btn zero"
+            onclick="calcNumber('0')">0</button>
+
+          <button class="calc-btn"
+            onclick="calcDecimal()">.</button>
+
+          <button class="calc-btn equal"
+            onclick="calcEquals()">=</button>
 
         </div>
 
       </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- =========================
+       TODO SCREEN
+  ========================= -->
+
+  <section id="todoScreen" class="screen">
+
+    <header class="page-header">
+      <div class="page-header-row">
+        <button class="back-button" onclick="goHome()">←</button>
+        <div class="page-title">✅ کارهای من</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="app-card">
+
+        <input
+          id="todoInput"
+          class="input"
+          placeholder="کار جدید را بنویس..."
+        >
+
+        <button class="primary-btn"
+          onclick="addTodo()">
+          افزودن کار
+        </button>
+
+      </div>
+
+      <div class="app-card">
+        <div id="todoList"></div>
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- =========================
+       MONEY SCREEN
+  ========================= -->
+
+  <section id="moneyScreen" class="screen">
+
+    <header class="page-header">
+      <div class="page-header-row">
+        <button class="back-button" onclick="goHome()">←</button>
+        <div class="page-title">💰 مدیریت پول</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="money-summary">
+
+        <div class="money-box">
+          <small>درآمد</small>
+          <strong id="incomeTotal">0</strong>
+        </div>
+
+        <div class="money-box">
+          <small>هزینه</small>
+          <strong id="expenseTotal">0</strong>
+        </div>
+
+      </div>
+
+      <div class="app-card">
+
+        <input
+          id="moneyAmount"
+          class="input"
+          type="number"
+          placeholder="مبلغ"
+        >
+
+        <select id="moneyType" class="input">
+          <option value="income">درآمد</option>
+          <option value="expense">هزینه</option>
+        </select>
+
+        <input
+          id="moneyDescription"
+          class="input"
+          placeholder="توضیح"
+        >
+
+        <button class="primary-btn"
+          onclick="addMoney()">
+          ثبت
+        </button>
+
+      </div>
+
+      <div class="app-card">
+        <div id="moneyList"></div>
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- =========================
+       NOTES SCREEN
+  ========================= -->
+
+  <section id="notesScreen" class="screen">
+
+    <header class="page-header">
+      <div class="page-header-row">
+        <button class="back-button" onclick="goHome()">←</button>
+        <div class="page-title">📝 یادداشت‌ها</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="app-card">
+
+        <textarea
+          id="noteInput"
+          class="input"
+          rows="7"
+          placeholder="یادداشت خود را بنویس..."
+        ></textarea>
+
+        <button class="primary-btn"
+          onclick="saveNote()">
+          ذخیره یادداشت
+        </button>
+
+      </div>
+
+      <div class="app-card">
+        <div id="notesList"></div>
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- =========================
+       SHOPPING SCREEN
+  ========================= -->
+
+  <section id="shoppingScreen" class="screen">
+
+    <header class="page-header">
+      <div class="page-header-row">
+        <button class="back-button" onclick="goHome()">←</button>
+        <div class="page-title">🛒 لیست خرید</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="app-card">
+
+        <input
+          id="shoppingInput"
+          class="input"
+          placeholder="مثلاً نان، شیر، برنج..."
+        >
+
+        <button class="primary-btn"
+          onclick="addShopping()">
+          افزودن به لیست
+        </button>
+
+      </div>
+
+      <div class="app-card">
+        <div id="shoppingList"></div>
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- =========================
+       REMINDER SCREEN
+  ========================= -->
+
+  <section id="reminderScreen" class="screen">
+
+    <header class="page-header">
+      <div class="page-header-row">
+        <button class="back-button" onclick="goHome()">←</button>
+        <div class="page-title">⏰ یادآور</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="app-card">
+
+        <input
+          id="reminderInput"
+          class="input"
+          placeholder="چه چیزی را یادآوری کنم؟"
+        >
+
+        <input
+          id="reminderTime"
+          class="input"
+          type="datetime-local"
+        >
+
+        <button class="primary-btn"
+          onclick="addReminder()">
+          افزودن یادآور
+        </button>
+
+      </div>
+
+      <div class="app-card">
+        <div id="reminderList"></div>
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- =========================
+       BOTTOM NAV
+  ========================= -->
+
+  <nav class="bottom-nav">
+
+    <div class="nav-inner">
 
       <button
-        class="delete"
-        onclick="deleteReminder(${item.id})"
-      >
-        🗑
+        id="homeNav"
+        class="nav-btn active"
+        onclick="goHome()">
+
+        <span class="nav-icon">🏠</span>
+        خانه
+
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="showScreen('calculator')">
+
+        <span class="nav-icon">🧮</span>
+        ماشین‌حساب
+
       </button>
 
     </div>
 
-    `;
+  </nav>
 
-  }).join("");
-
-}
+</div>
 
 
-/* =====================================================
-   REMINDER CHECK
-===================================================== */
+<script>
 
-function checkReminders(){
+  /* =====================================================
+     SCREEN NAVIGATION
+  ===================================================== */
 
-  const now =
-  new Date();
+  const screenNames = [
+    "home",
+    "calculator",
+    "todo",
+    "money",
+    "notes",
+    "shopping",
+    "reminder"
+  ];
 
-  let changed=false;
+  function showScreen(name, addHistory = true) {
 
-  reminders.forEach(item=>{
+    screenNames.forEach(screen => {
 
-    const target =
-    reminderDateTime(item);
+      const element =
+        document.getElementById(screen + "Screen");
 
-    const difference =
-    Math.abs(
-      now-target
+      if (element) {
+        element.classList.remove("active");
+      }
+
+    });
+
+    const selected =
+      document.getElementById(name + "Screen");
+
+    if (!selected) return;
+
+    selected.classList.add("active");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "instant"
+    });
+
+    if (addHistory && name !== "home") {
+      history.pushState(
+        { screen: name },
+        "",
+        "#" + name
+      );
+    }
+
+    updateNavigation(name);
+
+    if (name === "todo") renderTodos();
+    if (name === "money") renderMoney();
+    if (name === "notes") renderNotes();
+    if (name === "shopping") renderShopping();
+    if (name === "reminder") renderReminders();
+  }
+
+
+  function goHome() {
+
+    history.replaceState(
+      { screen: "home" },
+      "",
+      location.pathname
     );
 
-    if(
-      difference<=30000 &&
-      !item.notified
-    ){
+    showScreen("home", false);
 
-      item.notified=true;
+  }
 
-      changed=true;
 
-      if(
-        "Notification" in window &&
-        Notification.permission==="granted"
-      ){
+  function updateNavigation(name) {
 
-        new Notification(
-          "🔔 "+item.title,
-          {
-            body:
-            "زمان یادآوری شما رسیده است."
-          }
-        );
+    const homeNav =
+      document.getElementById("homeNav");
 
+    if (homeNav) {
+      homeNav.classList.toggle(
+        "active",
+        name === "home"
+      );
+    }
+
+  }
+
+
+  window.addEventListener("popstate", function() {
+
+    if (location.hash) {
+
+      const name =
+        location.hash.substring(1);
+
+      if (screenNames.includes(name)) {
+        showScreen(name, false);
+        return;
       }
 
     }
 
+    showScreen("home", false);
+
   });
 
-  if(changed){
 
-    saveReminders();
+  /* =====================================================
+     CALCULATOR
+  ===================================================== */
 
-    renderReminders();
-
-  }
-
-}
-
-
-/* =====================================================
-   CALCULATOR
-===================================================== */
-
-let calcCurrent="0";
-
-let calcPrevious=null;
-
-let calcOperatorValue=null;
-
-let calcWaiting=false;
+  let calcCurrent = "0";
+  let calcPrevious = null;
+  let calcOperatorValue = null;
+  let calcWaiting = false;
 
 
-function updateCalc(){
+  function updateCalc() {
 
-  document.getElementById(
-    "calcDisplay"
-  ).value=
-  calcCurrent;
+    const display =
+      document.getElementById("calcDisplay");
 
-}
-
-
-function calcNumber(number){
-
-  if(calcWaiting){
-
-    calcCurrent=number;
-
-    calcWaiting=false;
+    if (display) {
+      display.textContent = calcCurrent;
+    }
 
   }
 
-  else if(calcCurrent==="0"){
 
-    calcCurrent=number;
+  function calcNumber(number) {
 
-  }
-
-  else{
-
-    calcCurrent+=number;
-
-  }
-
-  updateCalc();
-
-}
-
-
-function calcDecimal(){
-
-  if(calcWaiting){
-
-    calcCurrent="0.";
-
-    calcWaiting=false;
-
-  }
-
-  else if(
-    !calcCurrent.includes(".")
-  ){
-
-    calcCurrent+=".";
-
-  }
-
-  updateCalc();
-
-}
-
-
-function calcOperator(operator){
-
-  const value=
-  parseFloat(calcCurrent);
-
-  if(
-    calcOperatorValue &&
-    calcWaiting
-  ){
-
-    calcOperatorValue=
-    operator;
-
-    return;
-
-  }
-
-  if(calcPrevious===null){
-
-    calcPrevious=value;
-
-  }
-
-  else if(calcOperatorValue){
-
-    const result=
-    calculateOperation(
-      calcPrevious,
-      value,
-      calcOperatorValue
-    );
-
-    calcCurrent=
-    String(
-      roundResult(result)
-    );
-
-    calcPrevious=
-    parseFloat(calcCurrent);
+    if (
+      calcCurrent === "0" ||
+      calcWaiting
+    ) {
+      calcCurrent = number;
+      calcWaiting = false;
+    } else {
+      calcCurrent += number;
+    }
 
     updateCalc();
-
   }
 
-  calcOperatorValue=
-  operator;
 
-  calcWaiting=true;
+  function calcDecimal() {
 
-}
+    if (calcWaiting) {
+      calcCurrent = "0.";
+      calcWaiting = false;
+      updateCalc();
+      return;
+    }
 
+    if (!calcCurrent.includes(".")) {
+      calcCurrent += ".";
+    }
 
-function calculateOperation(
-  a,
-  b,
-  operator
-){
-
-  if(operator==="+")
-    return a+b;
-
-  if(operator==="-")
-    return a-b;
-
-  if(operator==="*")
-    return a*b;
-
-  if(operator==="/")
-    return b===0?0:a/b;
-
-  return b;
-
-}
-
-
-function calcEquals(){
-
-  if(
-    calcOperatorValue===null||
-    calcPrevious===null
-  ){
-
-    return;
-
+    updateCalc();
   }
 
-  const value=
-  parseFloat(calcCurrent);
 
-  const result=
-  calculateOperation(
-    calcPrevious,
-    value,
-    calcOperatorValue
-  );
+  function calcOperator(operator) {
 
-  calcCurrent=
-  String(
-    roundResult(result)
-  );
+    const inputValue =
+      parseFloat(calcCurrent);
 
-  calcPrevious=null;
+    if (calcOperatorValue && calcWaiting) {
+      calcOperatorValue = operator;
+      return;
+    }
 
-  calcOperatorValue=null;
+    if (calcPrevious === null) {
+      calcPrevious = inputValue;
+    } else if (calcOperatorValue) {
 
-  calcWaiting=false;
+      const result =
+        calculateOperation(
+          calcPrevious,
+          inputValue,
+          calcOperatorValue
+        );
 
-  updateCalc();
-
-}
-
-
-function calcPercent(){
-
-  const value=
-  parseFloat(calcCurrent);
-
-  calcCurrent=
-  String(
-    roundResult(
-      value/100
-    )
-  );
-
-  updateCalc();
-
-}
-
-
-function calcClear(){
-
-  calcCurrent="0";
-
-  calcPrevious=null;
-
-  calcOperatorValue=null;
-
-  calcWaiting=false;
-
-  updateCalc();
-
-}
-
-
-function calcBackspace(){
-
-  if(
-    calcCurrent.length<=1||
-    calcCurrent==="0"
-  ){
-
-    calcCurrent="0";
-
-  }
-
-  else{
-
-    calcCurrent=
-    calcCurrent.slice(0,-1);
-
-  }
-
-  updateCalc();
-
-}
-
-
-function roundResult(number){
-
-  if(!Number.isFinite(number))
-    return 0;
-
-  return Math.round(
-    number*100000000
-  )/100000000;
-
-}
-
-
-/* =====================================================
-   KEYBOARD
-===================================================== */
-
-document.addEventListener(
-"keydown",
-function(event){
-
-  const key=
-  event.key;
-
-  if(
-    key>="0" &&
-    key<="9"
-  ){
-
-    calcNumber(key);
-
-  }
-
-  else if(key==="."){
-
-    calcDecimal();
-
-  }
-
-  else if(
-    ["+","-","*","/"]
-    .includes(key)
-  ){
-
-    calcOperator(key);
-
-  }
-
-  else if(
-    key==="Enter"||
-    key==="="
-  ){
-
-    calcEquals();
-
-  }
-
-  else if(key==="Escape"){
-
-    calcClear();
-
-  }
-
-  else if(
-    key==="Backspace"
-  ){
-
-    calcBackspace();
-
-  }
-
-});
-
-
-/* =====================================================
-   PWA INSTALL
-===================================================== */
-
-let deferredPrompt=null;
-
-const installBtn=
-document.getElementById(
-"installBtn"
-);
-
-const installCard=
-document.getElementById(
-"installCard"
-);
-
-const iosHelp=
-document.getElementById(
-"iosHelp"
-);
-
-
-window.addEventListener(
-"beforeinstallprompt",
-event=>{
-
-  event.preventDefault();
-
-  deferredPrompt=event;
-
-  installCard.style.display=
-  "block";
-
-});
-
-
-installBtn.addEventListener(
-"click",
-async()=>{
-
-  if(!deferredPrompt)
-    return;
-
-  deferredPrompt.prompt();
-
-  await deferredPrompt.userChoice;
-
-  deferredPrompt=null;
-
-  installCard.style.display=
-  "none";
-
-});
-
-
-window.addEventListener(
-"appinstalled",
-()=>{
-
-  installCard.style.display=
-  "none";
-
-});
-
-
-function isIOS(){
-
-  return /iphone|ipad|ipod/i
-  .test(
-    navigator.userAgent
-  );
-
-}
-
-
-function isStandalone(){
-
-  return(
-    window.navigator.standalone===true
-  )||
-  (
-    window.matchMedia &&
-    window.matchMedia(
-      "(display-mode: standalone)"
-    ).matches
-  );
-
-}
-
-
-if(
-  isIOS() &&
-  !isStandalone()
-){
-
-  installCard.style.display=
-  "block";
-
-  iosHelp.style.display=
-  "block";
-
-}
-
-
-/* =====================================================
-   SERVICE WORKER
-===================================================== */
-
-if(
-  "serviceWorker" in navigator
-){
-
-  window.addEventListener(
-    "load",
-    ()=>{
-
-      navigator.serviceWorker
-      .register("./sw.js")
-      .then(
-        ()=>console.log(
-          "Daily Helper PWA ready"
-        )
-      )
-      .catch(
-        error=>console.log(
-          "PWA error:",
-          error
-        )
+      calcCurrent = String(
+        roundResult(result)
       );
+
+      calcPrevious = parseFloat(calcCurrent);
+
+      updateCalc();
+    }
+
+    calcWaiting = true;
+    calcOperatorValue = operator;
+  }
+
+
+  function calculateOperation(a, b, operator) {
+
+    switch (operator) {
+
+      case "+":
+        return a + b;
+
+      case "-":
+        return a - b;
+
+      case "*":
+        return a * b;
+
+      case "/":
+        return b === 0
+          ? 0
+          : a / b;
+
+      default:
+        return b;
+    }
+
+  }
+
+
+  function calcEquals() {
+
+    if (
+      calcOperatorValue === null ||
+      calcPrevious === null
+    ) {
+      return;
+    }
+
+    const inputValue =
+      parseFloat(calcCurrent);
+
+    const result =
+      calculateOperation(
+        calcPrevious,
+        inputValue,
+        calcOperatorValue
+      );
+
+    calcCurrent =
+      String(roundResult(result));
+
+    calcPrevious = null;
+    calcOperatorValue = null;
+    calcWaiting = true;
+
+    updateCalc();
+  }
+
+
+  function calcPercent() {
+
+    const value =
+      parseFloat(calcCurrent);
+
+    calcCurrent =
+      String(roundResult(value / 100));
+
+    updateCalc();
+  }
+
+
+  function calcClear() {
+
+    calcCurrent = "0";
+    calcPrevious = null;
+    calcOperatorValue = null;
+    calcWaiting = false;
+
+    updateCalc();
+  }
+
+
+  function calcBackspace() {
+
+    if (
+      calcCurrent.length <= 1 ||
+      calcCurrent === "Error"
+    ) {
+      calcCurrent = "0";
+    } else {
+      calcCurrent =
+        calcCurrent.slice(0, -1);
+    }
+
+    updateCalc();
+  }
+
+
+  function roundResult(number) {
+
+    return Math.round(
+      (number + Number.EPSILON) * 100000000
+    ) / 100000000;
+
+  }
+
+
+  document.addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        !document
+          .getElementById("calculatorScreen")
+          .classList.contains("active")
+      ) {
+        return;
+      }
+
+      if (/^[0-9]$/.test(event.key)) {
+        calcNumber(event.key);
+      }
+
+      if (event.key === ".") {
+        calcDecimal();
+      }
+
+      if (
+        ["+", "-", "*", "/"].includes(event.key)
+      ) {
+        calcOperator(event.key);
+      }
+
+      if (event.key === "Enter" || event.key === "=") {
+        calcEquals();
+      }
+
+      if (event.key === "Escape") {
+        calcClear();
+      }
+
+      if (event.key === "Backspace") {
+        calcBackspace();
+      }
 
     }
   );
 
-}
+
+  /* =====================================================
+     TODO
+  ===================================================== */
+
+  let todos =
+    JSON.parse(
+      localStorage.getItem(
+        "daily_helper_todos"
+      ) || "[]"
+    );
 
 
-/* =====================================================
-   ENTER SHORTCUTS
-===================================================== */
+  function addTodo() {
 
-document
-.getElementById("todoInput")
-.addEventListener(
-"keydown",
-event=>{
+    const input =
+      document.getElementById("todoInput");
 
-  if(event.key==="Enter")
-    addTodo();
+    const text =
+      input.value.trim();
 
-});
+    if (!text) return;
 
+    todos.push({
+      id: Date.now(),
+      text: text,
+      done: false
+    });
 
-document
-.getElementById("shoppingInput")
-.addEventListener(
-"keydown",
-event=>{
+    saveTodos();
 
-  if(event.key==="Enter")
-    addShopping();
+    input.value = "";
 
-});
+    renderTodos();
+  }
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
+  function saveTodos() {
 
-renderTodos();
+    localStorage.setItem(
+      "daily_helper_todos",
+      JSON.stringify(todos)
+    );
 
-renderTransactions();
+  }
 
-renderNotes();
 
-renderShopping();
+  function toggleTodo(id) {
 
-renderReminders();
+    todos =
+      todos.map(todo =>
+        todo.id === id
+          ? {...todo, done: !todo.done}
+          : todo
+      );
 
-updateCalc();
+    saveTodos();
+    renderTodos();
+  }
 
-setInterval(
-  checkReminders,
-  30000
-);
 
-setInterval(
-  renderReminders,
-  30000
-);
+  function deleteTodo(id) {
+
+    todos =
+      todos.filter(
+        todo => todo.id !== id
+      );
+
+    saveTodos();
+    renderTodos();
+  }
+
+
+  function renderTodos() {
+
+    const list =
+      document.getElementById("todoList");
+
+    if (!todos.length) {
+
+      list.innerHTML =
+        "<p style='color:#6b7280;text-align:center'>هنوز کاری ثبت نشده.</p>";
+
+      return;
+    }
+
+    list.innerHTML =
+      todos.map(todo => `
+
+        <div class="list-item">
+
+          <label style="display:flex;align-items:center;gap:10px;flex:1">
+
+            <input
+              type="checkbox"
+              ${todo.done ? "checked" : ""}
+              onchange="toggleTodo(${todo.id})"
+            >
+
+            <span style="
+              ${todo.done
+                ? "text-decoration:line-through;color:#9ca3af"
+                : ""}
+            ">
+              ${escapeHTML(todo.text)}
+            </span>
+
+          </label>
+
+          <button
+            class="danger-btn"
+            onclick="deleteTodo(${todo.id})">
+            حذف
+          </button>
+
+        </div>
+
+      `).join("");
+
+  }
+
+
+  /* =====================================================
+     MONEY
+  ===================================================== */
+
+  let transactions =
+    JSON.parse(
+      localStorage.getItem(
+        "daily_helper_transactions"
+      ) || "[]"
+    );
+
+
+  function addMoney() {
+
+    const amount =
+      parseFloat(
+        document.getElementById(
+          "moneyAmount"
+        ).value
+      );
+
+    const type =
+      document.getElementById(
+        "moneyType"
+      ).value;
+
+    const description =
+      document.getElementById(
+        "moneyDescription"
+      ).value.trim();
+
+    if (!amount || amount <= 0) {
+      alert("مبلغ را وارد کنید.");
+      return;
+    }
+
+    transactions.push({
+      id: Date.now(),
+      amount: amount,
+      type: type,
+      description:
+        description || "بدون توضیح",
+      date: new Date().toLocaleDateString("fa-AF")
+    });
+
+    localStorage.setItem(
+      "daily_helper_transactions",
+      JSON.stringify(transactions)
+    );
+
+    document.getElementById(
+      "moneyAmount"
+    ).value = "";
+
+    document.getElementById(
+      "moneyDescription"
+    ).value = "";
+
+    renderMoney();
+  }
+
+
+  function deleteMoney(id) {
+
+    transactions =
+      transactions.filter(
+        item => item.id !== id
+      );
+
+    localStorage.setItem(
+      "daily_helper_transactions",
+      JSON.stringify(transactions)
+    );
+
+    renderMoney();
+  }
+
+
+  function renderMoney() {
+
+    let income = 0;
+    let expense = 0;
+
+    transactions.forEach(item => {
+
+      if (item.type === "income") {
+        income += item.amount;
+      } else {
+        expense += item.amount;
+      }
+
+    });
+
+    document.getElementById(
+      "incomeTotal"
+    ).textContent =
+      formatNumber(income);
+
+    document.getElementById(
+      "expenseTotal"
+    ).textContent =
+      formatNumber(expense);
+
+    const list =
+      document.getElementById("moneyList");
+
+    if (!transactions.length) {
+
+      list.innerHTML =
+        "<p style='color:#6b7280;text-align:center'>هنوز تراکنشی ثبت نشده.</p>";
+
+      return;
+    }
+
+    list.innerHTML =
+      transactions.slice().reverse().map(item => `
+
+        <div class="list-item">
+
+          <div>
+
+            <strong>
+              ${escapeHTML(item.description)}
+            </strong>
+
+            <div style="font-size:11px;color:#9ca3af;margin-top:4px">
+              ${item.date}
+            </div>
+
+          </div>
+
+          <div style="text-align:left">
+
+            <strong style="
+              color:${item.type === "income"
+                ? "#16a34a"
+                : "#dc2626"}
+            ">
+              ${item.type === "income" ? "+" : "-"}
+              ${formatNumber(item.amount)}
+            </strong>
+
+            <br>
+
+            <button
+              class="danger-btn"
+              onclick="deleteMoney(${item.id})">
+              حذف
+            </button>
+
+          </div>
+
+        </div>
+
+      `).join("");
+
+  }
+
+
+  /* =====================================================
+     NOTES
+  ===================================================== */
+
+  let notes =
+    JSON.parse(
+      localStorage.getItem(
+        "daily_helper_notes"
+      ) || "[]"
+    );
+
+
+  function saveNote() {
+
+    const input =
+      document.getElementById("noteInput");
+
+    const text =
+      input.value.trim();
+
+    if (!text) return;
+
+    notes.push({
+      id: Date.now(),
+      text: text,
+      date:
+        new Date().toLocaleString("fa-AF")
+    });
+
+    localStorage.setItem(
+      "daily_helper_notes",
+      JSON.stringify(notes)
+    );
+
+    input.value = "";
+
+    renderNotes();
+  }
+
+
+  function deleteNote(id) {
+
+    notes =
+      notes.filter(
+        note => note.id !== id
+      );
+
+    localStorage.setItem(
+      "daily_helper_notes",
+      JSON.stringify(notes)
+    );
+
+    renderNotes();
+  }
+
+
+  function renderNotes() {
+
+    const list =
+      document.getElementById("notesList");
+
+    if (!notes.length) {
+
+      list.innerHTML =
+        "<p style='color:#6b7280;text-align:center'>هنوز یادداشتی وجود ندارد.</p>";
+
+      return;
+    }
+
+    list.innerHTML =
+      notes.slice().reverse().map(note => `
+
+        <div class="list-item">
+
+          <div style="flex:1">
+
+            <div style="white-space:pre-wrap">
+              ${escapeHTML(note.text)}
+            </div>
+
+            <div style="
+              color:#9ca3af;
+              font-size:10px;
+              margin-top:7px;
+            ">
+              ${note.date}
+            </div>
+
+          </div>
+
+          <button
+            class="danger-btn"
+            onclick="deleteNote(${note.id})">
+            حذف
+          </button>
+
+        </div>
+
+      `).join("");
+
+  }
+
+
+  /* =====================================================
+     SHOPPING
+  ===================================================== */
+
+  let shopping =
+    JSON.parse(
+      localStorage.getItem(
+        "daily_helper_shopping"
+      ) || "[]"
+    );
+
+
+  function addShopping() {
+
+    const input =
+      document.getElementById(
+        "shoppingInput"
+      );
+
+    const text =
+      input.value.trim();
+
+    if (!text) return;
+
+    shopping.push({
+      id: Date.now(),
+      text: text,
+      checked: false
+    });
+
+    localStorage.setItem(
+      "daily_helper_shopping",
+      JSON.stringify(shopping)
+    );
+
+    input.value = "";
+
+    renderShopping();
+  }
+
+
+  function toggleShopping(id) {
+
+    shopping =
+      shopping.map(item =>
+        item.id === id
+          ? {...item, checked: !item.checked}
+          : item
+      );
+
+    localStorage.setItem(
+      "daily_helper_shopping",
+      JSON.stringify(shopping)
+    );
+
+    renderShopping();
+  }
+
+
+  function deleteShopping(id) {
+
+    shopping =
+      shopping.filter(
+        item => item.id !== id
+      );
+
+    localStorage.setItem(
+      "daily_helper_shopping",
+      JSON.stringify(shopping)
+    );
+
+    renderShopping();
+  }
+
+
+  function renderShopping() {
+
+    const list =
+      document.getElementById(
+        "shoppingList"
+      );
+
+    if (!shopping.length) {
+
+      list.innerHTML =
+        "<p style='color:#6b7280;text-align:center'>لیست خرید خالی است.</p>";
+
+      return;
+    }
+
+    list.innerHTML =
+      shopping.map(item => `
+
+        <div class="list-item">
+
+          <label style="
+            display:flex;
+            align-items:center;
+            gap:10px;
+            flex:1;
+          ">
+
+            <input
+              type="checkbox"
+              ${item.checked ? "checked" : ""}
+              onchange="toggleShopping(${item.id})"
+            >
+
+            <span style="
+              ${item.checked
+                ? "text-decoration:line-through;color:#9ca3af"
+                : ""}
+            ">
+              ${escapeHTML(item.text)}
+            </span>
+
+          </label>
+
+          <button
+            class="danger-btn"
+            onclick="deleteShopping(${item.id})">
+            حذف
+          </button>
+
+        </div>
+
+      `).join("");
+
+  }
+
+
+  /* =====================================================
+     REMINDERS
+  ===================================================== */
+
+  let reminders =
+    JSON.parse(
+      localStorage.getItem(
+        "daily_helper_reminders"
+      ) || "[]"
+    );
+
+
+  function addReminder() {
+
+    const text =
+      document.getElementById(
+        "reminderInput"
+      ).value.trim();
+
+    const time =
+      document.getElementById(
+        "reminderTime"
+      ).value;
+
+    if (!text || !time) {
+
+      alert("متن و زمان یادآور را وارد کنید.");
+
+      return;
+    }
+
+    reminders.push({
+      id: Date.now(),
+      text: text,
+      time: time
+    });
+
+    localStorage.setItem(
+      "daily_helper_reminders",
+      JSON.stringify(reminders)
+    );
+
+    document.getElementById(
+      "reminderInput"
+    ).value = "";
+
+    document.getElementById(
+      "reminderTime"
+    ).value = "";
+
+    renderReminders();
+  }
+
+
+  function deleteReminder(id) {
+
+    reminders =
+      reminders.filter(
+        item => item.id !== id
+      );
+
+    localStorage.setItem(
+      "daily_helper_reminders",
+      JSON.stringify(reminders)
+    );
+
+    renderReminders();
+  }
+
+
+  function renderReminders() {
+
+    const list =
+      document.getElementById(
+        "reminderList"
+      );
+
+    if (!reminders.length) {
+
+      list.innerHTML =
+        "<p style='color:#6b7280;text-align:center'>هنوز یادآوری ثبت نشده.</p>";
+
+      return;
+    }
+
+    list.innerHTML =
+      reminders.slice().reverse().map(item => `
+
+        <div class="list-item">
+
+          <div>
+
+            <strong>
+              ${escapeHTML(item.text)}
+            </strong>
+
+            <div style="
+              color:#6b7280;
+              font-size:12px;
+              margin-top:5px;
+            ">
+              ${formatDateTime(item.time)}
+            </div>
+
+          </div>
+
+          <button
+            class="danger-btn"
+            onclick="deleteReminder(${item.id})">
+            حذف
+          </button>
+
+        </div>
+
+      `).join("");
+
+  }
+
+
+  /* =====================================================
+     HELPERS
+  ===================================================== */
+
+  function formatNumber(number) {
+
+    return Number(number).toLocaleString("fa-AF");
+
+  }
+
+
+  function formatDateTime(value) {
+
+    try {
+
+      return new Date(value)
+        .toLocaleString("fa-AF");
+
+    } catch {
+
+      return value;
+
+    }
+
+  }
+
+
+  function escapeHTML(value) {
+
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  }
+
+
+  /* =====================================================
+     PWA
+  ===================================================== */
+
+  if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+      "load",
+      function() {
+
+        navigator.serviceWorker
+          .register("./sw.js")
+          .catch(error =>
+            console.log(
+              "Service Worker:",
+              error
+            )
+          );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     STARTUP
+  ===================================================== */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+      renderTodos();
+      renderMoney();
+      renderNotes();
+      renderShopping();
+      renderReminders();
+      updateCalc();
+
+      if (location.hash) {
+
+        const name =
+          location.hash.substring(1);
+
+        if (screenNames.includes(name)) {
+          showScreen(name, false);
+        }
+
+      }
+
+    }
+  );
 
 </script>
 
