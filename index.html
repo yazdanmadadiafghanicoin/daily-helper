@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
   <meta name="theme-color" content="#111827">
-  <meta name="description" content="Daily Helper - ابزارهای روزمره">
+  <meta name="description" content="Daily Helper - ابزارهای روزمره در یک برنامه">
 
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./icon.svg">
 
   <title>Daily Helper</title>
 
   <style>
-
     * {
       box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
-      font-family: Arial, Tahoma, sans-serif;
-      background: #f4f6fa;
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
+      background: #f5f7fb;
       color: #111827;
     }
 
@@ -31,21 +37,63 @@
     input,
     textarea,
     select {
-      font-family: inherit;
+      font: inherit;
     }
 
     button {
       cursor: pointer;
     }
 
-    /* =========================
-       SCREENS
-    ========================= */
+    .app {
+      width: 100%;
+      max-width: 760px;
+      margin: auto;
+      min-height: 100vh;
+      background: #f5f7fb;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(245,247,251,.94);
+      backdrop-filter: blur(12px);
+      padding: 16px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .header-icon {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 14px;
+      background: #111827;
+      color: white;
+      font-size: 20px;
+    }
 
     .screen {
       display: none;
       min-height: 100vh;
-      padding-bottom: 90px;
+      padding: 18px 16px 100px;
     }
 
     .screen.active {
@@ -56,499 +104,300 @@
     @keyframes screenIn {
       from {
         opacity: 0;
-        transform: translateX(15px);
+        transform: translateY(6px);
       }
-
       to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
       }
     }
 
-    /* =========================
-       HEADER
-    ========================= */
-
-    .top-header {
+    .hero {
       background: #111827;
       color: white;
-
-      padding:
-        calc(18px + env(safe-area-inset-top))
-        18px
-        18px;
-
-      border-radius: 0 0 24px 24px;
-    }
-
-    .header-row {
-      max-width: 900px;
-      margin: auto;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-icon {
-      width: 45px;
-      height: 45px;
-      border-radius: 14px;
-      background: white;
-
-      display: grid;
-      place-items: center;
-
-      overflow: hidden;
-    }
-
-    .brand-icon img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .brand-title {
-      font-size: 19px;
-      font-weight: 800;
-    }
-
-    .brand-subtitle {
-      font-size: 11px;
-      opacity: .65;
-      margin-top: 3px;
-    }
-
-    /* =========================
-       HOME
-    ========================= */
-
-    .home-content {
-      max-width: 900px;
-      margin: auto;
-      padding: 18px;
-    }
-
-    .welcome {
-      background: linear-gradient(
-        135deg,
-        #1d4ed8,
-        #2563eb
-      );
-
-      color: white;
-
       border-radius: 24px;
-
-      padding: 24px 20px;
-
-      box-shadow:
-        0 12px 30px rgba(37,99,235,.20);
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 30px rgba(17,24,39,.12);
     }
 
-    .welcome small {
-      opacity: .8;
+    .hero-title {
+      font-size: 25px;
+      font-weight: 800;
+      margin-bottom: 6px;
     }
 
-    .welcome h1 {
-      margin: 8px 0;
-      font-size: 27px;
-    }
-
-    .welcome p {
-      margin: 0;
-      opacity: .9;
+    .hero-text {
+      color: #d1d5db;
       font-size: 14px;
+      line-height: 1.8;
     }
 
     .section-title {
-      margin: 26px 3px 13px;
       font-size: 18px;
       font-weight: 800;
+      margin: 20px 2px 12px;
     }
 
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(2,1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
 
-    .quick-card {
-      border: 0;
+    .tool-card {
+      border: 1px solid #e5e7eb;
       background: white;
-
       border-radius: 20px;
-
       padding: 18px 14px;
-
-      min-height: 125px;
-
       text-align: right;
-
-      box-shadow:
-        0 5px 18px rgba(15,23,42,.07);
-
-      transition:
-        transform .15s,
-        box-shadow .15s;
+      min-height: 130px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.04);
+      transition: .15s;
     }
 
-    .quick-card:active {
-      transform: scale(.97);
+    .tool-card:active {
+      transform: scale(.98);
     }
 
     .tool-icon {
-      width: 48px;
-      height: 48px;
-
-      border-radius: 15px;
-
-      display: grid;
-      place-items: center;
-
-      font-size: 25px;
-
-      background: #eef2ff;
-
-      margin-bottom: 13px;
+      font-size: 30px;
+      margin-bottom: 12px;
     }
 
-    .quick-card h3 {
-      margin: 0 0 5px;
+    .tool-name {
+      font-weight: 800;
+      font-size: 16px;
+    }
 
-      font-size: 15px;
+    .tool-description {
+      color: #6b7280;
+      font-size: 12px;
+      margin-top: 5px;
+      line-height: 1.6;
+    }
 
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.035);
+    }
+
+    .screen-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .back-btn {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 14px;
+      background: #e5e7eb;
+      color: #111827;
+      font-size: 20px;
+    }
+
+    .screen-title {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      background: white;
+      border-radius: 14px;
+      padding: 12px 13px;
+      outline: none;
       color: #111827;
     }
 
-    .quick-card p {
-      margin: 0;
-
-      color: #6b7280;
-
-      font-size: 11px;
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #111827;
+      box-shadow: 0 0 0 3px rgba(17,24,39,.08);
     }
 
-    /* =========================
-       PAGE HEADER
-    ========================= */
-
-    .page-header {
-      background: #111827;
-
-      color: white;
-
-      padding:
-        calc(15px + env(safe-area-inset-top))
-        15px
-        15px;
-
-      border-radius: 0 0 22px 22px;
-    }
-
-    .page-header-row {
-      max-width: 900px;
-      margin: auto;
-
-      display: flex;
-      align-items: center;
-
-      gap: 12px;
-    }
-
-    .back-button {
-      border: 0;
-
-      background: rgba(255,255,255,.12);
-
-      color: white;
-
-      width: 44px;
-      height: 44px;
-
-      border-radius: 14px;
-
-      font-size: 25px;
-    }
-
-    .page-title {
-      font-size: 20px;
-      font-weight: 800;
-    }
-
-    .page-content {
-      max-width: 900px;
-      margin: auto;
-      padding: 18px;
-    }
-
-    /* =========================
-       CARDS
-    ========================= */
-
-    .app-card {
-      background: white;
-
-      border-radius: 22px;
-
-      padding: 18px;
-
-      margin-bottom: 15px;
-
-      box-shadow:
-        0 5px 18px rgba(15,23,42,.07);
-    }
-
-    .input {
-      width: 100%;
-
-      border: 1px solid #e5e7eb;
-
-      background: #f9fafb;
-
-      border-radius: 14px;
-
-      padding: 13px;
-
-      outline: none;
-
-      font-size: 14px;
-
-      margin-bottom: 10px;
-    }
-
-    .input:focus {
-      border-color: #2563eb;
-      background: white;
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.8;
     }
 
     .primary-btn {
-      width: 100%;
-
       border: 0;
-
       border-radius: 14px;
-
-      padding: 13px;
-
-      background: #2563eb;
-
+      background: #111827;
       color: white;
+      padding: 12px 17px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
 
-      font-weight: 800;
-
-      font-size: 14px;
+    .secondary-btn {
+      border: 0;
+      border-radius: 12px;
+      background: #e5e7eb;
+      color: #111827;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .danger-btn {
       border: 0;
-
-      border-radius: 10px;
-
-      padding: 8px 11px;
-
+      border-radius: 11px;
       background: #fee2e2;
-
       color: #b91c1c;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .edit-btn {
+      border: 0;
+      border-radius: 11px;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
     }
 
     .list-item {
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
-
       gap: 10px;
-
-      padding: 13px 0;
-
-      border-bottom: 1px solid #f0f0f0;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 12px;
     }
 
-    .list-item:last-child {
-      border-bottom: 0;
+    .item-main {
+      min-width: 0;
+      flex: 1;
     }
 
-    /* =========================
-       CALCULATOR
-    ========================= */
-
-    .calculator {
-      max-width: 430px;
-
-      margin: auto;
-
-      background: #111827;
-
-      border-radius: 25px;
-
-      padding: 15px;
-
-      box-shadow:
-        0 15px 35px rgba(15,23,42,.18);
-    }
-
-    .calc-display {
-      min-height: 115px;
-
-      border-radius: 20px;
-
-      background: #020617;
-
-      color: white;
-
-      padding: 20px 15px;
-
-      display: flex;
-
-      align-items: flex-end;
-
-      justify-content: flex-end;
-
-      font-size: 42px;
-
-      overflow: hidden;
-
-      word-break: break-all;
-
-      margin-bottom: 13px;
-    }
-
-    .calc-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(4,1fr);
-
-      gap: 9px;
-    }
-
-    .calc-btn {
-      border: 0;
-
-      height: 64px;
-
-      border-radius: 17px;
-
-      background: #374151;
-
-      color: white;
-
-      font-size: 20px;
-
+    .item-title {
       font-weight: 700;
+      word-break: break-word;
     }
 
-    .calc-btn:active {
-      transform: scale(.95);
-    }
-
-    .calc-btn.operator {
-      background: #2563eb;
-    }
-
-    .calc-btn.action {
-      background: #6b7280;
-    }
-
-    .calc-btn.equal {
-      background: #16a34a;
-    }
-
-    .calc-btn.zero {
-      grid-column: span 2;
-    }
-
-    /* =========================
-       MONEY
-    ========================= */
-
-    .money-summary {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2,1fr);
-
-      gap: 10px;
-
-      margin-bottom: 15px;
-    }
-
-    .money-box {
-      background: #f8fafc;
-
-      border-radius: 17px;
-
-      padding: 16px;
-    }
-
-    .money-box small {
+    .item-meta {
       color: #6b7280;
+      font-size: 12px;
+      margin-top: 4px;
     }
 
-    .money-box strong {
-      display: block;
-
-      margin-top: 7px;
-
-      font-size: 19px;
-    }
-
-    /* =========================
-       SHOPPING TOTAL
-    ========================= */
-
-    .shopping-total-card {
-      background: linear-gradient(
-        135deg,
-        #0f766e,
-        #14b8a6
-      );
-
-      color: white;
-
-      border-radius: 20px;
-
-      padding: 18px;
-
-      margin-bottom: 15px;
-
+    .item-actions {
       display: flex;
-
       align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
 
-      justify-content: space-between;
+    .empty {
+      color: #6b7280;
+      text-align: center;
+      padding: 24px 10px;
+      font-size: 14px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .stat {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .stat-label {
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 800;
+      margin-top: 5px;
+    }
+
+    .income {
+      color: #059669;
+    }
+
+    .expense {
+      color: #dc2626;
+    }
+
+    .shopping-total {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
     }
 
     .shopping-total-label {
+      color: #047857;
       font-size: 13px;
-      opacity: .85;
     }
 
-    .shopping-total-number {
+    .shopping-total-value {
+      color: #065f46;
       font-size: 25px;
       font-weight: 900;
       margin-top: 4px;
     }
 
-    .shopping-price {
-      color: #2563eb;
-      font-weight: 900;
-      white-space: nowrap;
+    .shopping-form {
+      display: grid;
+      grid-template-columns: 1fr 140px auto;
+      gap: 8px;
+      margin-bottom: 14px;
     }
 
     .shopping-item-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       min-width: 0;
       flex: 1;
+    }
+
+    .shopping-item-left input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
     }
 
     .shopping-name {
@@ -556,1006 +405,680 @@
       word-break: break-word;
     }
 
-    /* =========================
-       BOTTOM NAV
-    ========================= */
-
-    .bottom-nav {
-      position: fixed;
-
-      z-index: 100;
-
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      background: rgba(255,255,255,.96);
-
-      backdrop-filter: blur(15px);
-
-      border-top: 1px solid #e5e7eb;
-
-      padding:
-        8px
-        10px
-        calc(8px + env(safe-area-inset-bottom));
-
-      display: flex;
-
-      justify-content: center;
+    .shopping-price {
+      font-weight: 800;
+      white-space: nowrap;
+      color: #047857;
     }
 
-    .nav-inner {
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.48);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-box {
       width: 100%;
-      max-width: 600px;
+      max-width: 430px;
+      background: white;
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
 
-      display: grid;
+    .modal-title {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
 
-      grid-template-columns:
-        repeat(2,1fr);
-
+    .modal-actions {
+      display: flex;
       gap: 8px;
+      margin-top: 15px;
+    }
+
+    .modal-actions button {
+      flex: 1;
+    }
+
+    /* Calculator */
+    .calculator {
+      background: #111827;
+      border-radius: 24px;
+      padding: 14px;
+    }
+
+    .calc-display {
+      background: #030712;
+      color: white;
+      border-radius: 18px;
+      min-height: 125px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .calc-expression {
+      color: #9ca3af;
+      font-size: 14px;
+      min-height: 22px;
+    }
+
+    .calc-value {
+      font-size: 39px;
+      font-weight: 700;
+      word-break: break-all;
+      direction: ltr;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .calc-btn {
+      border: 0;
+      border-radius: 15px;
+      min-height: 58px;
+      font-size: 20px;
+      font-weight: 700;
+      background: #374151;
+      color: white;
+    }
+
+    .calc-btn.operator {
+      background: #4b5563;
+    }
+
+    .calc-btn.equal {
+      background: #059669;
+    }
+
+    .calc-btn.clear {
+      background: #b91c1c;
+    }
+
+    .calc-btn.zero {
+      grid-column: span 2;
+    }
+
+    /* Bottom navigation */
+    .bottom-nav {
+      position: fixed;
+      z-index: 80;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(760px, 100%);
+      padding: 9px 10px calc(9px + env(safe-area-inset-bottom));
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(15px);
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-around;
     }
 
     .nav-btn {
       border: 0;
-
       background: transparent;
-
-      padding: 8px;
-
       color: #6b7280;
-
-      border-radius: 13px;
-
-      font-size: 12px;
+      min-width: 65px;
+      padding: 5px;
+      font-size: 11px;
     }
 
     .nav-btn.active {
-      background: #eef2ff;
-
-      color: #2563eb;
-
+      color: #111827;
       font-weight: 800;
     }
 
     .nav-icon {
       display: block;
-
       font-size: 21px;
-
       margin-bottom: 2px;
     }
 
-    /* =========================
-       DESKTOP
-    ========================= */
-
-    @media (min-width:700px) {
-
-      .tools-grid {
-        grid-template-columns:
-          repeat(3,1fr);
+    @media (min-width: 700px) {
+      body {
+        background: #e5e7eb;
       }
 
-      .screen {
-        padding-bottom: 30px;
+      .app {
+        min-height: 100vh;
+        box-shadow: 0 0 30px rgba(0,0,0,.08);
       }
 
       .bottom-nav {
-        display: none;
+        bottom: 10px;
+        border: 1px solid #e5e7eb;
+        border-radius: 22px;
+        width: min(700px, calc(100% - 20px));
       }
-
     }
 
+    @media (max-width: 520px) {
+      .shopping-form {
+        grid-template-columns: 1fr;
+      }
+
+      .shopping-form .primary-btn {
+        width: 100%;
+      }
+
+      .list-item {
+        align-items: flex-start;
+      }
+
+      .shopping-item-left {
+        align-items: flex-start;
+      }
+
+      .item-actions {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+    }
   </style>
 </head>
-
 
 <body>
 
 <div class="app">
 
+  <!-- HOME -->
+  <section id="homeScreen" class="screen active">
 
-  <!-- =====================================================
-       HOME
-  ===================================================== -->
-
-  <section
-    id="homeScreen"
-    class="screen active"
-  >
-
-    <header class="top-header">
-
-      <div class="header-row">
-
-        <div class="brand">
-
-          <div class="brand-icon">
-            <img
-              src="./icon.svg"
-              alt="Daily Helper"
-            >
-          </div>
-
-          <div>
-
-            <div class="brand-title">
-              Daily Helper
-            </div>
-
-            <div class="brand-subtitle">
-              ابزارهای روزمره در یک برنامه
-            </div>
-
-          </div>
-
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div>
+          <div class="brand">Daily Helper</div>
+          <div class="subtitle">ابزارهای روزمره در یک برنامه</div>
         </div>
 
+        <button class="header-icon" onclick="showScreen('notes')">
+          📝
+        </button>
       </div>
-
     </header>
 
+    <div class="screen">
 
-    <main class="home-content">
-
-      <section class="welcome">
-
-        <small>
-          خوش آمدید 👋
-        </small>
-
-        <h1>
-          امروز چه کاری داری؟
-        </h1>
-
-        <p>
-          ابزار مورد نیازت را انتخاب کن.
-        </p>
-
-      </section>
-
-
-      <div class="section-title">
-        ابزارهای من
+      <div class="hero">
+        <div class="hero-title">سلام 👋</div>
+        <div class="hero-text">
+          کارهای روزمره، حساب‌وکتاب، خرید و یادداشت‌هایت را ساده مدیریت کن.
+        </div>
       </div>
 
+      <div class="section-title">ابزارهای من</div>
 
       <div class="tools-grid">
 
-
-        <button
-          class="quick-card"
-          onclick="showScreen('calculator')"
-        >
-
-          <div class="tool-icon">
-            🧮
+        <button class="tool-card" onclick="showScreen('calculator')">
+          <div class="tool-icon">🧮</div>
+          <div class="tool-name">ماشین حساب</div>
+          <div class="tool-description">
+            محاسبه سریع و ساده
           </div>
-
-          <h3>
-            ماشین‌حساب
-          </h3>
-
-          <p>
-            محاسبه سریع
-          </p>
-
         </button>
 
-
-        <button
-          class="quick-card"
-          onclick="showScreen('todo')"
-        >
-
-          <div class="tool-icon">
-            ✅
+        <button class="tool-card" onclick="showScreen('todo')">
+          <div class="tool-icon">✅</div>
+          <div class="tool-name">کارهای من</div>
+          <div class="tool-description">
+            کارهای روزانه را مدیریت کن
           </div>
-
-          <h3>
-            کارهای من
-          </h3>
-
-          <p>
-            لیست کارهای روزانه
-          </p>
-
         </button>
 
-
-        <button
-          class="quick-card"
-          onclick="showScreen('money')"
-        >
-
-          <div class="tool-icon">
-            💰
+        <button class="tool-card" onclick="showScreen('money')">
+          <div class="tool-icon">💰</div>
+          <div class="tool-name">مدیریت پول</div>
+          <div class="tool-description">
+            درآمد و مصرف
           </div>
-
-          <h3>
-            مدیریت پول
-          </h3>
-
-          <p>
-            درآمد و هزینه
-          </p>
-
         </button>
 
-
-        <button
-          class="quick-card"
-          onclick="showScreen('notes')"
-        >
-
-          <div class="tool-icon">
-            📝
+        <button class="tool-card" onclick="showScreen('shopping')">
+          <div class="tool-icon">🛒</div>
+          <div class="tool-name">لیست خرید</div>
+          <div class="tool-description">
+            خریدها و قیمت‌ها
           </div>
-
-          <h3>
-            یادداشت‌ها
-          </h3>
-
-          <p>
-            یادداشت سریع
-          </p>
-
         </button>
 
-
-        <button
-          class="quick-card"
-          onclick="showScreen('shopping')"
-        >
-
-          <div class="tool-icon">
-            🛒
+        <button class="tool-card" onclick="showScreen('notes')">
+          <div class="tool-icon">📝</div>
+          <div class="tool-name">یادداشت‌ها</div>
+          <div class="tool-description">
+            یادداشت‌های مهم
           </div>
-
-          <h3>
-            لیست خرید
-          </h3>
-
-          <p>
-            خرید و قیمت‌ها
-          </p>
-
         </button>
 
-
-        <button
-          class="quick-card"
-          onclick="showScreen('reminder')"
-        >
-
-          <div class="tool-icon">
-            ⏰
+        <button class="tool-card" onclick="showScreen('reminder')">
+          <div class="tool-icon">🔔</div>
+          <div class="tool-name">یادآوری</div>
+          <div class="tool-description">
+            زمان‌های مهم را ثبت کن
           </div>
-
-          <h3>
-            یادآور
-          </h3>
-
-          <p>
-            یادآوری کارها
-          </p>
-
         </button>
-
 
       </div>
 
-    </main>
-
+    </div>
   </section>
 
 
+  <!-- CALCULATOR -->
+  <section id="calculatorScreen" class="screen">
 
-  <!-- =====================================================
-       CALCULATOR
-  ===================================================== -->
+    <div class="screen-header">
+      <button class="back-btn" onclick="goHome()">→</button>
+      <div class="screen-title">ماشین حساب</div>
+    </div>
 
-  <section
-    id="calculatorScreen"
-    class="screen"
-  >
+    <div class="calculator">
 
-    <header class="page-header">
+      <div class="calc-display">
+        <div id="calcExpression" class="calc-expression"></div>
+        <div id="calcValue" class="calc-value">0</div>
+      </div>
 
-      <div class="page-header-row">
+      <div class="calc-grid">
 
-        <button
-          class="back-button"
-          onclick="goHome()"
-        >
-          ←
-        </button>
+        <button class="calc-btn clear" onclick="calcClear()">C</button>
+        <button class="calc-btn" onclick="calcBackspace()">⌫</button>
+        <button class="calc-btn" onclick="calcPercent()">%</button>
+        <button class="calc-btn operator" onclick="calcOperator('/')">÷</button>
 
-        <div class="page-title">
-          🧮 ماشین‌حساب
-        </div>
+        <button class="calc-btn" onclick="calcNumber('7')">7</button>
+        <button class="calc-btn" onclick="calcNumber('8')">8</button>
+        <button class="calc-btn" onclick="calcNumber('9')">9</button>
+        <button class="calc-btn operator" onclick="calcOperator('*')">×</button>
+
+        <button class="calc-btn" onclick="calcNumber('4')">4</button>
+        <button class="calc-btn" onclick="calcNumber('5')">5</button>
+        <button class="calc-btn" onclick="calcNumber('6')">6</button>
+        <button class="calc-btn operator" onclick="calcOperator('-')">−</button>
+
+        <button class="calc-btn" onclick="calcNumber('1')">1</button>
+        <button class="calc-btn" onclick="calcNumber('2')">2</button>
+        <button class="calc-btn" onclick="calcNumber('3')">3</button>
+        <button class="calc-btn operator" onclick="calcOperator('+')">+</button>
+
+        <button class="calc-btn zero" onclick="calcNumber('0')">0</button>
+        <button class="calc-btn" onclick="calcDecimal()">.</button>
+        <button class="calc-btn equal" onclick="calcEquals()">=</button>
 
       </div>
 
-    </header>
-
-
-    <main class="page-content">
-
-      <div class="calculator">
-
-        <div
-          id="calcDisplay"
-          class="calc-display"
-        >
-          0
-        </div>
-
-
-        <div class="calc-grid">
-
-
-          <button
-            class="calc-btn action"
-            onclick="calcClear()"
-          >
-            AC
-          </button>
-
-
-          <button
-            class="calc-btn action"
-            onclick="calcBackspace()"
-          >
-            ⌫
-          </button>
-
-
-          <button
-            class="calc-btn action"
-            onclick="calcPercent()"
-          >
-            %
-          </button>
-
-
-          <button
-            class="calc-btn operator"
-            onclick="calcOperator('/')"
-          >
-            ÷
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcNumber('7')"
-          >
-            7
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcNumber('8')"
-          >
-            8
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcNumber('9')"
-          >
-            9
-          </button>
-
-
-          <button
-            class="calc-btn operator"
-            onclick="calcOperator('*')"
-          >
-            ×
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcNumber('4')"
-          >
-            4
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcNumber('5')"
-          >
-            5
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcNumber('6')"
-          >
-            6
-          </button>
-
-
-          <button
-            class="calc-btn operator"
-            onclick="calcOperator('-')"
-          >
-            −
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcNumber('1')"
-          >
-            1
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcNumber('2')"
-          >
-            2
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcNumber('3')"
-          >
-            3
-          </button>
-
-
-          <button
-            class="calc-btn operator"
-            onclick="calcOperator('+')"
-          >
-            +
-          </button>
-
-
-          <button
-            class="calc-btn zero"
-            onclick="calcNumber('0')"
-          >
-            0
-          </button>
-
-
-          <button
-            class="calc-btn"
-            onclick="calcDecimal()"
-          >
-            .
-          </button>
-
-
-          <button
-            class="calc-btn equal"
-            onclick="calcEquals()"
-          >
-            =
-          </button>
-
-
-        </div>
-
-      </div>
-
-    </main>
-
+    </div>
   </section>
 
 
+  <!-- TODO -->
+  <section id="todoScreen" class="screen">
 
-  <!-- =====================================================
-       TODO
-  ===================================================== -->
+    <div class="screen-header">
+      <button class="back-btn" onclick="goHome()">→</button>
+      <div class="screen-title">کارهای من</div>
+    </div>
 
-  <section
-    id="todoScreen"
-    class="screen"
-  >
+    <div class="card">
 
-    <header class="page-header">
-
-      <div class="page-header-row">
-
-        <button
-          class="back-button"
-          onclick="goHome()"
-        >
-          ←
-        </button>
-
-        <div class="page-title">
-          ✅ کارهای من
-        </div>
-
-      </div>
-
-    </header>
-
-
-    <main class="page-content">
-
-      <div class="app-card">
-
+      <div class="input-row">
         <input
           id="todoInput"
-          class="input"
-          placeholder="کار جدید را بنویس..."
+          type="text"
+          placeholder="مثلاً خرید نان"
+          onkeydown="if(event.key==='Enter') addTodo()"
         >
 
-        <button
-          class="primary-btn"
-          onclick="addTodo()"
-        >
-          افزودن کار
+        <button class="primary-btn" onclick="addTodo()">
+          اضافه
         </button>
-
       </div>
 
+    </div>
 
-      <div class="app-card">
-
-        <div id="todoList"></div>
-
-      </div>
-
-    </main>
+    <div id="todoList" class="list"></div>
 
   </section>
 
 
+  <!-- MONEY -->
+  <section id="moneyScreen" class="screen">
 
-  <!-- =====================================================
-       MONEY
-  ===================================================== -->
+    <div class="screen-header">
+      <button class="back-btn" onclick="goHome()">→</button>
+      <div class="screen-title">مدیریت پول</div>
+    </div>
 
-  <section
-    id="moneyScreen"
-    class="screen"
-  >
+    <div class="stats-grid">
 
-    <header class="page-header">
-
-      <div class="page-header-row">
-
-        <button
-          class="back-button"
-          onclick="goHome()"
-        >
-          ←
-        </button>
-
-        <div class="page-title">
-          💰 مدیریت پول
-        </div>
-
+      <div class="stat">
+        <div class="stat-label">کل درآمد</div>
+        <div id="totalIncome" class="stat-value income">۰ ؋</div>
       </div>
 
-    </header>
-
-
-    <main class="page-content">
-
-
-      <div class="money-summary">
-
-
-        <div class="money-box">
-
-          <small>
-            درآمد
-          </small>
-
-          <strong id="incomeTotal">
-            0
-          </strong>
-
-        </div>
-
-
-        <div class="money-box">
-
-          <small>
-            هزینه
-          </small>
-
-          <strong id="expenseTotal">
-            0
-          </strong>
-
-        </div>
-
-
+      <div class="stat">
+        <div class="stat-label">کل مصرف</div>
+        <div id="totalExpense" class="stat-value expense">۰ ؋</div>
       </div>
 
+    </div>
 
-      <div class="app-card">
+    <div class="card">
 
+      <input
+        id="moneyDescription"
+        type="text"
+        placeholder="توضیح"
+        style="margin-bottom:8px"
+      >
 
-        <input
-          id="moneyAmount"
-          class="input"
-          type="number"
-          placeholder="مبلغ"
-        >
+      <input
+        id="moneyAmount"
+        type="number"
+        inputmode="decimal"
+        placeholder="مبلغ به افغانی"
+        style="margin-bottom:8px"
+      >
 
+      <select id="moneyType" style="margin-bottom:10px">
+        <option value="expense">مصرف</option>
+        <option value="income">درآمد</option>
+      </select>
 
-        <select
-          id="moneyType"
-          class="input"
-        >
+      <button
+        class="primary-btn"
+        style="width:100%"
+        onclick="addMoney()"
+      >
+        ثبت
+      </button>
 
-          <option value="income">
-            درآمد
-          </option>
+    </div>
 
-          <option value="expense">
-            هزینه
-          </option>
-
-        </select>
-
-
-        <input
-          id="moneyDescription"
-          class="input"
-          placeholder="توضیح"
-        >
-
-
-        <button
-          class="primary-btn"
-          onclick="addMoney()"
-        >
-          ثبت
-        </button>
-
-
-      </div>
-
-
-      <div class="app-card">
-
-        <div id="moneyList"></div>
-
-      </div>
-
-
-    </main>
+    <div id="moneyList" class="list"></div>
 
   </section>
 
 
+  <!-- NOTES -->
+  <section id="notesScreen" class="screen">
 
-  <!-- =====================================================
-       NOTES
-  ===================================================== -->
+    <div class="screen-header">
+      <button class="back-btn" onclick="goHome()">→</button>
+      <div class="screen-title">یادداشت‌ها</div>
+    </div>
 
-  <section
-    id="notesScreen"
-    class="screen"
-  >
+    <div class="card">
 
-    <header class="page-header">
+      <textarea
+        id="noteInput"
+        placeholder="یادداشت خود را بنویسید..."
+      ></textarea>
 
-      <div class="page-header-row">
+      <button
+        class="primary-btn"
+        style="width:100%;margin-top:10px"
+        onclick="saveNote()"
+      >
+        ذخیره یادداشت
+      </button>
 
-        <button
-          class="back-button"
-          onclick="goHome()"
-        >
-          ←
-        </button>
+    </div>
 
-        <div class="page-title">
-          📝 یادداشت‌ها
-        </div>
-
-      </div>
-
-    </header>
-
-
-    <main class="page-content">
-
-
-      <div class="app-card">
-
-        <textarea
-          id="noteInput"
-          class="input"
-          rows="7"
-          placeholder="یادداشت خود را بنویس..."
-        ></textarea>
-
-
-        <button
-          class="primary-btn"
-          onclick="saveNote()"
-        >
-          ذخیره یادداشت
-        </button>
-
-      </div>
-
-
-      <div class="app-card">
-
-        <div id="notesList"></div>
-
-      </div>
-
-
-    </main>
+    <div id="notesList" class="list"></div>
 
   </section>
 
 
+  <!-- SHOPPING -->
+  <section id="shoppingScreen" class="screen">
 
-  <!-- =====================================================
-       SHOPPING WITH PRICE
-  ===================================================== -->
+    <div class="screen-header">
+      <button class="back-btn" onclick="goHome()">→</button>
+      <div class="screen-title">لیست خرید</div>
+    </div>
 
-  <section
-    id="shoppingScreen"
-    class="screen"
-  >
+    <div class="shopping-total">
 
-    <header class="page-header">
-
-      <div class="page-header-row">
-
-        <button
-          class="back-button"
-          onclick="goHome()"
-        >
-          ←
-        </button>
-
-        <div class="page-title">
-          🛒 لیست خرید
-        </div>
-
+      <div class="shopping-total-label">
+        مجموع قیمت خریدها
       </div>
 
-    </header>
+      <div id="shoppingTotal" class="shopping-total-value">
+        ۰ ؋
+      </div>
 
+    </div>
 
-    <main class="page-content">
+    <div class="card">
 
-
-      <div class="app-card">
+      <div class="shopping-form">
 
         <input
           id="shoppingInput"
-          class="input"
-          placeholder="نام خرید؛ مثلاً نان، شیر، برنج..."
+          type="text"
+          placeholder="نام خرید"
+          onkeydown="if(event.key==='Enter') addShopping()"
         >
-
 
         <input
           id="shoppingPrice"
-          class="input"
           type="number"
-          min="0"
-          step="0.01"
+          inputmode="decimal"
           placeholder="قیمت به افغانی"
+          onkeydown="if(event.key==='Enter') addShopping()"
         >
-
 
         <button
           class="primary-btn"
           onclick="addShopping()"
         >
-          افزودن به لیست
+          اضافه
         </button>
 
       </div>
 
-
-      <div class="shopping-total-card">
-
-        <div>
-
-          <div class="shopping-total-label">
-            مجموع خرید
-          </div>
-
-          <div
-            id="shoppingTotal"
-            class="shopping-total-number"
-          >
-            0
-          </div>
-
-        </div>
-
-
-        <div style="font-size:25px">
-          ؋
-        </div>
-
-      </div>
-
-
-      <div class="app-card">
-
-        <div
-          style="
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            margin-bottom:8px;
-          "
-        >
-
-          <strong>
-            خریدهای من
-          </strong>
-
-          <span
-            style="
-              color:#6b7280;
-              font-size:12px;
-            "
-          >
-            قیمت به ؋
-          </span>
-
-        </div>
-
-
-        <div id="shoppingList"></div>
-
-      </div>
-
-
-    </main>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       REMINDER
-  ===================================================== -->
-
-  <section
-    id="reminderScreen"
-    class="screen"
-  >
-
-    <header class="page-header">
-
-      <div class="page-header-row">
-
-        <button
-          class="back-button"
-          onclick="goHome()"
-        >
-          ←
-        </button>
-
-        <div class="page-title">
-          ⏰ یادآور
-        </div>
-
-      </div>
-
-    </header>
-
-
-    <main class="page-content">
-
-
-      <div class="app-card">
-
-
-        <input
-          id="reminderInput"
-          class="input"
-          placeholder="چه چیزی را یادآوری کنم؟"
-        >
-
-
-        <input
-          id="reminderTime"
-          class="input"
-          type="datetime-local"
-        >
-
-
-        <button
-          class="primary-btn"
-          onclick="addReminder()"
-        >
-          افزودن یادآور
-        </button>
-
-
-      </div>
-
-
-      <div class="app-card">
-
-        <div id="reminderList"></div>
-
-      </div>
-
-
-    </main>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       BOTTOM NAV
-  ===================================================== -->
-
-  <nav class="bottom-nav">
-
-    <div class="nav-inner">
-
-
-      <button
-        id="homeNav"
-        class="nav-btn active"
-        onclick="goHome()"
+      <input
+        id="shoppingSearch"
+        type="search"
+        placeholder="🔍 جستجوی خرید..."
+        oninput="renderShopping()"
       >
-
-        <span class="nav-icon">
-          🏠
-        </span>
-
-        خانه
-
-      </button>
-
-
-      <button
-        class="nav-btn"
-        onclick="showScreen('calculator')"
-      >
-
-        <span class="nav-icon">
-          🧮
-        </span>
-
-        ماشین‌حساب
-
-      </button>
-
 
     </div>
 
-  </nav>
+    <div id="shoppingList" class="list"></div>
 
+  </section>
+
+
+  <!-- REMINDER -->
+  <section id="reminderScreen" class="screen">
+
+    <div class="screen-header">
+      <button class="back-btn" onclick="goHome()">→</button>
+      <div class="screen-title">یادآوری</div>
+    </div>
+
+    <div class="card">
+
+      <input
+        id="reminderInput"
+        type="text"
+        placeholder="موضوع یادآوری"
+        style="margin-bottom:8px"
+      >
+
+      <input
+        id="reminderTime"
+        type="datetime-local"
+        style="margin-bottom:10px"
+      >
+
+      <button
+        class="primary-btn"
+        style="width:100%"
+        onclick="addReminder()"
+      >
+        ثبت یادآوری
+      </button>
+
+    </div>
+
+    <div id="reminderList" class="list"></div>
+
+  </section>
 
 </div>
 
 
+<!-- EDIT SHOPPING MODAL -->
+<div id="shoppingEditModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-title">
+      ✏️ ویرایش خرید
+    </div>
+
+    <input
+      id="editShoppingName"
+      type="text"
+      placeholder="نام خرید"
+      style="margin-bottom:9px"
+    >
+
+    <input
+      id="editShoppingPrice"
+      type="number"
+      inputmode="decimal"
+      placeholder="قیمت به افغانی"
+    >
+
+    <div class="modal-actions">
+
+      <button
+        class="secondary-btn"
+        onclick="closeShoppingEdit()"
+      >
+        انصراف
+      </button>
+
+      <button
+        class="primary-btn"
+        onclick="saveShoppingEdit()"
+      >
+        ذخیره
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+
+  <button
+    id="navHome"
+    class="nav-btn active"
+    onclick="showScreen('home')"
+  >
+    <span class="nav-icon">🏠</span>
+    خانه
+  </button>
+
+  <button
+    id="navTodo"
+    class="nav-btn"
+    onclick="showScreen('todo')"
+  >
+    <span class="nav-icon">✅</span>
+    کارها
+  </button>
+
+  <button
+    id="navMoney"
+    class="nav-btn"
+    onclick="showScreen('money')"
+  >
+    <span class="nav-icon">💰</span>
+    پول
+  </button>
+
+  <button
+    id="navShopping"
+    class="nav-btn"
+    onclick="showScreen('shopping')"
+  >
+    <span class="nav-icon">🛒</span>
+    خرید
+  </button>
+
+  <button
+    id="navNotes"
+    class="nav-btn"
+    onclick="showScreen('notes')"
+  >
+    <span class="nav-icon">📝</span>
+    یادداشت
+  </button>
+
+</nav>
+
 
 <script>
 
-  /* =====================================================
+  /* =========================================================
+     HELPERS
+  ========================================================= */
+
+  function formatNumber(number) {
+    return Number(number || 0).toLocaleString("fa-AF");
+  }
+
+  function formatDateTime(value) {
+    try {
+      return new Date(value).toLocaleString("fa-AF");
+    } catch {
+      return value;
+    }
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+
+  /* =========================================================
      SCREEN NAVIGATION
-  ===================================================== */
+  ========================================================= */
 
   const screenNames = [
     "home",
@@ -1567,536 +1090,323 @@
     "reminder"
   ];
 
+  function showScreen(name, addHistory = true) {
 
-  function showScreen(
-    name,
-    addHistory = true
-  ) {
-
-    screenNames.forEach(
-      screen => {
-
-        const element =
-          document.getElementById(
-            screen + "Screen"
-          );
-
-        if (element) {
-          element.classList.remove(
-            "active"
-          );
-        }
-
-      }
-    );
-
-
-    const selected =
-      document.getElementById(
-        name + "Screen"
-      );
-
-
-    if (!selected) return;
-
-
-    selected.classList.add(
-      "active"
-    );
-
-
-    window.scrollTo(
-      0,
-      0
-    );
-
-
-    if (
-      addHistory &&
-      name !== "home"
-    ) {
-
-      history.pushState(
-        {screen:name},
-        "",
-        "#" + name
-      );
-
+    if (!screenNames.includes(name)) {
+      name = "home";
     }
 
+    document.querySelectorAll(".screen").forEach(screen => {
+      screen.classList.remove("active");
+    });
+
+    const target = document.getElementById(name + "Screen");
+
+    if (target) {
+      target.classList.add("active");
+    }
 
     updateNavigation(name);
 
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
 
-    if (name === "todo")
+    if (addHistory) {
+      history.pushState(
+        { screen: name },
+        "",
+        "#" + name
+      );
+    }
+
+    if (name === "calculator") {
+      updateCalc();
+    }
+
+    if (name === "todo") {
       renderTodos();
+    }
 
-    if (name === "money")
+    if (name === "money") {
       renderMoney();
+    }
 
-    if (name === "notes")
+    if (name === "notes") {
       renderNotes();
+    }
 
-    if (name === "shopping")
+    if (name === "shopping") {
       renderShopping();
+    }
 
-    if (name === "reminder")
+    if (name === "reminder") {
       renderReminders();
-
+    }
   }
-
 
   function goHome() {
-
-    history.replaceState(
-      {screen:"home"},
-      "",
-      location.pathname
-    );
-
-    showScreen(
-      "home",
-      false
-    );
-
+    showScreen("home");
   }
-
 
   function updateNavigation(name) {
 
-    const homeNav =
-      document.getElementById(
-        "homeNav"
-      );
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+      btn.classList.remove("active");
+    });
 
+    const map = {
+      home: "navHome",
+      todo: "navTodo",
+      money: "navMoney",
+      shopping: "navShopping",
+      notes: "navNotes"
+    };
 
-    if (homeNav) {
-
-      homeNav.classList.toggle(
-        "active",
-        name === "home"
-      );
-
+    if (map[name]) {
+      document
+        .getElementById(map[name])
+        ?.classList.add("active");
     }
-
   }
 
+  window.addEventListener("popstate", function() {
 
-  window.addEventListener(
-    "popstate",
-    function() {
+    const hash =
+      location.hash.replace("#", "") || "home";
 
-      if (location.hash) {
+    showScreen(hash, false);
 
-        const name =
-          location.hash.substring(1);
-
-        if (
-          screenNames.includes(name)
-        ) {
-
-          showScreen(
-            name,
-            false
-          );
-
-          return;
-
-        }
-
-      }
-
-      showScreen(
-        "home",
-        false
-      );
-
-    }
-  );
+  });
 
 
-  /* =====================================================
+  /* =========================================================
      CALCULATOR
-  ===================================================== */
+  ========================================================= */
 
   let calcCurrent = "0";
-
   let calcPrevious = null;
-
   let calcOperatorValue = null;
-
   let calcWaiting = false;
 
+  function roundResult(value) {
+
+    if (!Number.isFinite(value)) {
+      return "Error";
+    }
+
+    return String(
+      Math.round((value + Number.EPSILON) * 100000000) / 100000000
+    );
+  }
 
   function updateCalc() {
 
-    const display =
-      document.getElementById(
-        "calcDisplay"
-      );
+    document.getElementById("calcValue").textContent =
+      calcCurrent;
 
+    let expression = "";
 
-    if (display) {
-
-      display.textContent =
-        calcCurrent;
-
+    if (
+      calcPrevious !== null &&
+      calcOperatorValue
+    ) {
+      expression =
+        calcPrevious +
+        " " +
+        calcOperatorValue;
     }
 
+    document.getElementById("calcExpression").textContent =
+      expression;
   }
-
 
   function calcNumber(number) {
 
-    if (
-      calcCurrent === "0" ||
-      calcWaiting
-    ) {
-
+    if (calcWaiting) {
       calcCurrent = number;
-
       calcWaiting = false;
-
+    } else if (calcCurrent === "0") {
+      calcCurrent = number;
     } else {
-
       calcCurrent += number;
-
     }
 
-
     updateCalc();
-
   }
-
 
   function calcDecimal() {
 
     if (calcWaiting) {
-
       calcCurrent = "0.";
-
       calcWaiting = false;
-
       updateCalc();
-
       return;
-
     }
 
-
-    if (
-      !calcCurrent.includes(".")
-    ) {
-
+    if (!calcCurrent.includes(".")) {
       calcCurrent += ".";
-
     }
-
 
     updateCalc();
-
   }
-
 
   function calcOperator(operator) {
 
-    const inputValue =
-      parseFloat(calcCurrent);
+    const value = parseFloat(calcCurrent);
 
-
-    if (
-      calcOperatorValue &&
-      calcWaiting
-    ) {
-
-      calcOperatorValue =
-        operator;
-
-      return;
-
+    if (calcOperatorValue && !calcWaiting) {
+      calculateOperation(value);
     }
 
-
-    if (
-      calcPrevious === null
-    ) {
-
-      calcPrevious =
-        inputValue;
-
-    }
-
-    else if (
-      calcOperatorValue
-    ) {
-
-      const result =
-        calculateOperation(
-          calcPrevious,
-          inputValue,
-          calcOperatorValue
-        );
-
-
-      calcCurrent =
-        String(
-          roundResult(result)
-        );
-
-
-      calcPrevious =
-        parseFloat(calcCurrent);
-
-
-      updateCalc();
-
-    }
-
-
+    calcPrevious = parseFloat(calcCurrent);
+    calcOperatorValue = operator;
     calcWaiting = true;
 
-    calcOperatorValue =
-      operator;
-
+    updateCalc();
   }
 
+  function calculateOperation(currentValue) {
 
-  function calculateOperation(
-    a,
-    b,
-    operator
-  ) {
+    const previous =
+      parseFloat(calcPrevious);
 
-    switch (operator) {
+    let result = 0;
 
-      case "+":
-        return a + b;
-
-      case "-":
-        return a - b;
-
-      case "*":
-        return a * b;
-
-      case "/":
-        return b === 0
-          ? 0
-          : a / b;
-
-      default:
-        return b;
-
+    if (calcOperatorValue === "+") {
+      result = previous + currentValue;
     }
 
-  }
+    if (calcOperatorValue === "-") {
+      result = previous - currentValue;
+    }
 
+    if (calcOperatorValue === "*") {
+      result = previous * currentValue;
+    }
+
+    if (calcOperatorValue === "/") {
+
+      if (currentValue === 0) {
+        calcCurrent = "Error";
+        calcPrevious = null;
+        calcOperatorValue = null;
+        calcWaiting = true;
+        updateCalc();
+        return;
+      }
+
+      result = previous / currentValue;
+    }
+
+    calcCurrent = roundResult(result);
+  }
 
   function calcEquals() {
 
     if (
-      calcOperatorValue === null ||
-      calcPrevious === null
+      calcPrevious === null ||
+      !calcOperatorValue
     ) {
-
       return;
-
     }
 
-
-    const inputValue =
-      parseFloat(calcCurrent);
-
-
-    const result =
-      calculateOperation(
-        calcPrevious,
-        inputValue,
-        calcOperatorValue
-      );
-
-
-    calcCurrent =
-      String(
-        roundResult(result)
-      );
-
+    calculateOperation(
+      parseFloat(calcCurrent)
+    );
 
     calcPrevious = null;
-
     calcOperatorValue = null;
-
     calcWaiting = true;
 
-
     updateCalc();
-
   }
-
 
   function calcPercent() {
 
     const value =
       parseFloat(calcCurrent);
 
+    if (Number.isNaN(value)) {
+      return;
+    }
 
     calcCurrent =
-      String(
-        roundResult(
-          value / 100
-        )
-      );
-
+      roundResult(value / 100);
 
     updateCalc();
-
   }
-
 
   function calcClear() {
 
     calcCurrent = "0";
-
     calcPrevious = null;
-
     calcOperatorValue = null;
-
     calcWaiting = false;
 
-
     updateCalc();
-
   }
-
 
   function calcBackspace() {
 
     if (
-      calcCurrent.length <= 1 ||
-      calcCurrent === "Error"
+      calcCurrent === "Error" ||
+      calcCurrent.length <= 1
     ) {
-
       calcCurrent = "0";
-
-    }
-
-    else {
-
+    } else {
       calcCurrent =
-        calcCurrent.slice(
-          0,
-          -1
-        );
-
+        calcCurrent.slice(0, -1);
     }
-
 
     updateCalc();
-
   }
 
+  document.addEventListener("keydown", function(event) {
 
-  function roundResult(number) {
+    if (
+      document.getElementById("calculatorScreen")
+        ?.classList.contains("active")
+    ) {
 
-    return Math.round(
-      (
-        number +
-        Number.EPSILON
-      ) *
-      100000000
-    ) / 100000000;
-
-  }
-
-
-  document.addEventListener(
-    "keydown",
-    function(event) {
-
-      const calculator =
-        document.getElementById(
-          "calculatorScreen"
-        );
-
-
-      if (
-        !calculator.classList.contains(
-          "active"
-        )
-      ) {
-
-        return;
-
+      if (/^[0-9]$/.test(event.key)) {
+        calcNumber(event.key);
       }
 
-
-      if (
-        /^[0-9]$/.test(
-          event.key
-        )
-      ) {
-
-        calcNumber(
-          event.key
-        );
-
-      }
-
-
-      if (
-        event.key === "."
-      ) {
-
+      if (event.key === ".") {
         calcDecimal();
-
       }
-
 
       if (
-        ["+","-","*","/"]
-          .includes(event.key)
+        ["+", "-", "*", "/"].includes(event.key)
       ) {
-
-        calcOperator(
-          event.key
-        );
-
+        calcOperator(event.key);
       }
-
 
       if (
         event.key === "Enter" ||
         event.key === "="
       ) {
-
         calcEquals();
-
       }
 
-
-      if (
-        event.key === "Escape"
-      ) {
-
+      if (event.key === "Escape") {
         calcClear();
-
       }
 
-
-      if (
-        event.key === "Backspace"
-      ) {
-
+      if (event.key === "Backspace") {
         calcBackspace();
-
       }
 
     }
-  );
+
+  });
 
 
-  /* =====================================================
+  /* =========================================================
      TODO
-  ===================================================== */
+  ========================================================= */
 
   let todos =
     JSON.parse(
@@ -2105,175 +1415,124 @@
       ) || "[]"
     );
 
-
-  function addTodo() {
-
-    const input =
-      document.getElementById(
-        "todoInput"
-      );
-
-
-    const text =
-      input.value.trim();
-
-
-    if (!text) return;
-
-
-    todos.push({
-
-      id: Date.now(),
-
-      text: text,
-
-      done: false
-
-    });
-
-
-    saveTodos();
-
-
-    input.value = "";
-
-
-    renderTodos();
-
-  }
-
-
   function saveTodos() {
 
     localStorage.setItem(
       "daily_helper_todos",
       JSON.stringify(todos)
     );
-
   }
 
+  function addTodo() {
+
+    const input =
+      document.getElementById("todoInput");
+
+    const text =
+      input.value.trim();
+
+    if (!text) {
+      alert("کار را وارد کنید.");
+      return;
+    }
+
+    todos.push({
+      id: Date.now(),
+      text: text,
+      done: false
+    });
+
+    saveTodos();
+
+    input.value = "";
+
+    renderTodos();
+  }
 
   function toggleTodo(id) {
 
     todos =
-      todos.map(
-        todo =>
-          todo.id === id
-            ? {
-                ...todo,
-                done: !todo.done
-              }
-            : todo
+      todos.map(item =>
+        item.id === id
+          ? {
+              ...item,
+              done: !item.done
+            }
+          : item
       );
-
 
     saveTodos();
 
     renderTodos();
-
   }
-
 
   function deleteTodo(id) {
 
     todos =
       todos.filter(
-        todo =>
-          todo.id !== id
+        item => item.id !== id
       );
-
 
     saveTodos();
 
     renderTodos();
-
   }
-
 
   function renderTodos() {
 
     const list =
-      document.getElementById(
-        "todoList"
-      );
-
+      document.getElementById("todoList");
 
     if (!todos.length) {
 
       list.innerHTML =
-        "<p style='color:#6b7280;text-align:center'>هنوز کاری ثبت نشده.</p>";
+        '<div class="empty">هنوز کاری ثبت نشده است.</div>';
 
       return;
-
     }
 
-
     list.innerHTML =
-      todos.map(
-        todo => `
-
+      todos
+        .map(item => `
           <div class="list-item">
 
-            <label
-              style="
-                display:flex;
-                align-items:center;
-                gap:10px;
-                flex:1;
-              "
-            >
+            <div class="shopping-item-left">
 
               <input
                 type="checkbox"
-                ${
-                  todo.done
-                    ? "checked"
-                    : ""
-                }
-                onchange="
-                  toggleTodo(
-                    ${todo.id}
-                  )
-                "
+                ${item.done ? "checked" : ""}
+                onchange="toggleTodo(${item.id})"
               >
 
               <span
-                style="
-                  ${
-                    todo.done
-                      ? "text-decoration:line-through;color:#9ca3af"
-                      : ""
-                  }
-                "
+                class="item-title"
+                style="${
+                  item.done
+                    ? "text-decoration:line-through;color:#9ca3af"
+                    : ""
+                }"
               >
-                ${escapeHTML(todo.text)}
+                ${escapeHTML(item.text)}
               </span>
 
-            </label>
-
+            </div>
 
             <button
               class="danger-btn"
-              onclick="
-                deleteTodo(
-                  ${todo.id}
-                )
-              "
+              onclick="deleteTodo(${item.id})"
             >
               حذف
             </button>
 
           </div>
-
-        `
-      ).join("");
-
+        `)
+        .join("");
   }
 
 
-  /* =====================================================
+  /* =========================================================
      MONEY
-  ===================================================== */
+  ========================================================= */
 
   let transactions =
     JSON.parse(
@@ -2282,259 +1541,173 @@
       ) || "[]"
     );
 
-
-  function addMoney() {
-
-    const amount =
-      parseFloat(
-        document.getElementById(
-          "moneyAmount"
-        ).value
-      );
-
-
-    const type =
-      document.getElementById(
-        "moneyType"
-      ).value;
-
-
-    const description =
-      document.getElementById(
-        "moneyDescription"
-      ).value.trim();
-
-
-    if (
-      !amount ||
-      amount <= 0
-    ) {
-
-      alert(
-        "مبلغ را وارد کنید."
-      );
-
-      return;
-
-    }
-
-
-    transactions.push({
-
-      id: Date.now(),
-
-      amount: amount,
-
-      type: type,
-
-      description:
-        description ||
-        "بدون توضیح",
-
-      date:
-        new Date()
-          .toLocaleDateString(
-            "fa-AF"
-          )
-
-    });
-
+  function saveTransactions() {
 
     localStorage.setItem(
       "daily_helper_transactions",
-      JSON.stringify(
-        transactions
-      )
+      JSON.stringify(transactions)
     );
+  }
 
+  function addMoney() {
 
-    document.getElementById(
-      "moneyAmount"
-    ).value = "";
+    const description =
+      document
+        .getElementById("moneyDescription")
+        .value
+        .trim();
 
+    const amount =
+      parseFloat(
+        document.getElementById("moneyAmount").value
+      );
+
+    const type =
+      document.getElementById("moneyType").value;
+
+    if (!description) {
+      alert("توضیح را وارد کنید.");
+      return;
+    }
+
+    if (
+      !Number.isFinite(amount) ||
+      amount <= 0
+    ) {
+      alert("مبلغ معتبر وارد کنید.");
+      return;
+    }
+
+    transactions.push({
+      id: Date.now(),
+      amount: amount,
+      type: type,
+      description: description,
+      date: new Date().toISOString()
+    });
+
+    saveTransactions();
 
     document.getElementById(
       "moneyDescription"
     ).value = "";
 
+    document.getElementById(
+      "moneyAmount"
+    ).value = "";
 
     renderMoney();
-
   }
-
 
   function deleteMoney(id) {
 
     transactions =
       transactions.filter(
-        item =>
-          item.id !== id
+        item => item.id !== id
       );
 
-
-    localStorage.setItem(
-      "daily_helper_transactions",
-      JSON.stringify(
-        transactions
-      )
-    );
-
+    saveTransactions();
 
     renderMoney();
-
   }
-
 
   function renderMoney() {
 
-    let income = 0;
+    const income =
+      transactions
+        .filter(item => item.type === "income")
+        .reduce(
+          (sum, item) =>
+            sum + Number(item.amount || 0),
+          0
+        );
 
-    let expense = 0;
-
-
-    transactions.forEach(
-      item => {
-
-        if (
-          item.type === "income"
-        ) {
-
-          income +=
-            Number(item.amount);
-
-        }
-
-        else {
-
-          expense +=
-            Number(item.amount);
-
-        }
-
-      }
-    );
-
+    const expense =
+      transactions
+        .filter(item => item.type === "expense")
+        .reduce(
+          (sum, item) =>
+            sum + Number(item.amount || 0),
+          0
+        );
 
     document.getElementById(
-      "incomeTotal"
+      "totalIncome"
     ).textContent =
-      formatNumber(
-        income
-      );
-
+      formatNumber(income) + " ؋";
 
     document.getElementById(
-      "expenseTotal"
+      "totalExpense"
     ).textContent =
-      formatNumber(
-        expense
-      );
-
+      formatNumber(expense) + " ؋";
 
     const list =
-      document.getElementById(
-        "moneyList"
-      );
-
+      document.getElementById("moneyList");
 
     if (!transactions.length) {
 
       list.innerHTML =
-        "<p style='color:#6b7280;text-align:center'>هنوز تراکنشی ثبت نشده.</p>";
+        '<div class="empty">هنوز تراکنشی ثبت نشده است.</div>';
 
       return;
-
     }
-
 
     list.innerHTML =
       transactions
         .slice()
         .reverse()
-        .map(
-          item => `
+        .map(item => `
 
-            <div class="list-item">
+          <div class="list-item">
 
-              <div>
+            <div class="item-main">
 
-                <strong>
-                  ${escapeHTML(
-                    item.description
-                  )}
-                </strong>
-
-                <div
-                  style="
-                    font-size:11px;
-                    color:#9ca3af;
-                    margin-top:4px;
-                  "
-                >
-                  ${item.date}
-                </div>
-
+              <div class="item-title">
+                ${escapeHTML(item.description)}
               </div>
 
-
-              <div
-                style="
-                  text-align:left;
-                "
-              >
-
-                <strong
-                  style="
-                    color:${
-                      item.type === "income"
-                        ? "#16a34a"
-                        : "#dc2626"
-                    }
-                  "
-                >
-                  ${
-                    item.type === "income"
-                      ? "+"
-                      : "-"
-                  }
-
-                  ${formatNumber(
-                    item.amount
-                  )}
-
-                  ؋
-
-                </strong>
-
-
-                <br>
-
-
-                <button
-                  class="danger-btn"
-                  onclick="
-                    deleteMoney(
-                      ${item.id}
-                    )
-                  "
-                >
-                  حذف
-                </button>
-
+              <div class="item-meta">
+                ${formatDateTime(item.date)}
               </div>
 
             </div>
 
-          `
-        )
-        .join("");
+            <div class="item-actions">
 
+              <strong
+                class="${
+                  item.type === "income"
+                    ? "income"
+                    : "expense"
+                }"
+              >
+                ${
+                  item.type === "income"
+                    ? "+"
+                    : "-"
+                }
+                ${formatNumber(item.amount)} ؋
+              </strong>
+
+              <button
+                class="danger-btn"
+                onclick="deleteMoney(${item.id})"
+              >
+                حذف
+              </button>
+
+            </div>
+
+          </div>
+
+        `)
+        .join("");
   }
 
 
-  /* =====================================================
+  /* =========================================================
      NOTES
-  ===================================================== */
+  ========================================================= */
 
   let notes =
     JSON.parse(
@@ -2543,155 +1716,100 @@
       ) || "[]"
     );
 
-
   function saveNote() {
 
     const input =
-      document.getElementById(
-        "noteInput"
-      );
-
+      document.getElementById("noteInput");
 
     const text =
       input.value.trim();
 
-
-    if (!text) return;
-
+    if (!text) {
+      alert("یادداشت را وارد کنید.");
+      return;
+    }
 
     notes.push({
-
       id: Date.now(),
-
       text: text,
-
-      date:
-        new Date()
-          .toLocaleString(
-            "fa-AF"
-          )
-
+      date: new Date().toISOString()
     });
-
 
     localStorage.setItem(
       "daily_helper_notes",
-      JSON.stringify(
-        notes
-      )
+      JSON.stringify(notes)
     );
-
 
     input.value = "";
 
-
     renderNotes();
-
   }
-
 
   function deleteNote(id) {
 
     notes =
       notes.filter(
-        note =>
-          note.id !== id
+        item => item.id !== id
       );
-
 
     localStorage.setItem(
       "daily_helper_notes",
-      JSON.stringify(
-        notes
-      )
+      JSON.stringify(notes)
     );
 
-
     renderNotes();
-
   }
-
 
   function renderNotes() {
 
     const list =
-      document.getElementById(
-        "notesList"
-      );
-
+      document.getElementById("notesList");
 
     if (!notes.length) {
 
       list.innerHTML =
-        "<p style='color:#6b7280;text-align:center'>هنوز یادداشتی وجود ندارد.</p>";
+        '<div class="empty">هنوز یادداشتی ثبت نشده است.</div>';
 
       return;
-
     }
-
 
     list.innerHTML =
       notes
         .slice()
         .reverse()
-        .map(
-          note => `
+        .map(item => `
 
-            <div class="list-item">
+          <div class="list-item">
 
-              <div
-                style="
-                  flex:1;
-                "
-              >
+            <div class="item-main">
 
-                <div
-                  style="
-                    white-space:pre-wrap;
-                  "
-                >
-                  ${escapeHTML(
-                    note.text
-                  )}
-                </div>
-
-
-                <div
-                  style="
-                    color:#9ca3af;
-                    font-size:10px;
-                    margin-top:7px;
-                  "
-                >
-                  ${note.date}
-                </div>
-
+              <div class="item-title">
+                ${escapeHTML(item.text)}
               </div>
 
-
-              <button
-                class="danger-btn"
-                onclick="
-                  deleteNote(
-                    ${note.id}
-                  )
-                "
-              >
-                حذف
-              </button>
+              <div class="item-meta">
+                ${formatDateTime(item.date)}
+              </div>
 
             </div>
 
-          `
-        )
-        .join("");
+            <button
+              class="danger-btn"
+              onclick="deleteNote(${item.id})"
+            >
+              حذف
+            </button>
 
+          </div>
+
+        `)
+        .join("");
   }
 
 
-  /* =====================================================
-     SHOPPING WITH PRICE
-  ===================================================== */
+  /* =========================================================
+     SHOPPING
+  ========================================================= */
 
   let shopping =
     JSON.parse(
@@ -2700,6 +1818,13 @@
       ) || "[]"
     );
 
+  function saveShopping() {
+
+    localStorage.setItem(
+      "daily_helper_shopping",
+      JSON.stringify(shopping)
+    );
+  }
 
   function addShopping() {
 
@@ -2708,114 +1833,182 @@
         "shoppingInput"
       );
 
-
     const priceInput =
       document.getElementById(
         "shoppingPrice"
       );
 
-
     const text =
       input.value.trim();
 
-
     const price =
-      parseFloat(
-        priceInput.value
-      ) || 0;
-
+      parseFloat(priceInput.value) || 0;
 
     if (!text) {
-
-      alert(
-        "نام خرید را وارد کنید."
-      );
-
+      alert("نام خرید را وارد کنید.");
       return;
-
     }
 
-
     shopping.push({
-
       id: Date.now(),
-
       text: text,
-
       price: price,
-
       checked: false
-
     });
 
-
-    localStorage.setItem(
-      "daily_helper_shopping",
-      JSON.stringify(
-        shopping
-      )
-    );
-
+    saveShopping();
 
     input.value = "";
-
     priceInput.value = "";
 
-
     renderShopping();
-
   }
-
 
   function toggleShopping(id) {
 
     shopping =
-      shopping.map(
-        item =>
-          item.id === id
-            ? {
-                ...item,
-                checked:
-                  !item.checked
-              }
-            : item
+      shopping.map(item =>
+        item.id === id
+          ? {
+              ...item,
+              checked: !item.checked
+            }
+          : item
       );
 
-
-    localStorage.setItem(
-      "daily_helper_shopping",
-      JSON.stringify(
-        shopping
-      )
-    );
-
+    saveShopping();
 
     renderShopping();
-
   }
-
 
   function deleteShopping(id) {
 
     shopping =
       shopping.filter(
-        item =>
-          item.id !== id
+        item => item.id !== id
       );
 
-
-    localStorage.setItem(
-      "daily_helper_shopping",
-      JSON.stringify(
-        shopping
-      )
-    );
-
+    saveShopping();
 
     renderShopping();
-
   }
 
+
+  /* =========================================================
+     SHOPPING EDIT
+  ========================================================= */
+
+  let editingShoppingId = null;
+
+  function openShoppingEdit(id) {
+
+    const item =
+      shopping.find(
+        item => item.id === id
+      );
+
+    if (!item) {
+      return;
+    }
+
+    editingShoppingId = id;
+
+    document.getElementById(
+      "editShoppingName"
+    ).value =
+      item.text || "";
+
+    document.getElementById(
+      "editShoppingPrice"
+    ).value =
+      item.price || 0;
+
+    document
+      .getElementById(
+        "shoppingEditModal"
+      )
+      .classList.add("show");
+
+    setTimeout(() => {
+
+      document
+        .getElementById(
+          "editShoppingName"
+        )
+        .focus();
+
+    }, 100);
+  }
+
+  function closeShoppingEdit() {
+
+    editingShoppingId = null;
+
+    document
+      .getElementById(
+        "shoppingEditModal"
+      )
+      .classList.remove("show");
+  }
+
+  function saveShoppingEdit() {
+
+    if (editingShoppingId === null) {
+      return;
+    }
+
+    const name =
+      document
+        .getElementById(
+          "editShoppingName"
+        )
+        .value
+        .trim();
+
+    const price =
+      parseFloat(
+        document.getElementById(
+          "editShoppingPrice"
+        ).value
+      ) || 0;
+
+    if (!name) {
+      alert("نام خرید را وارد کنید.");
+      return;
+    }
+
+    shopping =
+      shopping.map(item =>
+        item.id === editingShoppingId
+          ? {
+              ...item,
+              text: name,
+              price: price
+            }
+          : item
+      );
+
+    saveShopping();
+
+    closeShoppingEdit();
+
+    renderShopping();
+  }
+
+  document
+    .getElementById(
+      "shoppingEditModal"
+    )
+    .addEventListener(
+      "click",
+      function(event) {
+
+        if (event.target === this) {
+          closeShoppingEdit();
+        }
+
+      }
+    );
 
   function renderShopping() {
 
@@ -2824,128 +2017,111 @@
         "shoppingList"
       );
 
+    const search =
+      (
+        document.getElementById(
+          "shoppingSearch"
+        )?.value || ""
+      )
+        .trim()
+        .toLowerCase();
 
     const total =
       shopping.reduce(
-        (
-          sum,
-          item
-        ) =>
+        (sum, item) =>
           sum +
-          (
-            Number(
-              item.price
-            ) || 0
-          ),
+          (Number(item.price) || 0),
         0
       );
-
 
     document.getElementById(
       "shoppingTotal"
     ).textContent =
-      formatNumber(
-        total
-      ) + " ؋";
+      formatNumber(total) + " ؋";
 
+    let visibleItems =
+      shopping.filter(item =>
+        String(item.text || "")
+          .toLowerCase()
+          .includes(search)
+      );
 
-    if (!shopping.length) {
+    if (!visibleItems.length) {
 
-      list.innerHTML =
-        "<p style='color:#6b7280;text-align:center'>لیست خرید خالی است.</p>";
+      if (shopping.length) {
+
+        list.innerHTML =
+          '<div class="empty">موردی با این نام پیدا نشد.</div>';
+
+      } else {
+
+        list.innerHTML =
+          '<div class="empty">لیست خرید خالی است.</div>';
+
+      }
 
       return;
-
     }
 
-
     list.innerHTML =
-      shopping
-        .map(
-          item => `
+      visibleItems
+        .map(item => `
 
-            <div class="list-item">
+          <div class="list-item">
 
-              <div
-                class="shopping-item-left"
+            <div class="shopping-item-left">
+
+              <input
+                type="checkbox"
+                ${item.checked ? "checked" : ""}
+                onchange="toggleShopping(${item.id})"
               >
 
-                <input
-                  type="checkbox"
-                  ${
-                    item.checked
-                      ? "checked"
-                      : ""
-                  }
-                  onchange="
-                    toggleShopping(
-                      ${item.id}
-                    )
-                  "
-                >
-
-
-                <span
-                  class="shopping-name"
-                  style="
-                    ${
-                      item.checked
-                        ? "text-decoration:line-through;color:#9ca3af"
-                        : ""
-                    }
-                  "
-                >
-                  ${escapeHTML(
-                    item.text
-                  )}
-                </span>
-
-              </div>
-
-
-              <div
-                style="
-                  display:flex;
-                  align-items:center;
-                  gap:8px;
-                "
+              <span
+                class="shopping-name"
+                style="${
+                  item.checked
+                    ? "text-decoration:line-through;color:#9ca3af"
+                    : ""
+                }"
               >
-
-                <span
-                  class="shopping-price"
-                >
-                  ${formatNumber(
-                    item.price || 0
-                  )}
-                  ؋
-                </span>
-
-
-                <button
-                  class="danger-btn"
-                  onclick="
-                    deleteShopping(
-                      ${item.id}
-                    )
-                  "
-                >
-                  حذف
-                </button>
-
-              </div>
+                ${escapeHTML(item.text)}
+              </span>
 
             </div>
 
-          `
-        )
-        .join("");
+            <div class="item-actions">
 
+              <span class="shopping-price">
+                ${formatNumber(item.price || 0)} ؋
+              </span>
+
+              <button
+                class="edit-btn"
+                onclick="openShoppingEdit(${item.id})"
+              >
+                ✏️
+              </button>
+
+              <button
+                class="danger-btn"
+                onclick="deleteShopping(${item.id})"
+              >
+                حذف
+              </button>
+
+            </div>
+
+          </div>
+
+        `)
+        .join("");
   }
 
 
-  /* =====================================================
+  /* =========================================================
      REMINDERS
-  ===================================================== */
+  ========================================================= */
 
   let reminders =
     JSON.parse(
@@ -2954,90 +2130,67 @@
       ) || "[]"
     );
 
+  function saveReminders() {
+
+    localStorage.setItem(
+      "daily_helper_reminders",
+      JSON.stringify(reminders)
+    );
+  }
 
   function addReminder() {
 
     const text =
-      document.getElementById(
-        "reminderInput"
-      ).value.trim();
-
+      document
+        .getElementById("reminderInput")
+        .value
+        .trim();
 
     const time =
-      document.getElementById(
-        "reminderTime"
-      ).value;
+      document
+        .getElementById("reminderTime")
+        .value;
 
-
-    if (
-      !text ||
-      !time
-    ) {
-
-      alert(
-        "متن و زمان یادآور را وارد کنید."
-      );
-
+    if (!text) {
+      alert("موضوع یادآوری را وارد کنید.");
       return;
-
     }
 
+    if (!time) {
+      alert("زمان یادآوری را انتخاب کنید.");
+      return;
+    }
 
     reminders.push({
-
       id: Date.now(),
-
       text: text,
-
       time: time
-
     });
 
-
-    localStorage.setItem(
-      "daily_helper_reminders",
-      JSON.stringify(
-        reminders
-      )
-    );
-
+    saveReminders();
 
     document.getElementById(
       "reminderInput"
     ).value = "";
 
-
     document.getElementById(
       "reminderTime"
     ).value = "";
 
-
     renderReminders();
-
   }
-
 
   function deleteReminder(id) {
 
     reminders =
       reminders.filter(
-        item =>
-          item.id !== id
+        item => item.id !== id
       );
 
-
-    localStorage.setItem(
-      "daily_helper_reminders",
-      JSON.stringify(
-        reminders
-      )
-    );
-
+    saveReminders();
 
     renderReminders();
-
   }
-
 
   function renderReminders() {
 
@@ -3046,214 +2199,105 @@
         "reminderList"
       );
 
-
     if (!reminders.length) {
 
       list.innerHTML =
-        "<p style='color:#6b7280;text-align:center'>هنوز یادآوری ثبت نشده.</p>";
+        '<div class="empty">هنوز یادآوری ثبت نشده است.</div>';
 
       return;
-
     }
-
 
     list.innerHTML =
       reminders
         .slice()
-        .reverse()
-        .map(
-          item => `
+        .sort(
+          (a,b) =>
+            new Date(a.time) -
+            new Date(b.time)
+        )
+        .map(item => `
 
-            <div class="list-item">
+          <div class="list-item">
 
-              <div>
+            <div class="item-main">
 
-                <strong>
-                  ${escapeHTML(
-                    item.text
-                  )}
-                </strong>
-
-
-                <div
-                  style="
-                    color:#6b7280;
-                    font-size:12px;
-                    margin-top:5px;
-                  "
-                >
-                  ${formatDateTime(
-                    item.time
-                  )}
-                </div>
-
+              <div class="item-title">
+                🔔 ${escapeHTML(item.text)}
               </div>
 
-
-              <button
-                class="danger-btn"
-                onclick="
-                  deleteReminder(
-                    ${item.id}
-                  )
-                "
-              >
-                حذف
-              </button>
+              <div class="item-meta">
+                ${formatDateTime(item.time)}
+              </div>
 
             </div>
 
-          `
-        )
+            <button
+              class="danger-btn"
+              onclick="deleteReminder(${item.id})"
+            >
+              حذف
+            </button>
+
+          </div>
+
+        `)
         .join("");
-
   }
 
 
-  /* =====================================================
-     HELPERS
-  ===================================================== */
+  /* =========================================================
+     INITIALIZE
+  ========================================================= */
 
-  function formatNumber(number) {
+  function initializeApp() {
 
-    return Number(
-      number
-    ).toLocaleString(
-      "fa-AF"
-    );
+    renderTodos();
+    renderMoney();
+    renderNotes();
+    renderShopping();
+    renderReminders();
+    updateCalc();
 
-  }
+    const hash =
+      location.hash.replace("#", "");
 
-
-  function formatDateTime(value) {
-
-    try {
-
-      return new Date(
-        value
-      ).toLocaleString(
-        "fa-AF"
-      );
-
-    }
-
-    catch {
-
-      return value;
-
+    if (
+      hash &&
+      screenNames.includes(hash)
+    ) {
+      showScreen(hash, false);
+    } else {
+      showScreen("home", false);
     }
 
   }
 
-
-  function escapeHTML(value) {
-
-    return String(value)
-
-      .replaceAll(
-        "&",
-        "&amp;"
-      )
-
-      .replaceAll(
-        "<",
-        "&lt;"
-      )
-
-      .replaceAll(
-        ">",
-        "&gt;"
-      )
-
-      .replaceAll(
-        '"',
-        "&quot;"
-      )
-
-      .replaceAll(
-        "'",
-        "&#039;"
-      );
-
-  }
+  initializeApp();
 
 
-  /* =====================================================
-     PWA
-  ===================================================== */
+  /* =========================================================
+     SERVICE WORKER
+  ========================================================= */
 
-  if (
-    "serviceWorker"
-    in navigator
-  ) {
+  if ("serviceWorker" in navigator) {
 
     window.addEventListener(
       "load",
       function() {
 
         navigator.serviceWorker
-          .register(
-            "./sw.js"
-          )
-          .catch(
-            error =>
-              console.log(
-                "Service Worker:",
-                error
-              )
-          );
+          .register("./sw.js")
+          .catch(function(error) {
+            console.log(
+              "Service Worker Error:",
+              error
+            );
+          });
 
       }
     );
 
   }
-
-
-  /* =====================================================
-     START
-  ===================================================== */
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-      renderTodos();
-
-      renderMoney();
-
-      renderNotes();
-
-      renderShopping();
-
-      renderReminders();
-
-      updateCalc();
-
-
-      if (location.hash) {
-
-        const name =
-          location.hash
-            .substring(1);
-
-
-        if (
-          screenNames.includes(
-            name
-          )
-        ) {
-
-          showScreen(
-            name,
-            false
-          );
-
-        }
-
-      }
-
-    }
-  );
 
 </script>
 
