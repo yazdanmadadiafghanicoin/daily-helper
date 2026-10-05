@@ -108,31 +108,20 @@ body{
   box-shadow:0 6px 20px rgba(0,0,0,.06);
 }
 
-/* =========================
-   TODO
-========================= */
-
-.todo-input{
-  display:flex;
-  gap:10px;
-  margin-bottom:18px;
-}
-
-input,select{
+input,select,textarea{
   border:1px solid #e5e7eb;
   border-radius:12px;
   padding:13px;
   font-size:15px;
   outline:none;
   background:white;
+  font-family:inherit;
 }
 
-input:focus,select:focus{
+input:focus,
+select:focus,
+textarea:focus{
   border-color:#2563eb;
-}
-
-.todo-input input{
-  flex:1;
 }
 
 .button{
@@ -147,6 +136,41 @@ input:focus,select:focus{
 
 .button:hover{
   background:#1d4ed8;
+}
+
+.delete-btn{
+  border:0;
+  background:#fee2e2;
+  color:#dc2626;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.empty{
+  text-align:center;
+  padding:20px;
+  color:#9ca3af;
+  font-size:14px;
+}
+
+.stats-text{
+  margin-top:15px;
+  color:#6b7280;
+  font-size:13px;
+}
+
+/* TODO */
+
+.todo-input{
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.todo-input input{
+  flex:1;
 }
 
 .todo-list{
@@ -178,32 +202,7 @@ input:focus,select:focus{
   color:#9ca3af;
 }
 
-.delete-btn{
-  border:0;
-  background:#fee2e2;
-  color:#dc2626;
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-.empty{
-  text-align:center;
-  padding:20px;
-  color:#9ca3af;
-  font-size:14px;
-}
-
-.stats-text{
-  margin-top:15px;
-  color:#6b7280;
-  font-size:13px;
-}
-
-/* =========================
-   MONEY
-========================= */
+/* MONEY */
 
 .money-summary{
   display:grid;
@@ -323,9 +322,111 @@ input:focus,select:focus{
   cursor:pointer;
 }
 
-/* =========================
-   QUICK
-========================= */
+/* NOTES */
+
+.note-form{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.note-form input{
+  width:100%;
+}
+
+.note-form textarea{
+  width:100%;
+  min-height:110px;
+  resize:vertical;
+}
+
+.notes-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.note{
+  background:#fffbeb;
+  border:1px solid #fde68a;
+  border-radius:16px;
+  padding:16px;
+}
+
+.note-title{
+  font-weight:bold;
+  font-size:17px;
+  margin-bottom:8px;
+}
+
+.note-content{
+  color:#4b5563;
+  white-space:pre-wrap;
+  line-height:1.7;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+.note-date{
+  color:#9ca3af;
+  font-size:11px;
+  margin-bottom:10px;
+}
+
+.note-actions{
+  display:flex;
+  justify-content:flex-end;
+}
+
+/* SHOPPING */
+
+.shopping-form{
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.shopping-form input{
+  flex:1;
+}
+
+.shopping-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.shopping-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#f8fafc;
+  padding:13px;
+  border-radius:13px;
+}
+
+.shopping-check{
+  width:20px;
+  height:20px;
+}
+
+.shopping-name{
+  flex:1;
+}
+
+.shopping-item.bought .shopping-name{
+  text-decoration:line-through;
+  color:#9ca3af;
+}
+
+.shopping-count{
+  color:#6b7280;
+  font-size:13px;
+  margin-top:15px;
+}
+
+/* QUICK */
 
 .quick-row{
   display:flex;
@@ -350,9 +451,7 @@ input:focus,select:focus{
   font-size:13px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:800px){
 
@@ -372,6 +471,10 @@ input:focus,select:focus{
     width:100%;
   }
 
+  .notes-list{
+    grid-template-columns:1fr;
+  }
+
 }
 
 @media(max-width:480px){
@@ -384,10 +487,6 @@ input:focus,select:focus{
     font-size:24px;
   }
 
-  .tools{
-    gap:10px;
-  }
-
   .tool{
     padding:18px 10px;
   }
@@ -396,11 +495,13 @@ input:focus,select:focus{
     font-size:30px;
   }
 
-  .todo-input{
+  .todo-input,
+  .shopping-form{
     flex-direction:column;
   }
 
-  .todo-input .button{
+  .todo-input .button,
+  .shopping-form .button{
     width:100%;
   }
 
@@ -442,9 +543,7 @@ input:focus,select:focus{
 
 <main class="container">
 
-<!-- =========================
-     TOOLS
-========================= -->
+<!-- TOOLS -->
 
 <section class="tools">
 
@@ -454,7 +553,7 @@ input:focus,select:focus{
 <p>مدیریت کارهای روزانه</p>
 </div>
 
-<div class="tool" onclick="comingSoon('یادداشت')">
+<div class="tool" onclick="scrollToSection('notesSection')">
 <div class="icon">📝</div>
 <h3>یادداشت</h3>
 <p>یادداشت سریع</p>
@@ -466,7 +565,7 @@ input:focus,select:focus{
 <p>مدیریت هزینه‌ها</p>
 </div>
 
-<div class="tool" onclick="comingSoon('لیست خرید')">
+<div class="tool" onclick="scrollToSection('shoppingSection')">
 <div class="icon">🛒</div>
 <h3>لیست خرید</h3>
 <p>خریدهای امروز</p>
@@ -499,9 +598,7 @@ input:focus,select:focus{
 </section>
 
 
-<!-- =========================
-     TODO
-========================= -->
+<!-- TODO -->
 
 <section class="section" id="todoSection">
 
@@ -518,7 +615,7 @@ id="todoInput"
 type="text"
 placeholder="مثلاً: خرید نان..."
 maxlength="150"
-onkeydown="handleEnter(event)"
+onkeydown="handleTodoEnter(event)"
 >
 
 <button class="button" onclick="addTodo()">
@@ -536,9 +633,7 @@ onkeydown="handleEnter(event)"
 </section>
 
 
-<!-- =========================
-     MONEY
-========================= -->
+<!-- MONEY -->
 
 <section class="section" id="moneySection">
 
@@ -552,46 +647,35 @@ onkeydown="handleEnter(event)"
 
 <div class="money-card">
 
-<h4>
-مجموع درآمد
-</h4>
+<h4>مجموع درآمد</h4>
 
 <div
 id="totalIncome"
-class="money-number income-number"
->
+class="money-number income-number">
 0 افغانی
 </div>
 
 </div>
 
-
 <div class="money-card">
 
-<h4>
-مجموع هزینه
-</h4>
+<h4>مجموع هزینه</h4>
 
 <div
 id="totalExpense"
-class="money-number expense-number"
->
+class="money-number expense-number">
 0 افغانی
 </div>
 
 </div>
 
-
 <div class="money-card">
 
-<h4>
-موجودی
-</h4>
+<h4>موجودی</h4>
 
 <div
 id="totalBalance"
-class="money-number balance-number"
->
+class="money-number balance-number">
 0 افغانی
 </div>
 
@@ -631,8 +715,7 @@ placeholder="مبلغ"
 
 <button
 class="button"
-onclick="addTransaction()"
->
+onclick="addTransaction()">
 ثبت
 </button>
 
@@ -641,17 +724,101 @@ onclick="addTransaction()"
 
 <div
 id="transactionList"
-class="transaction-list"
-></div>
+class="transaction-list">
+</div>
 
 </div>
 
 </section>
 
 
-<!-- =========================
-     QUICK
-========================= -->
+<!-- NOTES -->
+
+<section class="section" id="notesSection">
+
+<div class="section-title">
+📝 یادداشت‌های من
+</div>
+
+<div class="box">
+
+<div class="note-form">
+
+<input
+id="noteTitle"
+type="text"
+placeholder="عنوان یادداشت"
+maxlength="100"
+>
+
+<textarea
+id="noteContent"
+placeholder="یادداشت خود را اینجا بنویس..."
+maxlength="3000"
+></textarea>
+
+<button
+class="button"
+onclick="addNote()">
++ ذخیره یادداشت
+</button>
+
+</div>
+
+<div
+id="notesList"
+class="notes-list">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SHOPPING -->
+
+<section class="section" id="shoppingSection">
+
+<div class="section-title">
+🛒 لیست خرید
+</div>
+
+<div class="box">
+
+<div class="shopping-form">
+
+<input
+id="shoppingInput"
+type="text"
+placeholder="مثلاً: نان، شیر، برنج..."
+maxlength="150"
+onkeydown="handleShoppingEnter(event)"
+>
+
+<button
+class="button"
+onclick="addShoppingItem()">
++ افزودن
+</button>
+
+</div>
+
+<div
+id="shoppingList"
+class="shopping-list">
+</div>
+
+<div
+id="shoppingCount"
+class="shopping-count">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- QUICK -->
 
 <section class="section">
 
@@ -666,20 +833,19 @@ class="transaction-list"
 <div class="quick-text">
 
 <h3>
-ثبت هزینه جدید
+امروز چه کاری داری؟
 </h3>
 
 <p>
-هزینه‌های روزانه‌ات را ثبت کن تا موجودی‌ات را ببینی.
+کارها، هزینه‌ها، یادداشت‌ها و خریدهایت را مدیریت کن.
 </p>
 
 </div>
 
 <button
 class="button"
-onclick="focusMoney()"
->
-+ ثبت هزینه
+onclick="focusTodo()">
++ افزودن کار
 </button>
 
 </div>
@@ -699,13 +865,53 @@ Daily Helper © 2026
 <script>
 
 /* =====================================================
+   COMMON
+===================================================== */
+
+function escapeHTML(text){
+
+const div=document.createElement("div");
+
+div.textContent=text;
+
+return div.innerHTML;
+
+}
+
+function formatMoney(number){
+
+return new Intl.NumberFormat("fa-AF",{
+maximumFractionDigits:2
+}).format(number);
+
+}
+
+function scrollToSection(id){
+
+document
+.getElementById(id)
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function comingSoon(name){
+
+alert(
+name+" در مرحله بعدی فعال می‌شود 🚀"
+);
+
+}
+
+
+/* =====================================================
    TODO
 ===================================================== */
 
-let todos = JSON.parse(
-localStorage.getItem("daily_helper_todos") || "[]"
+let todos=JSON.parse(
+localStorage.getItem("daily_helper_todos")||"[]"
 );
-
 
 function saveTodos(){
 
@@ -716,48 +922,42 @@ JSON.stringify(todos)
 
 }
 
-
 function renderTodos(){
 
-const list =
-document.getElementById("todoList");
+const list=document.getElementById("todoList");
 
-const stats =
-document.getElementById("todoStats");
+const stats=document.getElementById("todoStats");
 
-list.innerHTML = "";
+list.innerHTML="";
 
-if(todos.length === 0){
+if(todos.length===0){
 
-list.innerHTML = `
+list.innerHTML=`
 <div class="empty">
 هنوز کاری ثبت نشده است 🌱
 </div>
 `;
 
-stats.textContent = "";
+stats.textContent="";
 
 return;
 
 }
 
-
 todos.forEach(function(todo){
 
-const item =
-document.createElement("div");
+const item=document.createElement("div");
 
-item.className =
-"todo-item" +
-(todo.done ? " done" : "");
+item.className=
+"todo-item"+
+(todo.done?" done":"");
 
-
-item.innerHTML = `
+item.innerHTML=`
 
 <input
 class="todo-check"
 type="checkbox"
-${todo.done ? "checked" : ""}
+${todo.done?"checked":""}
 onchange="toggleTodo(${todo.id})"
 >
 
@@ -767,37 +967,29 @@ ${escapeHTML(todo.text)}
 
 <button
 class="delete-btn"
-onclick="deleteTodo(${todo.id})"
->
+onclick="deleteTodo(${todo.id})">
 🗑️
 </button>
-
 `;
 
 list.appendChild(item);
 
 });
 
+const completed=
+todos.filter(t=>t.done).length;
 
-const completed =
-todos.filter(t => t.done).length;
-
-stats.textContent =
-"مجموع: " +
-todos.length +
-" | انجام‌شده: " +
-completed;
+stats.textContent=
+"مجموع: "+todos.length+
+" | انجام‌شده: "+completed;
 
 }
 
-
 function addTodo(){
 
-const input =
-document.getElementById("todoInput");
+const input=document.getElementById("todoInput");
 
-const text =
-input.value.trim();
+const text=input.value.trim();
 
 if(!text){
 
@@ -809,7 +1001,6 @@ return;
 
 }
 
-
 todos.unshift({
 
 id:Date.now(),
@@ -819,7 +1010,6 @@ text:text,
 done:false
 
 });
-
 
 saveTodos();
 
@@ -831,8 +1021,7 @@ input.focus();
 
 }
 
-
-function handleEnter(event){
+function handleTodoEnter(event){
 
 if(event.key==="Enter"){
 
@@ -842,11 +1031,9 @@ addTodo();
 
 }
 
-
 function toggleTodo(id){
 
-todos =
-todos.map(function(todo){
+todos=todos.map(function(todo){
 
 if(todo.id===id){
 
@@ -858,6 +1045,19 @@ return todo;
 
 });
 
+saveTodos();
+
+renderTodos();
+
+}
+
+function deleteTodo(id){
+
+todos=todos.filter(function(todo){
+
+return todo.id!==id;
+
+});
 
 saveTodos();
 
@@ -865,20 +1065,17 @@ renderTodos();
 
 }
 
+function focusTodo(){
 
-function deleteTodo(id){
+scrollToSection("todoSection");
 
-todos =
-todos.filter(function(todo){
+setTimeout(function(){
 
-return todo.id!==id;
+document
+.getElementById("todoInput")
+.focus();
 
-});
-
-
-saveTodos();
-
-renderTodos();
+},500);
 
 }
 
@@ -887,10 +1084,9 @@ renderTodos();
    MONEY
 ===================================================== */
 
-let transactions = JSON.parse(
-localStorage.getItem("daily_helper_transactions") || "[]"
+let transactions=JSON.parse(
+localStorage.getItem("daily_helper_transactions")||"[]"
 );
-
 
 function saveTransactions(){
 
@@ -901,28 +1097,25 @@ JSON.stringify(transactions)
 
 }
 
-
 function addTransaction(){
 
-const titleInput =
+const titleInput=
 document.getElementById("moneyTitle");
 
-const amountInput =
+const amountInput=
 document.getElementById("moneyAmount");
 
-const typeInput =
+const typeInput=
 document.getElementById("moneyType");
 
-
-const title =
+const title=
 titleInput.value.trim();
 
-const amount =
+const amount=
 Number(amountInput.value);
 
-const type =
+const type=
 typeInput.value;
-
 
 if(!title){
 
@@ -934,8 +1127,7 @@ return;
 
 }
 
-
-if(!amount || amount<=0){
+if(!amount||amount<=0){
 
 alert("لطفاً مبلغ معتبر وارد کن.");
 
@@ -944,7 +1136,6 @@ amountInput.focus();
 return;
 
 }
-
 
 transactions.unshift({
 
@@ -960,11 +1151,9 @@ date:new Date().toLocaleString("fa-AF")
 
 });
 
-
 saveTransactions();
 
 renderTransactions();
-
 
 titleInput.value="";
 
@@ -972,77 +1161,53 @@ amountInput.value="";
 
 }
 
-
 function renderTransactions(){
 
-const list =
+const list=
 document.getElementById("transactionList");
 
-const incomeElement =
+const incomeElement=
 document.getElementById("totalIncome");
 
-const expenseElement =
+const expenseElement=
 document.getElementById("totalExpense");
 
-const balanceElement =
+const balanceElement=
 document.getElementById("totalBalance");
 
-
 list.innerHTML="";
-
 
 let income=0;
 
 let expense=0;
 
-
 transactions.forEach(function(transaction){
 
 if(transaction.type==="income"){
 
-income += transaction.amount;
+income+=transaction.amount;
 
 }else{
 
-expense += transaction.amount;
+expense+=transaction.amount;
 
 }
 
-
-const item =
+const item=
 document.createElement("div");
 
 item.className="transaction";
 
-
-const icon =
-transaction.type==="income"
-? "💵"
-: "💸";
-
-
-const iconClass =
-transaction.type==="income"
-? "income-icon"
-: "expense-icon";
-
-
-const amountClass =
-transaction.type==="income"
-? "income-amount"
-: "expense-amount";
-
-
-const sign =
-transaction.type==="income"
-? "+"
-: "-";
-
+const incomeType=
+transaction.type==="income";
 
 item.innerHTML=`
 
-<div class="transaction-icon ${iconClass}">
-${icon}
+<div class="transaction-icon
+${incomeType?"income-icon":"expense-icon"}">
+
+${incomeType?"💵":"💸"}
+
 </div>
 
 <div class="transaction-info">
@@ -1057,24 +1222,24 @@ ${escapeHTML(transaction.date)}
 
 </div>
 
-<div class="transaction-amount ${amountClass}">
-${sign}${formatMoney(transaction.amount)}
+<div class="transaction-amount
+${incomeType?"income-amount":"expense-amount"}">
+
+${incomeType?"+":"-"}
+${formatMoney(transaction.amount)}
+
 </div>
 
 <button
 class="delete-transaction"
-onclick="deleteTransaction(${transaction.id})"
->
+onclick="deleteTransaction(${transaction.id})">
 🗑️
 </button>
-
 `;
-
 
 list.appendChild(item);
 
 });
-
 
 if(transactions.length===0){
 
@@ -1086,32 +1251,25 @@ list.innerHTML=`
 
 }
 
-
-const balance =
-income-expense;
-
-
-incomeElement.textContent =
+incomeElement.textContent=
 formatMoney(income)+" افغانی";
 
-expenseElement.textContent =
+expenseElement.textContent=
 formatMoney(expense)+" افغانی";
 
-balanceElement.textContent =
-formatMoney(balance)+" افغانی";
+balanceElement.textContent=
+formatMoney(income-expense)+" افغانی";
 
 }
 
-
 function deleteTransaction(id){
 
-transactions =
+transactions=
 transactions.filter(function(transaction){
 
 return transaction.id!==id;
 
 });
-
 
 saveTransactions();
 
@@ -1120,63 +1278,320 @@ renderTransactions();
 }
 
 
-function formatMoney(number){
+/* =====================================================
+   NOTES
+===================================================== */
 
-return new Intl.NumberFormat("fa-AF",{
-maximumFractionDigits:2
-}).format(number);
+let notes=JSON.parse(
+localStorage.getItem("daily_helper_notes")||"[]"
+);
+
+function saveNotes(){
+
+localStorage.setItem(
+"daily_helper_notes",
+JSON.stringify(notes)
+);
+
+}
+
+function addNote(){
+
+const titleInput=
+document.getElementById("noteTitle");
+
+const contentInput=
+document.getElementById("noteContent");
+
+const title=
+titleInput.value.trim();
+
+const content=
+contentInput.value.trim();
+
+if(!title){
+
+alert("لطفاً عنوان یادداشت را وارد کن.");
+
+titleInput.focus();
+
+return;
+
+}
+
+if(!content){
+
+alert("لطفاً متن یادداشت را وارد کن.");
+
+contentInput.focus();
+
+return;
+
+}
+
+notes.unshift({
+
+id:Date.now(),
+
+title:title,
+
+content:content,
+
+date:new Date().toLocaleString("fa-AF")
+
+});
+
+saveNotes();
+
+renderNotes();
+
+titleInput.value="";
+
+contentInput.value="";
+
+}
+
+function renderNotes(){
+
+const list=
+document.getElementById("notesList");
+
+list.innerHTML="";
+
+if(notes.length===0){
+
+list.innerHTML=`
+<div class="empty">
+هنوز یادداشتی ثبت نشده است 📝
+</div>
+`;
+
+return;
+
+}
+
+notes.forEach(function(note){
+
+const item=
+document.createElement("div");
+
+item.className="note";
+
+item.innerHTML=`
+
+<div class="note-title">
+${escapeHTML(note.title)}
+</div>
+
+<div class="note-content">
+${escapeHTML(note.content)}
+</div>
+
+<div class="note-date">
+${escapeHTML(note.date)}
+</div>
+
+<div class="note-actions">
+
+<button
+class="delete-btn"
+onclick="deleteNote(${note.id})">
+🗑️ حذف
+</button>
+
+</div>
+
+`;
+
+list.appendChild(item);
+
+});
+
+}
+
+function deleteNote(id){
+
+notes=
+notes.filter(function(note){
+
+return note.id!==id;
+
+});
+
+saveNotes();
+
+renderNotes();
 
 }
 
 
 /* =====================================================
-   UTILITIES
+   SHOPPING
 ===================================================== */
 
-function escapeHTML(text){
+let shoppingItems=JSON.parse(
+localStorage.getItem("daily_helper_shopping")||"[]"
+);
 
-const div =
-document.createElement("div");
+function saveShopping(){
 
-div.textContent=text;
-
-return div.innerHTML;
+localStorage.setItem(
+"daily_helper_shopping",
+JSON.stringify(shoppingItems)
+);
 
 }
 
+function addShoppingItem(){
 
-function scrollToSection(id){
+const input=
+document.getElementById("shoppingInput");
 
-document
-.getElementById(id)
-.scrollIntoView({
-behavior:"smooth"
+const name=
+input.value.trim();
+
+if(!name){
+
+alert("لطفاً نام کالا را وارد کن.");
+
+input.focus();
+
+return;
+
+}
+
+shoppingItems.unshift({
+
+id:Date.now(),
+
+name:name,
+
+bought:false
+
 });
 
-}
+saveShopping();
 
+renderShopping();
 
-function focusMoney(){
+input.value="";
 
-scrollToSection("moneySection");
-
-setTimeout(function(){
-
-document
-.getElementById("moneyTitle")
-.focus();
-
-},500);
+input.focus();
 
 }
 
+function handleShoppingEnter(event){
 
-function comingSoon(name){
+if(event.key==="Enter"){
 
-alert(
-name+
-" در مرحله بعدی فعال می‌شود 🚀"
-);
+addShoppingItem();
+
+}
+
+}
+
+function renderShopping(){
+
+const list=
+document.getElementById("shoppingList");
+
+const count=
+document.getElementById("shoppingCount");
+
+list.innerHTML="";
+
+if(shoppingItems.length===0){
+
+list.innerHTML=`
+<div class="empty">
+لیست خرید خالی است 🛒
+</div>
+`;
+
+count.textContent="";
+
+return;
+
+}
+
+shoppingItems.forEach(function(item){
+
+const row=
+document.createElement("div");
+
+row.className=
+"shopping-item"+
+(item.bought?" bought":"");
+
+row.innerHTML=`
+
+<input
+class="shopping-check"
+type="checkbox"
+${item.bought?"checked":""}
+onchange="toggleShopping(${item.id})"
+>
+
+<div class="shopping-name">
+${escapeHTML(item.name)}
+</div>
+
+<button
+class="delete-btn"
+onclick="deleteShopping(${item.id})">
+🗑️
+</button>
+
+`;
+
+list.appendChild(row);
+
+});
+
+const remaining=
+shoppingItems.filter(
+item=>!item.bought
+).length;
+
+count.textContent=
+"تعداد کل: "+shoppingItems.length+
+" | باقی‌مانده: "+remaining;
+
+}
+
+function toggleShopping(id){
+
+shoppingItems=
+shoppingItems.map(function(item){
+
+if(item.id===id){
+
+item.bought=!item.bought;
+
+}
+
+return item;
+
+});
+
+saveShopping();
+
+renderShopping();
+
+}
+
+function deleteShopping(id){
+
+shoppingItems=
+shoppingItems.filter(function(item){
+
+return item.id!==id;
+
+});
+
+saveShopping();
+
+renderShopping();
 
 }
 
@@ -1188,6 +1603,10 @@ name+
 renderTodos();
 
 renderTransactions();
+
+renderNotes();
+
+renderShopping();
 
 </script>
 
